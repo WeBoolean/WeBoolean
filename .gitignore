@@ -28,7 +28,8 @@ proguard/
 *.iml
 *.ipr
 *.iws
-.idea/
+/.idea/workspace.xml
+/.idea/libraries
 
 #Gradle
 .gradletasknamecache
@@ -36,4 +37,5 @@ proguard/
 build/
 bin/
 
-M2.jar
+#AndroidStudio
+/captures
