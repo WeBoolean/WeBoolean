@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WeBoolean</string>
+    <string name="app_name">HoboHelper</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
