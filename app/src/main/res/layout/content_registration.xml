@@ -9,14 +9,14 @@
     tools:showIn="@layout/activity_registration">
 
     <Button
-        android:id="@+id/LogOutButton"
+        android:id="@+id/RegisterButton"
         android:layout_width="wrap_content"
         android:layout_height="43dp"
         android:layout_marginBottom="259dp"
         android:layout_marginEnd="148dp"
         android:layout_marginStart="148dp"
         android:layout_marginTop="209dp"
-        android:text="Log Out"
+        android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
