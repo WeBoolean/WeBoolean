@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">HoboHelper</string>
+    <string name="sign_on">Sign On</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -14,4 +15,11 @@
         completions."
     </string>
     <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="login">Login</string>
+    <string name="cancel">Cancel</string>
+    <string name="email">Email</string>
+    <string name="facebook">Facebook</string>
+    <string name="google_plus">Google Plus</string>
+    <string name="register">Register</string>
+    <string name="or">OR</string>
 </resources>
