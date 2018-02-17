@@ -18,8 +18,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+
+import weboolean.weboolean.models.User;
+import weboolean.weboolean.models.UserType;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -109,7 +118,26 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            final FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference mDatabase = database.getReference();
+                            Query userQuery = mDatabase.orderByChild("users").equalTo(user.getUid());
+                            userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                                        UserType t = singleSnapshot.getValue(UserType.class);
+                                        CurrentUser.setUserInstance(new User(user.getUid(), t), user);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Log.e(TAG, "onCancelled", databaseError.toException());
+                                }
+                            });
+                            //Set my static user instance
+
                             //updateUI(user);
                             Toast.makeText(LoginActivity.this, "Successful Login", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
