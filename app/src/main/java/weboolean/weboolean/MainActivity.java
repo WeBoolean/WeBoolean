@@ -11,23 +11,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //Automatically navigate to LoginPage
+        openLoginPage();
 
-        final Button loginButton = findViewById(R.id.LoginButton);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openLoginPage();
-            }
-        });
-
-        final Button registerButton = findViewById(R.id.RegisterButton);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openRegistrationPage();
-            }
-        });
+//        setContentView(R.layout.activity_main);
+//
+//
+//        final Button loginButton = findViewById(R.id.LoginButton);
+//        loginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                openLoginPage();
+//            }
+//        });
+//
+//        final Button registerButton = findViewById(R.id.RegisterButton);
+//        registerButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                openRegistrationPage();
+//            }
+//        });
 
     }
 
@@ -35,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
-    private void openRegistrationPage() {
-        Intent intent = new Intent(this, RegistrationActivity.class);
-        startActivity(intent);
-    }
+//    private void openRegistrationPage() {
+//        Intent intent = new Intent(this, RegistrationActivity.class);
+//        startActivity(intent);
+//    }
 }
