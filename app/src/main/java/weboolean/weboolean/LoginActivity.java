@@ -26,9 +26,6 @@ public class LoginActivity extends AppCompatActivity {
         accounts.put("user", "pass");
 
         final Button signInButton = findViewById(R.id.sign_in_button);
-
-        final Button cancelButton = findViewById(R.id.cancelButton);
-
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,12 +33,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        final Button cancelButton = findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cancelLogin();
             }
         });
+
+
+
     }
 
     private void cancelLogin() {

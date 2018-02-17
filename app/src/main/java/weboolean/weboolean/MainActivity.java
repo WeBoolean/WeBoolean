@@ -14,17 +14,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Button loginButton = findViewById(R.id.LoginButton);
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openLoginPage();
             }
         });
+
+        final Button registerButton = findViewById(R.id.RegisterButton);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openRegistrationPage();
+            }
+        });
+
     }
 
     private void openLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+    private void openRegistrationPage() {
+        Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
     }
 }
