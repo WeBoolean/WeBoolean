@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "103142149882",
+    "firebase_url": "https://weboolean.firebaseio.com",
+    "project_id": "weboolean",
+    "storage_bucket": "weboolean.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103142149882:android:ccab08c5a900d18c",
+        "android_client_info": {
+          "package_name": "weboolean.weboolean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "103142149882-1v3o4cdugc0crcrdn6c7kss66gbb0b52.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5AuILrXSpbOfgk-OC4NWefVhtSA11JDs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
