@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/WeBoolean.iml" filepath="$PROJECT_DIR$/WeBoolean.iml" />
+      <module fileurl="file://C:\Users\micha\OneDrive for Business\Spring 2018\CS 2340\Milestones\M5\WeBoolean\WeBoolean.iml" filepath="C:\Users\micha\OneDrive for Business\Spring 2018\CS 2340\Milestones\M5\WeBoolean\WeBoolean.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\micha\OneDrive for Business\Spring 2018\CS 2340\Milestones\M5\WeBoolean\app\app.iml" filepath="C:\Users\micha\OneDrive for Business\Spring 2018\CS 2340\Milestones\M5\WeBoolean\app\app.iml" />
     </modules>
   </component>
 </project>
