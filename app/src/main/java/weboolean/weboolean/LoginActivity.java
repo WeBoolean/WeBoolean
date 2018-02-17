@@ -51,7 +51,40 @@ public class LoginActivity extends AppCompatActivity {
                 cancelLogin();
             }
         });
+
+        final Button emailRegisterButton = findViewById(R.id.email_register);
+        emailRegisterButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                openEmailRegistrationPage();
+            }
+        });
+
+        final Button facebookRegisterButton = findViewById(R.id.facebook_register);
+        facebookRegisterButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                launchFacebookRegistration(view);
+            }
+        });
+
+        final Button googleRegisterButton = findViewById(R.id.gplus_register);
+        googleRegisterButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                launchGoogleRegistration(view);
+            }
+        }) ;
+
     }
+
+    //TODO: Implement.
+    private void launchFacebookRegistration(View view) {
+        Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT).show();
+    }
+
+    //TODO: Implement.
+    private void launchGoogleRegistration(View view) {
+        Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public void onStart() {
@@ -101,6 +134,10 @@ public class LoginActivity extends AppCompatActivity {
 //        } else {
 //            Toast.makeText(this, "Wrong Credentials ", Toast.LENGTH_LONG).show();
 //        }
+    }
+    private void openEmailRegistrationPage() {
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        startActivity(intent);
     }
 }
 
