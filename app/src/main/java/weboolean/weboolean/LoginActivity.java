@@ -103,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         //updateUI(currentUser);
     }
 
+
     private void cancelLogin() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

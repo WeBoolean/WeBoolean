@@ -1,5 +1,6 @@
 package weboolean.weboolean;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import weboolean.weboolean.models.User;
@@ -13,9 +14,9 @@ import weboolean.weboolean.models.User;
 public class CurrentUser {
     private static FirebaseUser t;
     private static User u;
-    public static void setUserInstance(User u, FirebaseUser t) {
-        u = u;
-        t = t;
+    public static void setUserInstance(User uu, FirebaseUser tt) {
+        u = uu;
+        t = tt;
     }
     public static User getCurrentUser() {
         return u;
@@ -23,5 +24,16 @@ public class CurrentUser {
 
     public static FirebaseUser getCurrentFirebaseUser() {
         return t;
+    }
+
+    public static boolean logOutUser() {
+        try {
+            FirebaseAuth.getInstance().signOut();
+            u = null;
+            t = null;
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
