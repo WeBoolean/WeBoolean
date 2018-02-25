@@ -109,60 +109,58 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     private void attemptedLogin() {
         String userEmail = ((EditText) findViewById(R.id.email)).getText().toString();
         String userPassword = ((EditText) findViewById(R.id.password)).getText().toString();
-        mAuth.signInWithEmailAndPassword(userEmail, userPassword)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            final FirebaseUser user = mAuth.getCurrentUser();
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference mDatabase = database.getReference();
-                            Query userQuery = mDatabase.orderByChild("users").equalTo(user.getUid());
-                            userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                                        UserType t = singleSnapshot.getValue(UserType.class);
-                                        CurrentUser.setUserInstance(new User(user.getUid(), t), user);
+        if (userEmail.equals("") || userPassword.equals("")) {
+            Toast.makeText(this, "Must Provide Values", Toast.LENGTH_LONG).show();
+        } else {
+            mAuth.signInWithEmailAndPassword(userEmail, userPassword)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "signInWithEmail:success");
+                                final FirebaseUser user = mAuth.getCurrentUser();
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference mDatabase = database.getReference();
+                                Query userQuery = mDatabase.orderByChild("users").equalTo(user.getUid());
+                                userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                                            UserType t = singleSnapshot.getValue(UserType.class);
+                                            CurrentUser.setUserInstance(new User(user.getUid(), t), user);
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                    Log.e(TAG, "onCancelled", databaseError.toException());
-                                }
-                            });
-                            //Set my static user instance
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        Log.e(TAG, "onCancelled", databaseError.toException());
+                                    }
+                                });
+                                //Set my static user instance
 
-                            //updateUI(user);
-                            Toast.makeText(LoginActivity.this, "Successful Login", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
-                            startActivity(intent);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Login failed.",
-                                Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+                                //updateUI(user);
+                                Toast.makeText(LoginActivity.this, "Successful Login", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+                                startActivity(intent);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "signInWithEmail:failure", task.getException());
+                                Toast.makeText(LoginActivity.this, "Login failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                //updateUI(null);
+                            }
+
+                            // ...
                         }
+                    });
+        }
 
-                        // ...
-                    }
-                });
-//        if (userEmail.equals("") || userPassword.equals("")) {
-//            Toast.makeText(this, "Must Provide Values", Toast.LENGTH_LONG).show();
-//        } else if (userPassword.equals(accounts.get(userEmail))) {
-//            Toast.makeText(this, "Successful Login", Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(this, WelcomeActivity.class);
-//            startActivity(intent);
-//        } else {
-//            Toast.makeText(this, "Wrong Credentials ", Toast.LENGTH_LONG).show();
-//        }
+
     }
     private void openEmailRegistrationPage() {
         Intent intent = new Intent(this, RegistrationActivity.class);
