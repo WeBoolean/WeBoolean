@@ -47,26 +47,15 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    Shelter s = singleSnapshot.getValue(Shelter.class);
-                    Log.d(TAG, s.toString());
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
 
         if (mListView == null) {
             mListView = findViewById(R.id.list);
         }
-        for (int i = 0; i < 50; i++) {
-            listItems.add("Shelter " + i);
+        ArrayList<Shelter> shelterList = ShelterSingleton.getShelterArrayCopy();
+
+        for (int i = 0; i < shelterList.size(); i++) {
+            listItems.add(shelterList.get(i).toString());
         }
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
         setListAdapter(adapter);
