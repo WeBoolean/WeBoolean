@@ -1,25 +1,20 @@
 package weboolean.weboolean;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.ArrayList;
 
 public class WelcomeActivity extends AppCompatActivity {
-    ArrayList<String> listItems=new ArrayList<String>();
+    ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     private ListView mListView;
 
@@ -53,7 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //ItemClicked item = adapter.getItemAtPosition(i);
 
-                Intent intent = new Intent(WelcomeActivity.this, shelterActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, ShelterActivity.class);
                 intent.putExtra("Shelter", i);
                 //based on item add info to intent
                 startActivity(intent);
