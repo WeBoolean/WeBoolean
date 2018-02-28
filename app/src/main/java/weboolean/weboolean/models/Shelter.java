@@ -2,6 +2,8 @@ package weboolean.weboolean.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.Map;
+
 /**
  * Created by Max Brauer on 2/17/18.
  *
@@ -9,8 +11,8 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Shelter {
     private String address;
-    private String available;
-    private String capacity;
+    private Map<String, Integer> available;
+    private Map<String, Integer> capacity;
     private int key;
     private double latitude;
     private double longitude;
@@ -18,13 +20,7 @@ public class Shelter {
     private String note;
     private String number;
     private boolean anyone;
-    private int child_age;
-    private boolean children;
-    private boolean fam;
-    private boolean men;
-    private boolean vets;
-    private boolean women;
-
+    private Map<String, Integer> restrictions;
     public Shelter(){
         this.address = null;
         this.available = null;
@@ -36,15 +32,11 @@ public class Shelter {
         this.note = null;
         this.number = null;
         this.anyone = false;
-        this.child_age = -1;
-        this.children = false;
-        this.fam = false;
-        this.men = false;
-        this.vets = false;
-        this.women = false;
+        this.restrictions = null;
     }
 
-    public Shelter(String address, String available, String capacity, int key, double latitude, double longitude, String name, String note, String number, boolean anyone, int child_age, boolean children, boolean fam, boolean men, boolean vets, boolean women) {
+    public Shelter(String address, Map<String, Integer> available, Map<String, Integer> capacity, int key, double latitude, double longitude, String name, String note, String number,
+                   Map<String, Integer> restrictions) {
         this.address = address;
         this.available = available;
         this.capacity = capacity;
@@ -55,11 +47,6 @@ public class Shelter {
         this.note = note;
         this.number = number;
         this.anyone = anyone;
-        this.child_age = child_age;
-        this.children = children;
-        this.fam = fam;
-        this.men = men;
-        this.vets = vets;
-        this.women = women;
+        this.restrictions = restrictions;
     }
 }
