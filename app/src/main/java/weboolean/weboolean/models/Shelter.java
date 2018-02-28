@@ -138,4 +138,18 @@ public class Shelter {
     public void setAvailable(Map<String, Integer> available) {
         this.available = available;
     }
+
+    //Comparison codes
+    @Override
+    public boolean equals(Object other) {
+        if (! (other instanceof Shelter)) {
+            return false;
+        }
+        return ((Shelter)other).getKey() == this.getKey();
+    }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }
