@@ -2,8 +2,6 @@ package weboolean.weboolean.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.HashMap;
-
 /**
  * Created by Max Brauer on 2/17/18.
  *
@@ -21,7 +19,7 @@ public class Shelter {
     private String number;
     private boolean anyone;
     private int child_age;
-    private boolean childern;
+    private boolean children;
     private boolean fam;
     private boolean men;
     private boolean vets;
@@ -39,14 +37,14 @@ public class Shelter {
         this.number = null;
         this.anyone = false;
         this.child_age = -1;
-        this.childern = false;
+        this.children = false;
         this.fam = false;
         this.men = false;
         this.vets = false;
         this.women = false;
     }
 
-    public Shelter(String address, String available, String capacity, int key, double latitude, double longitude, String name, String note, String number, boolean anyone, int child_age, boolean childern, boolean fam, boolean men, boolean vets, boolean women) {
+    public Shelter(String address, String available, String capacity, int key, double latitude, double longitude, String name, String note, String number, boolean anyone, int child_age, boolean children, boolean fam, boolean men, boolean vets, boolean women) {
         this.address = address;
         this.available = available;
         this.capacity = capacity;
@@ -58,7 +56,7 @@ public class Shelter {
         this.number = number;
         this.anyone = anyone;
         this.child_age = child_age;
-        this.childern = childern;
+        this.children = children;
         this.fam = fam;
         this.men = men;
         this.vets = vets;

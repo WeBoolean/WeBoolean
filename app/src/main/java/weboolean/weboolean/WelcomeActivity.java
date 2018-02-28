@@ -11,6 +11,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
 import java.util.ArrayList;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -18,6 +22,9 @@ public class WelcomeActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     private ListView mListView;
 
+
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("shelters");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,17 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
+
+
+        Query shelterQuery = mDatabase.orderByChild("shelters").equalTo(0);
+        shelterQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    UserType t = singleSnapshot.getValue(UserType.class);
+                    CurrentUser.setUserInstance(new User(user.getUid(), t), user);
+                }
+            }
         if (mListView == null) {
             mListView = findViewById(R.id.list);
         }
