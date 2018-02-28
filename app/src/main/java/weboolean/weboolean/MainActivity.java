@@ -12,6 +12,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Automatically navigate to LoginPage
+        //Launch singleton
+        try {
+            new Thread(new ShelterSingleton()).start();
+        } catch (InstantiationException e) {
+            e.printStackTrace(); //this will never happen.
+        }
         openLoginPage();
 
 //        setContentView(R.layout.activity_main);
