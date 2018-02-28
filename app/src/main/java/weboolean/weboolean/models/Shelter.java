@@ -12,6 +12,83 @@ import java.util.Map;
 public class Shelter {
     private String address;
     private Map<String, Integer> available;
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Map<String, Integer> getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Map<String, Integer> capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public boolean isAnyone() {
+        return anyone;
+    }
+
+    public void setAnyone(boolean anyone) {
+        this.anyone = anyone;
+    }
+
+    public Map<String, Object> getRestrictions() {
+        return restrictions;
+    }
+
+    public void setRestrictions(Map<String, Object> restrictions) {
+        this.restrictions = restrictions;
+    }
+
     private Map<String, Integer> capacity;
     private int key;
     private double latitude;
@@ -20,7 +97,7 @@ public class Shelter {
     private String note;
     private String number;
     private boolean anyone;
-    private Map<String, Integer> restrictions;
+    private Map<String, Object> restrictions;
     public Shelter(){
         this.address = null;
         this.available = null;
@@ -36,7 +113,7 @@ public class Shelter {
     }
 
     public Shelter(String address, Map<String, Integer> available, Map<String, Integer> capacity, int key, double latitude, double longitude, String name, String note, String number,
-                   Map<String, Integer> restrictions) {
+                   Map<String, Object> restrictions) {
         this.address = address;
         this.available = available;
         this.capacity = capacity;
@@ -48,5 +125,17 @@ public class Shelter {
         this.number = number;
         this.anyone = anyone;
         this.restrictions = restrictions;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Map<String, Integer> getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Map<String, Integer> available) {
+        this.available = available;
     }
 }

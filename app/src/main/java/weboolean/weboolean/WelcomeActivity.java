@@ -47,8 +47,6 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-
-
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -63,6 +61,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
         if (mListView == null) {
             mListView = findViewById(R.id.list);
         }
