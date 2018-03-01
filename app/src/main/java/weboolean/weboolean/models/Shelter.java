@@ -152,4 +152,8 @@ public class Shelter {
     public String toString() {
         return this.getName();
     }
+
+
+    //TODO: Write methods in Shelter.java to get fields name, number, etc.
+
 }
