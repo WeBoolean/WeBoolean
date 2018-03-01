@@ -22,4 +22,5 @@
     <string name="google_plus">Google Plus</string>
     <string name="register">Register</string>
     <string name="or">OR</string>
+    <string name="title_activity_search">SearchActivity</string>
 </resources>

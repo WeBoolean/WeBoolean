@@ -16,7 +16,7 @@ public class Shelter {
     public void setAddress(String address) {
         this.address = address;
     }
-
+    //Indexed with string "beds" and "rooms"
     public Map<String, Integer> getCapacity() {
         return capacity;
     }
