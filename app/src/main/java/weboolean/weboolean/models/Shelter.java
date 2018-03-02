@@ -16,7 +16,7 @@ public class Shelter {
     public void setAddress(String address) {
         this.address = address;
     }
-
+    //Indexed with string "beds" and "rooms"
     public Map<String, Integer> getCapacity() {
         return capacity;
     }
@@ -149,4 +149,8 @@ public class Shelter {
     public String toString() {
         return this.getName();
     }
+
+
+    //TODO: Write methods in Shelter.java to get fields name, number, etc.
+
 }
