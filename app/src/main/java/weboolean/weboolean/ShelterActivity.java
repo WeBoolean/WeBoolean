@@ -73,12 +73,12 @@ public class ShelterActivity extends AppCompatActivity {
         note.setText("Notes: " + shelter.getNote());
         number.setText("Number: " + shelter.getNumber());
         if (shelter.getAnyone()) {
-            anyone.setText("Anyone is allowed");
+            anyone.setText("This shelter has no restrictions.");
         } else {
-            anyone.setText("Restriction on who is allowed \n\n");
+            anyone.setText("Restrictions: \n\n");
             if ((boolean) shelter.getRestrictions().get("children")) {
                 if (shelter.getRestrictions().get("child_age") != null) {
-                    anyone.setText(anyone.getText() + "You must have a child " + shelter.getRestrictions().get("child_age") + " or younger in your party) \n");
+                    anyone.setText(anyone.getText() + "You must have a child " + shelter.getRestrictions().get("child_age") + " or younger in your party \n");
                 } else {
                     anyone.setText(anyone.getText() + "You must have a person under 18 in your party. \n");
                 }
