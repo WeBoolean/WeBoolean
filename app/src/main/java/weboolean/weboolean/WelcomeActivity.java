@@ -55,6 +55,7 @@ public class WelcomeActivity extends AppCompatActivity {
         if (mListView == null) {
             mListView = findViewById(R.id.list);
         }
+        // Get Shelter array list from Shelter Singleton (Firebase)
 
         ArrayList<Shelter> shelterList = ShelterSingleton.getShelterArrayCopy();
 
@@ -73,18 +74,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
-        setListAdapter(adapter);
-
-        // Set mListView instance variable
-        if (mListView == null) {
-            mListView = listView;
-        }
-        // Get Shelter array list from Shelter Singleton (Firebase)
-        ArrayList<Shelter> shelterList = ShelterSingleton.getShelterArrayCopy();
-        for (int i = 0; i < shelterList.size(); i++) {
-            listItems.add(shelterList.get(i).toString());
-        }
     }
     // [ Getters and setters ] ===================================================================//
     protected ListView getListView() {

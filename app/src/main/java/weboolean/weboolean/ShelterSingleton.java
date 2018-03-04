@@ -68,9 +68,15 @@ public class ShelterSingleton implements Runnable {
                     //get our individual shelter.
                     Shelter s = singleSnapshot.getValue(Shelter.class);
                     Integer key = s.getKey();
-                    mutexloc.lock();
-                    shelters.set(key, s);
-                    mutexloc.unlock();
+                    if (shelters.size() <= key) {
+                        mutexloc.lock();
+                        shelters.add(key, s);
+                        mutexloc.unlock();
+                    } else {
+                        mutexloc.lock();
+                        shelters.set(key, s);
+                        mutexloc.unlock();
+                    }
                 }
                 updateLock.unlock();
             }
