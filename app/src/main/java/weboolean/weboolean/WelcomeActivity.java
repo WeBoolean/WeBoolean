@@ -52,6 +52,7 @@ public class WelcomeActivity extends AppCompatActivity {
         if (mListView == null) {
             mListView = findViewById(R.id.list);
         }
+
         ArrayList<Shelter> shelterList = ShelterSingleton.getShelterArrayCopy();
 
         for (int i = 0; i < shelterList.size(); i++) {
