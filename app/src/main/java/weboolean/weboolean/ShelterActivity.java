@@ -82,7 +82,7 @@ public class ShelterActivity extends AppCompatActivity {
                 anyone.setText(anyone.getText() + "Children are not allowed \n");
             }
             if (shelter.getRestrictions().get("child_age") != null) {
-                anyone.setText(anyone.getText() + "Children are consider to be " + shelter.getRestrictions().get("child_age") + " and under \n");
+                anyone.setText(anyone.getText() + "(Children are considered to be age " + shelter.getRestrictions().get("child_age") + " and under) \n");
             }
             if ((boolean) shelter.getRestrictions().get("fam")) {
                 anyone.setText(anyone.getText() + "Families are allowed \n");

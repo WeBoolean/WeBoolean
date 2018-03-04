@@ -24,22 +24,25 @@ import java.util.ArrayList;
 import weboolean.weboolean.models.Shelter;
 
 public class WelcomeActivity extends AppCompatActivity {
+    // Firebase references
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference ref = mDatabase.getReference("shelters");
+    //List of shelters
     ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     private ListView mListView;
+    // TAG for log
     public static final String TAG = WelcomeActivity.class.getSimpleName();
 
-    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference ref = mDatabase.getReference("shelters");
-
+    // [AppCompat Activity Overridden Methods] ===================================================//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Setup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        //Create logout button and list of shelters with listener and adapter
         final Button logoutButton = findViewById(R.id.LogOutButton);
-        final ListView listView = findViewById(R.id.list);
-
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,36 +50,30 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-
-
-        if (mListView == null) {
-            mListView = findViewById(R.id.list);
-        }
-        ArrayList<Shelter> shelterList = ShelterSingleton.getShelterArrayCopy();
-
-        for (int i = 0; i < shelterList.size(); i++) {
-            listItems.add(shelterList.get(i).toString());
-        }
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
-        setListAdapter(adapter);
-
+        final ListView listView = findViewById(R.id.list);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //ItemClicked item = adapter.getItemAtPosition(i);
-
                 Intent intent = new Intent(WelcomeActivity.this, ShelterActivity.class);
                 intent.putExtra("Shelter", i);
                 //based on item add info to intent
                 startActivity(intent);
             }
         });
-    }
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
+        setListAdapter(adapter);
 
-    protected void setListAdapter(ListAdapter adapter) {
-        getListView().setAdapter(adapter);
+        // Set mListView instance variable
+        if (mListView == null) {
+            mListView = listView;
+        }
+        // Get Shelter array list from Shelter Singleton (Firebase)
+        ArrayList<Shelter> shelterList = ShelterSingleton.getShelterArrayCopy();
+        for (int i = 0; i < shelterList.size(); i++) {
+            listItems.add(shelterList.get(i).toString());
+        }
     }
-
+    // [ Getters and setters ] ===================================================================//
     protected ListView getListView() {
         if (mListView == null) {
             mListView = findViewById(R.id.list);
@@ -84,15 +81,19 @@ public class WelcomeActivity extends AppCompatActivity {
         return mListView;
     }
 
+    protected void setListAdapter(ListAdapter adapter) {
+        getListView().setAdapter(adapter);
+    }
+
+    // [ Methods ] ===============================================================================//
     private void logOut() {
         if ( CurrentUser.logOutUser()) {
             Toast.makeText(WelcomeActivity.this, "Successful LogOut", Toast.LENGTH_SHORT).show();
+            // Go back to main activity after successful logout
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         } else {
             Toast.makeText(WelcomeActivity.this, "Unsuccessful LogOut", Toast.LENGTH_SHORT).show();
         }
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
-
-
 }

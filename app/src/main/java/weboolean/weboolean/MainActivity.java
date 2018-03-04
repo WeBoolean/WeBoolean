@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-
+    // [AppCompat Activity Overridden Methods] ===================================================//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,29 +18,10 @@ public class MainActivity extends AppCompatActivity {
         } catch (InstantiationException e) {
             e.printStackTrace(); //this will never happen.
         }
+        // Automatically opens login activity after main activity runs
         openLoginPage();
-
-//        setContentView(R.layout.activity_main);
-//
-//
-//        final Button loginButton = findViewById(R.id.LoginButton);
-//        loginButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                openLoginPage();
-//            }
-//        });
-//
-//        final Button registerButton = findViewById(R.id.RegisterButton);
-//        registerButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                openRegistrationPage();
-//            }
-//        });
-
     }
-
+    // See above
     private void openLoginPage() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
