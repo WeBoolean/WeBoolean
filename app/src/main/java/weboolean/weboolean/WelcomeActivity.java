@@ -50,7 +50,20 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        final ListView listView = findViewById(R.id.list);
+        ListView listView = findViewById(R.id.list);
+
+        if (mListView == null) {
+            mListView = findViewById(R.id.list);
+        }
+
+        ArrayList<Shelter> shelterList = ShelterSingleton.getShelterArrayCopy();
+
+        for (int i = 0; i < shelterList.size(); i++) {
+            listItems.add(shelterList.get(i).toString());
+        }
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
+        setListAdapter(adapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
