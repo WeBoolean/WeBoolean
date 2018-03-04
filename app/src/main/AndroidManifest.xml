@@ -29,7 +29,11 @@
             android:name=".RegistrationActivity"
             android:label="@string/title_activity_registration"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".ShelterActivity"></activity>
+        <activity android:name=".ShelterActivity" />
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

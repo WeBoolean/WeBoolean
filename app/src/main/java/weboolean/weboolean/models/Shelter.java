@@ -16,7 +16,7 @@ public class Shelter {
     public void setAddress(String address) {
         this.address = address;
     }
-
+    //Indexed with string "beds" and "rooms"
     public Map<String, Integer> getCapacity() {
         return capacity;
     }
@@ -73,12 +73,12 @@ public class Shelter {
         this.number = number;
     }
 
-    public boolean isAnyone() {
-        return anyone;
+    public boolean getAnyone() {
+        return (Boolean) restrictions.get("anyone");
     }
 
     public void setAnyone(boolean anyone) {
-        this.anyone = anyone;
+        restrictions.put("anyone", anyone);
     }
 
     public Map<String, Object> getRestrictions() {
@@ -96,7 +96,6 @@ public class Shelter {
     private String name;
     private String note;
     private String number;
-    private boolean anyone;
     private Map<String, Object> restrictions;
     public Shelter(){
         this.address = null;
@@ -108,7 +107,6 @@ public class Shelter {
         this.name = null;
         this.note = null;
         this.number = null;
-        this.anyone = false;
         this.restrictions = null;
     }
 
@@ -123,7 +121,6 @@ public class Shelter {
         this.name = name;
         this.note = note;
         this.number = number;
-        this.anyone = anyone;
         this.restrictions = restrictions;
     }
 
@@ -152,4 +149,8 @@ public class Shelter {
     public String toString() {
         return this.getName();
     }
+
+
+    //TODO: Write methods in Shelter.java to get fields name, number, etc.
+
 }
