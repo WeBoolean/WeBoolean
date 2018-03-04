@@ -77,32 +77,23 @@ public class ShelterActivity extends AppCompatActivity {
         } else {
             anyone.setText("Restriction on who is allowed \n\n");
             if ((boolean) shelter.getRestrictions().get("children")) {
-                anyone.setText(anyone.getText() + "Children are allowed \n");
-            } else {
-                anyone.setText(anyone.getText() + "Children are not allowed \n");
-            }
-            if (shelter.getRestrictions().get("child_age") != null) {
-                anyone.setText(anyone.getText() + "(Children are considered to be age " + shelter.getRestrictions().get("child_age") + " and under) \n");
+                if (shelter.getRestrictions().get("child_age") != null) {
+                    anyone.setText(anyone.getText() + "You must have a child " + shelter.getRestrictions().get("child_age") + " or younger in your party) \n");
+                } else {
+                    anyone.setText(anyone.getText() + "You must have a person under 18 in your party. \n");
+                }
             }
             if ((boolean) shelter.getRestrictions().get("fam")) {
-                anyone.setText(anyone.getText() + "Families are allowed \n");
-            } else {
-                anyone.setText(anyone.getText() + "Families are not allowed \n");
+                anyone.setText(anyone.getText() + "This shelter is available for families only. \n");
             }
             if ((boolean) shelter.getRestrictions().get("men")) {
-                anyone.setText(anyone.getText() + "Men are allowed \n");
-            } else {
-                anyone.setText(anyone.getText() + "Men are not allowed \n");
+                anyone.setText(anyone.getText() + "This shelter accepts males only \n");
             }
             if ((boolean) shelter.getRestrictions().get("women")) {
-                anyone.setText(anyone.getText() + "Women are allowed \n");
-            } else {
-                anyone.setText(anyone.getText() + "Women are not allowed \n");
+                anyone.setText(anyone.getText() + "This shelter accepts females only. \n");
             }
             if ((boolean) shelter.getRestrictions().get("vets")) {
-                anyone.setText(anyone.getText() + "Veterans are allowed \n");
-            } else {
-                anyone.setText(anyone.getText() + "Veterans are not allowed \n");
+                anyone.setText(anyone.getText() + "This shelter accepts veterans only. \n");
             }
         }
     }
