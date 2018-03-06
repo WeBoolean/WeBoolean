@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                                 });
                                 // Successful login, change activity
                                 Toast.makeText(LoginActivity.this, "Successful Login", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
                                 startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.
