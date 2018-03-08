@@ -8,15 +8,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class SearchActivity extends AppCompatActivity {
-
+    // [AppCompat Activity Overridden Methods] ===================================================//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Setup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        // Create toolbar ann search button with listener
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //TODO: implement search
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

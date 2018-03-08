@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -22,7 +23,6 @@ public class ShelterSingleton implements Runnable {
 
     //This is going to hold our copy of the shelters
     private static ArrayList<Shelter> shelters = new ArrayList<>();
-
     //firebase stuff
     private static FirebaseDatabase db;
     private static DatabaseReference reference;
@@ -37,7 +37,7 @@ public class ShelterSingleton implements Runnable {
     //Mutex lock. Ensures we never try to write to the shelter array while someone is getting
     //a copy of it. Bad things could happen otherwise.
     private static final Lock mutexloc = new ReentrantLock();
-
+    private static final Lock updateLock = new ReentrantLock();
     /** Creates our first shelter.
      * Upon it already being instantiated, it throws an instantiation exception.
      * If you do everything right and behave, it'll never happen ;)
@@ -63,29 +63,22 @@ public class ShelterSingleton implements Runnable {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //Go through our data update
+                updateLock.lock();
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     //get our individual shelter.
                     Shelter s = singleSnapshot.getValue(Shelter.class);
-
-                    //This code here updates every shelter, making sure the keys match up.
-                    boolean found = false;
-                    for (int i = 0 ; i < ShelterSingleton.shelters.size(); i++) {
-                        if (ShelterSingleton.shelters.get(i).equals(s)) {
-
-                            //Lock the lock when updating
-                            mutexloc.lock();
-                            ShelterSingleton.shelters.set(i, s); //update shelter at current point
-                            //and release instantly.
-                            mutexloc.unlock();
-                            found = true;
-                            break;
-                        }
-                    }
-                    //add it to the list if not found.
-                    if (!found) {
-                        ShelterSingleton.shelters.add(s);
+                    Integer key = s.getKey();
+                    if (shelters.size() <= key) {
+                        mutexloc.lock();
+                        shelters.add(key, s);
+                        mutexloc.unlock();
+                    } else {
+                        mutexloc.lock();
+                        shelters.set(key, s);
+                        mutexloc.unlock();
                     }
                 }
+                updateLock.unlock();
             }
 
             @Override
@@ -101,10 +94,34 @@ public class ShelterSingleton implements Runnable {
      */
     public static ArrayList<Shelter> getShelterArrayCopy() {
         mutexloc.lock();
-        ArrayList<Shelter> copy = (ArrayList<Shelter>) ShelterSingleton.shelters.clone();
+        ArrayList<Shelter> copy = (ArrayList<Shelter>) shelters.clone();
         mutexloc.unlock();
         return copy;
     }
 
+    /** Thread-Safe updating method
+     *
+     * Locks both locks and updates local shelter copy. Then, it broadcasts to firebase.
+     * WORKS OFFLINE. currently no offline persistence.
+     * @param key  shelter key
+     * @param s    the new shelter.
+     */
+    public static void updateShelter(int key, Shelter s) {
+        updateLock.lock();
+        mutexloc.lock();
+        shelters.set(key, s);
+        mutexloc.unlock();
+        updateLock.unlock();
+        //now I have to broadcast this change.
+        reference.child((new Integer(key)).toString()).setValue(s);
+    }
 
+    /** Thread safe, but this shouldn't really be called unless resotring from backup
+     *
+     * Future-proofing implies we should have a way to reload the singleton from a copy
+     * @param list the list to use
+     */
+    public static void forciblySetLocalBackingArray(ArrayList<Shelter> list) {
+        shelters = list;
+    }
 }

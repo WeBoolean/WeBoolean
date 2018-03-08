@@ -31,20 +31,20 @@ import weboolean.weboolean.models.User;
 import weboolean.weboolean.models.UserType;
 
 public class LoginActivity extends AppCompatActivity {
-
-    private static HashMap<String, String> accounts = new HashMap<>();
+    //FirebaseAuth to get current user
     private FirebaseAuth mAuth;
-    //tag for logcat
+    // TAG for logcat
     public static final String TAG = LoginActivity.class.getSimpleName();
 
+    // [AppCompat Activity Overridden Methods] ===================================================//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Setup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        //accounts.put("user", "pass");
         mAuth = FirebaseAuth.getInstance();
 
+        //Create buttons and listeners
         final Button signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,13 +88,12 @@ public class LoginActivity extends AppCompatActivity {
     private void launchFacebookRegistration(View view) {
         Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT).show();
     }
-
     //TODO: Implement.
     private void launchGoogleRegistration(View view) {
         Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT).show();
     }
 
-
+    // [Overridden AppCompatActivity Method] =====================================================//
     @Override
     public void onStart() {
         super.onStart();
@@ -103,19 +102,22 @@ public class LoginActivity extends AppCompatActivity {
         //updateUI(currentUser);
     }
 
-
+    // [Methods] =================================================================================//
+    // Cancel button handling
     private void cancelLogin() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
-
+    // Login button handling
     private void attemptedLogin() {
+        // Get username and password from user input
         String userEmail = ((EditText) findViewById(R.id.email)).getText().toString();
         String userPassword = ((EditText) findViewById(R.id.password)).getText().toString();
+        // Invalid input checks
         if (userEmail.equals("") || userPassword.equals("")) {
             Toast.makeText(this, "Must Provide Values", Toast.LENGTH_LONG).show();
         } else {
+            // Attempt sign in using FirebaseAuth
             mAuth.signInWithEmailAndPassword(userEmail, userPassword)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -135,15 +137,12 @@ public class LoginActivity extends AppCompatActivity {
                                             CurrentUser.setUserInstance(new User(user.getUid(), t), user);
                                         }
                                     }
-
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
                                         Log.e(TAG, "onCancelled", databaseError.toException());
                                     }
                                 });
-                                //Set my static user instance
-
-                                //updateUI(user);
+                                // Successful login, change activity
                                 Toast.makeText(LoginActivity.this, "Successful Login", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
                                 startActivity(intent);
@@ -152,16 +151,12 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
                                 Toast.makeText(LoginActivity.this, "Login failed.",
                                         Toast.LENGTH_SHORT).show();
-                                //updateUI(null);
                             }
-
-                            // ...
                         }
                     });
         }
-
-
     }
+    // Registration button handling
     private void openEmailRegistrationPage() {
         Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);

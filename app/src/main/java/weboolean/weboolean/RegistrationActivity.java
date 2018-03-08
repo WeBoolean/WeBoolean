@@ -28,30 +28,23 @@ import weboolean.weboolean.models.User;
 import weboolean.weboolean.models.UserType;
 
 public class RegistrationActivity extends AppCompatActivity {
+    // Firebase references
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    //tag for logcat
+    // TAG for logcat
     public static final String TAG = RegistrationActivity.class.getSimpleName();
+
+    // [AppCompat Activity Overridden Methods] ===================================================//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Setup and Firebase connection
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
         mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference();
-        //auto generated code for floating action button (email button)
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
+        // Create button and listener, spinner and adapter for registration
         final Button registerButton = findViewById(R.id.Registration_RegisterButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,21 +53,24 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
-        Spinner userTypeSelection = (Spinner) findViewById(R.id.user_type_spinner);
+        final Spinner userTypeSelection = (Spinner) findViewById(R.id.user_type_spinner);
         ArrayAdapter<UserType> adapter = new ArrayAdapter<UserType>(this, android.R.layout.simple_spinner_item,
                 UserType.values());
         userTypeSelection.setAdapter(adapter);
     }
+
+    @Override
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //check to see if user is currently signed in! Update ui accordingly
-        //updateUI(currentUser);
     }
 
+    // [Methods] =================================================================================//
     private void attemptRegistration() {
+        // Get username and password from user input
         String userEmail = ((EditText) findViewById(R.id.Registration_Email)).getText().toString();
         String userPassword = ((EditText) findViewById(R.id.Registration_Password)).getText().toString();
+        // Invalid input check
         if (userEmail.equals("") || userPassword.equals("")) {
             Toast.makeText(this, "Must Provide Values", Toast.LENGTH_LONG).show();
         } else {
@@ -87,9 +83,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
-                        //updateUI(user);
-                        //Switch to logged in screen
-                        //Get user type from spinnger
+
+                        //Get user type from spinner
                         UserType t =  (UserType) ((Spinner) findViewById(R.id.user_type_spinner)).getSelectedItem();
 
                         //Create custom user
@@ -102,7 +97,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         mDatabase.child("users").child(user.getUid())
                                 .setValue(t);
 
-                        //Launch next activity.
+                        //Launch login activity
                         Intent intent = new Intent(RegistrationActivity.this, WelcomeActivity.class);
                         startActivity(intent);
                     } else {
@@ -110,13 +105,9 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
                         Toast.makeText(RegistrationActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
-                        //updateUI(null);
                     }
                     }
                 });
-
-
-
         }
     }
 }

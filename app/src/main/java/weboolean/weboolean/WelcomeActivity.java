@@ -24,22 +24,25 @@ import java.util.ArrayList;
 import weboolean.weboolean.models.Shelter;
 
 public class WelcomeActivity extends AppCompatActivity {
+    // Firebase references
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference ref = mDatabase.getReference("shelters");
+    //List of shelters
     ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     private ListView mListView;
+    // TAG for log
     public static final String TAG = WelcomeActivity.class.getSimpleName();
 
-    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference ref = mDatabase.getReference("shelters");
-
+    // [AppCompat Activity Overridden Methods] ===================================================//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Setup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        //Create logout button and list of shelters with listener and adapter
         final Button logoutButton = findViewById(R.id.LogOutButton);
-        final ListView listView = findViewById(R.id.list);
-
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,11 +50,13 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-
+        ListView listView = findViewById(R.id.list);
 
         if (mListView == null) {
             mListView = findViewById(R.id.list);
         }
+        // Get Shelter array list from Shelter Singleton (Firebase)
+
         ArrayList<Shelter> shelterList = ShelterSingleton.getShelterArrayCopy();
 
         for (int i = 0; i < shelterList.size(); i++) {
@@ -63,8 +68,6 @@ public class WelcomeActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //ItemClicked item = adapter.getItemAtPosition(i);
-
                 Intent intent = new Intent(WelcomeActivity.this, ShelterActivity.class);
                 intent.putExtra("Shelter", i);
                 //based on item add info to intent
@@ -72,11 +75,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
     }
-
-    protected void setListAdapter(ListAdapter adapter) {
-        getListView().setAdapter(adapter);
-    }
-
+    // [ Getters and setters ] ===================================================================//
     protected ListView getListView() {
         if (mListView == null) {
             mListView = findViewById(R.id.list);
@@ -84,15 +83,19 @@ public class WelcomeActivity extends AppCompatActivity {
         return mListView;
     }
 
+    protected void setListAdapter(ListAdapter adapter) {
+        getListView().setAdapter(adapter);
+    }
+
+    // [ Methods ] ===============================================================================//
     private void logOut() {
         if ( CurrentUser.logOutUser()) {
             Toast.makeText(WelcomeActivity.this, "Successful LogOut", Toast.LENGTH_SHORT).show();
+            // Go back to main activity after successful logout
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         } else {
             Toast.makeText(WelcomeActivity.this, "Unsuccessful LogOut", Toast.LENGTH_SHORT).show();
         }
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
-
-
 }

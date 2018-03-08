@@ -12,12 +12,11 @@ import weboolean.weboolean.models.User;
  *
  */
 public class CurrentUser {
+    //Current user object represents the current user logged in
     private static FirebaseUser t;
     private static User u;
-    public static void setUserInstance(User uu, FirebaseUser tt) {
-        u = uu;
-        t = tt;
-    }
+
+    // [Getters and setters] =====================================================================//
     public static User getCurrentUser() {
         return u;
     }
@@ -26,6 +25,12 @@ public class CurrentUser {
         return t;
     }
 
+    public static void setUserInstance(User uu, FirebaseUser tt) {
+        u = uu;
+        t = tt;
+    }
+
+    // [Methods] =================================================================================//
     public static boolean logOutUser() {
         try {
             FirebaseAuth.getInstance().signOut();
