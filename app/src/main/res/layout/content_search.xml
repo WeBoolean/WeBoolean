@@ -7,33 +7,37 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="weboolean.weboolean.SearchActivity"
     tools:showIn="@layout/activity_search">
-
-    <RadioButton
-        android:id="@+id/radioButton"
+    <RadioGroup
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:text="@string/male"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.657"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.305" />
+        android:layout_height="wrap_content"
+        android:id="@+id/RGroup">
 
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:text="@string/female"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.689"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.638" />
+        <RadioButton
+            android:id="@+id/gender_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="@string/male"
+            app:layout_constraintBottom_toTopOf="@+id/age_check"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.657"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.305" />
 
+        <RadioButton
+            android:id="@+id/female_radio"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="@string/female"
+            app:layout_constraintBottom_toTopOf="@+id/age_check"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.689"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.638" />
+    </RadioGroup>
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/age_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="188dp"
@@ -47,7 +51,7 @@
         app:layout_constraintVertical_bias="0.342" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/vet_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="164dp"
@@ -61,18 +65,18 @@
         app:layout_constraintVertical_bias="0.448" />
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/fam_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="172dp"
         android:text="Families accepted?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2"
+        app:layout_constraintTop_toBottomOf="@+id/vet_check"
         app:layout_constraintVertical_bias="0.064" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search"
@@ -80,6 +84,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
+        app:layout_constraintTop_toBottomOf="@+id/fam_check" />
 
 </android.support.constraint.ConstraintLayout>

@@ -6,6 +6,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,15 +27,28 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         // Create toolbar ann search button with listener
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        //TODO: implement search
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
+        final RadioButton rb_male, rb_female;
+        final CheckBox age, fam, vet;
+        rb_male = findViewById(R.id.gender_radio);
+        rb_female = findViewById(R.id.female_radio);
+        age = findViewById(R.id.age_check);
+        fam = findViewById(R.id.fam_check);
+        vet = findViewById(R.id.vet_check);
+        final Button searchButton = findViewById(R.id.search_button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+                HashMap vals = new HashMap();
+                if (!(rb_male.isChecked()) && !(rb_female.isChecked()) && !(age.isChecked()) && !(vet.isChecked()) && !fam.isChecked()) {
+                    vals.put("anyone", true);
+                } else {
+                    vals.put("anyone", false);
+                }
+                vals.put("children", age.isChecked());
+                vals.put("fam", fam.isChecked());
+                vals.put("men", rb_male.isChecked());
+                vals.put("vets", vet.isChecked());
+                vals.put("women", rb_female.isChecked());
+                searchShelters(vals);
             }
         });
     }
