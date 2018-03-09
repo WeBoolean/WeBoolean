@@ -1,7 +1,12 @@
 package weboolean.weboolean.models;
 
+import android.os.Parcelable;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,7 +14,7 @@ import java.util.Map;
  *
  */
 @IgnoreExtraProperties
-public class Shelter {
+public class Shelter implements Serializable {
     private String address;
     private Map<String, Integer> available;
 
@@ -148,6 +153,14 @@ public class Shelter {
     @Override
     public String toString() {
         return this.getName();
+    }
+
+    public static ArrayList<String> toStrings(List<Shelter> okShelters) {
+        ArrayList<String> listItems = new ArrayList<>();
+        for (int i = 0; i < okShelters.size(); i++) {
+            listItems.add(okShelters.get(i).toString());
+        }
+        return listItems;
     }
 
 

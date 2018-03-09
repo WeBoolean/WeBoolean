@@ -1,5 +1,6 @@
 package weboolean.weboolean;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -48,7 +49,13 @@ public class SearchActivity extends AppCompatActivity {
                 vals.put("men", rb_male.isChecked());
                 vals.put("vets", vet.isChecked());
                 vals.put("women", rb_female.isChecked());
-                searchShelters(vals);
+                List<Shelter> okShelters = searchShelters(vals);
+                Intent browseShelters = new Intent(SearchActivity.this, WelcomeActivity.class);
+                Bundle shelterBundle = new Bundle();
+                shelterBundle.putStringArrayList("shelters", Shelter.toStrings(okShelters));
+                browseShelters.putExtras(shelterBundle);
+                startActivity(browseShelters);
+
             }
         });
     }

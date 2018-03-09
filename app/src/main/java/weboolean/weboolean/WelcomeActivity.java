@@ -40,6 +40,7 @@ public class WelcomeActivity extends AppCompatActivity {
         // Setup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        //Obtain intent
 
         //Create logout button and list of shelters with listener and adapter
         final Button logoutButton = findViewById(R.id.LogOutButton);
@@ -57,11 +58,15 @@ public class WelcomeActivity extends AppCompatActivity {
         }
         // Get Shelter array list from Shelter Singleton (Firebase)
 
-        ArrayList<Shelter> shelterList = ShelterSingleton.getShelterArrayCopy();
-
-        for (int i = 0; i < shelterList.size(); i++) {
-            listItems.add(shelterList.get(i).toString());
+        Intent startIntent = getIntent();
+        Bundle instructions = startIntent.getExtras();
+        if (!instructions.isEmpty() && instructions.containsKey("shelters")) {
+            //Read Shelters from bundle
+            listItems = (ArrayList<String>) instructions.get("shelters");
+        } else {
+            listItems = Shelter.toStrings(ShelterSingleton.getShelterArrayCopy());
         }
+
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
         setListAdapter(adapter);
 

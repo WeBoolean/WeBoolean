@@ -3,6 +3,7 @@ package weboolean.weboolean;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -54,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        Log.d("MapsActivity:", "Map Ready");
         // Add a marker in Atlanta and move the camera
         LatLng atlanta = new LatLng(33.7940, -84.3880);
         mMap.addMarker(new MarkerOptions().position(atlanta).title("Marker in Atlanta"));
