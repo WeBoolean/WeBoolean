@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,8 +21,11 @@ import java.util.Set;
 
 import weboolean.weboolean.models.Shelter;
 
+
 public class SearchActivity extends AppCompatActivity {
     // [AppCompat Activity Overridden Methods] ===================================================//
+    public final static String TAG =  SearchActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Setup
@@ -64,7 +68,9 @@ public class SearchActivity extends AppCompatActivity {
         List<Shelter> shelter_list = ShelterSingleton.getShelterArrayCopy();
         Set<Shelter> consideration = new HashSet<>(shelter_list);
         for (String restriction: parameters.keySet()) {
+            Log.d(TAG, "Searching for Restriction\t" + restriction);
             if ((Boolean) parameters.get(restriction))  {
+                Log.d(TAG, parameters.get(restriction).toString());
                 Set<Shelter> removeSet = new HashSet<>();
                 for (Shelter shelter: consideration) {
                     if ((Boolean) shelter.getRestrictions().get(restriction)) {

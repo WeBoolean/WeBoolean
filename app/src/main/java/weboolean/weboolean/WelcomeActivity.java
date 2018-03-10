@@ -66,6 +66,7 @@ public class WelcomeActivity extends AppCompatActivity {
         } else {
             listItems = Shelter.toStrings(ShelterSingleton.getShelterArrayCopy());
         }
+        Log.d("SearchActivity", "" + listItems.size());
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
         setListAdapter(adapter);
@@ -74,7 +75,7 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(WelcomeActivity.this, ShelterActivity.class);
-                intent.putExtra("Shelter", i);
+                intent.putExtra("Shelter", ShelterSingleton.getShelterKeyByCommonName(listItems.get(i)));
                 //based on item add info to intent
                 startActivity(intent);
             }

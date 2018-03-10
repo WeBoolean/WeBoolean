@@ -10,6 +10,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -79,6 +81,7 @@ public class ShelterSingleton implements Runnable {
                     }
                 }
                 updateLock.unlock();
+                Log.d(TAG, "Initial Shelter Creation Finished");
             }
 
             @Override
@@ -92,7 +95,7 @@ public class ShelterSingleton implements Runnable {
     /** A thread-safe getter method
      * @return A copy of the shelter list. This will not be live.
      */
-    public static ArrayList<Shelter> getShelterArrayCopy() {
+    public static List<Shelter> getShelterArrayCopy() {
         mutexloc.lock();
         ArrayList<Shelter> copy = (ArrayList<Shelter>) shelters.clone();
         mutexloc.unlock();
@@ -123,5 +126,15 @@ public class ShelterSingleton implements Runnable {
      */
     public static void forciblySetLocalBackingArray(ArrayList<Shelter> list) {
         shelters = list;
+    }
+
+    public static int getShelterKeyByCommonName(String name) {
+        List<Shelter> shelters = getShelterArrayCopy();
+        for (Shelter s: shelters) {
+            if (s.getName().equals(name)) {
+                return s.getKey();
+            }
+        }
+        throw new NoSuchElementException("Shelter " + name + "Does not exist in db");
     }
 }

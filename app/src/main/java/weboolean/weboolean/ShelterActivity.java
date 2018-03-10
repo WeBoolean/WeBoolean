@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import weboolean.weboolean.models.Shelter;
 
@@ -41,7 +42,7 @@ public class ShelterActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int numberData = intent.getIntExtra("Shelter", -1);
-        ArrayList<Shelter> shelterList = getShelterArrayCopy();
+        List<Shelter> shelterList = getShelterArrayCopy();
         Shelter shelter = shelterList.get(numberData);
 
         TextView name = findViewById(R.id.name);
