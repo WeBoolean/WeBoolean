@@ -32,8 +32,9 @@ public class ShelterActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ShelterActivity.this, WelcomeActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(ShelterActivity.this, WelcomeActivity.class);
+//                startActivity(intent);
+                finish();
             }
         });
 

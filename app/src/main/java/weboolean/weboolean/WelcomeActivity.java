@@ -60,7 +60,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         Intent startIntent = getIntent();
         Bundle instructions = startIntent.getExtras();
-        if (!instructions.isEmpty() && instructions.containsKey("shelters")) {
+        if (instructions != null && !instructions.isEmpty() && instructions.containsKey("shelters")) {
             //Read Shelters from bundle
             listItems = (ArrayList<String>) instructions.get("shelters");
         } else {

@@ -43,11 +43,11 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 HashMap vals = new HashMap();
-                if (!(rb_male.isChecked()) && !(rb_female.isChecked()) && !(age.isChecked()) && !(vet.isChecked()) && !fam.isChecked()) {
-                    vals.put("anyone", true);
-                } else {
-                    vals.put("anyone", false);
-                }
+//                if (!(rb_male.isChecked()) && !(rb_female.isChecked()) && !(age.isChecked()) && !(vet.isChecked()) && !fam.isChecked()) {
+//                    vals.put("anyone", true);
+//                } else {
+//                    vals.put("anyone", false);
+//                }
                 vals.put("children", age.isChecked());
                 vals.put("fam", fam.isChecked());
                 vals.put("men", rb_male.isChecked());
