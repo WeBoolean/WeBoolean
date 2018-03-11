@@ -85,4 +85,28 @@ public class SearchActivityTest {
         assert(ret.size() == 0);
     }
 
+    @Test
+    public void specifyAgeRestrictions() throws Exception {
+         HashMap<String, Object> restrictions = new HashMap<>();
+         restrictions.put("child_age", 5);
+         List<Shelter> ret = SearchActivity.searchShelters(restrictions);
+         // we have two shelters, one with 2 and one with 5
+         assert(ret.size() == 2);
+    }
+
+    @Test
+    public void specifyAgeRestrictionsNone() throws Exception {
+        HashMap<String, Object> restrictions = new HashMap<>();
+        restrictions.put("child_age", 0);
+        List<Shelter> ret = SearchActivity.searchShelters(restrictions);
+        assert(ret.size() == 0);
+    }
+
+    @Test
+    public void specifyAgeRestrictionsAll() throws Exception {
+        HashMap<String, Object> restrictions = new HashMap<>();
+        restrictions.put("child_age", 18);
+        List<Shelter> ret = SearchActivity.searchShelters(restrictions);
+        assert(ret.size() == shelters.size());
+    }
 }

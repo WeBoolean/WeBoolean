@@ -82,7 +82,7 @@ public class SearchActivity extends AppCompatActivity {
         for (String restriction: parameters.keySet()) {
             Log.d(TAG, "Searching for Restriction\t" + restriction);
             Set<Shelter> removeSet = new HashSet<>();
-            if (restriction == "childAge") {
+            if (restriction == "child_age") {
                 // now do restriction matching
                 searchChildAge((Integer) parameters.get(restriction), removeSet, consideration);
             } else {
