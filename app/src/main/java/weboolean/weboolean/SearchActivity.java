@@ -40,9 +40,6 @@ public class SearchActivity extends AppCompatActivity {
         age = findViewById(R.id.age_check);
         fam = findViewById(R.id.fam_check);
         vet = findViewById(R.id.vet_check);
-        final String shelter_name_match = ((EditText) findViewById(R.id.name_input)).getText().toString();
-        String child_age_string = ((EditText) findViewById(R.id.age_input)).getText().toString();
-        final int child_age = Integer.parseInt(child_age_string);
         final Button searchButton = findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -57,6 +54,9 @@ public class SearchActivity extends AppCompatActivity {
                 vals.put("men", rb_male.isChecked());
                 vals.put("vets", vet.isChecked());
                 vals.put("women", rb_female.isChecked());
+                final String shelter_name_match = ((EditText) findViewById(R.id.name_input)).getText().toString();
+                String child_age_string = ((EditText) findViewById(R.id.age_input)).getText().toString();
+                final int child_age = Integer.parseInt(child_age_string);
                 vals.put("name", shelter_name_match);
                 vals.put("child_age", child_age);
                 List<Shelter> okShelters = searchShelters(vals);
