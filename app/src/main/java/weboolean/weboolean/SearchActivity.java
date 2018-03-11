@@ -56,9 +56,13 @@ public class SearchActivity extends AppCompatActivity {
                 vals.put("women", rb_female.isChecked());
                 final String shelter_name_match = ((EditText) findViewById(R.id.name_input)).getText().toString();
                 String child_age_string = ((EditText) findViewById(R.id.age_input)).getText().toString();
-                final int child_age = Integer.parseInt(child_age_string);
+                if (child_age_string != null) {
+                    final int child_age = Integer.parseInt(child_age_string);
+                    vals.put("child_age", child_age);
+                } else {
+                    vals.put("child_age", null);
+                }
                 vals.put("name", shelter_name_match);
-                vals.put("child_age", child_age);
                 List<Shelter> okShelters = searchShelters(vals);
                 Intent browseShelters = new Intent(SearchActivity.this, WelcomeActivity.class);
                 Bundle shelterBundle = new Bundle();
