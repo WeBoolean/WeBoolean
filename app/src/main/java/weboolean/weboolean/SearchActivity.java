@@ -56,7 +56,7 @@ public class SearchActivity extends AppCompatActivity {
                 vals.put("women", rb_female.isChecked());
                 final String shelter_name_match = ((EditText) findViewById(R.id.name_input)).getText().toString();
                 String child_age_string = ((EditText) findViewById(R.id.age_input)).getText().toString();
-                if (child_age_string != null) {
+                if (!child_age_string.equals("")) {
                     final int child_age = Integer.parseInt(child_age_string);
                     vals.put("child_age", child_age);
                 } else {
@@ -82,13 +82,14 @@ public class SearchActivity extends AppCompatActivity {
             ArrayList<Shelter> exactMatch = new ArrayList<Shelter>();
             Log.d(TAG, "Exact String Searching launched for " + (String) parameters.get("name"));
             for (Shelter shelter: consideration) {
-                if (shelter.toString().equals(parameters.get("name"))) {
+                if (shelter.toString().trim().equals(((String) parameters.get("name")).trim())) {
                     exactMatch.add(shelter);
                 }
             }
             return exactMatch;
         }
         //By default, this goes to "else"
+        parameters.remove("name");
         for (String restriction: parameters.keySet()) {
             Log.d(TAG, "Searching for Restriction\t" + restriction);
             Set<Shelter> removeSet = new HashSet<>();
@@ -96,7 +97,8 @@ public class SearchActivity extends AppCompatActivity {
                 // now do restriction matching
                 searchChildAge((Integer) parameters.get(restriction), removeSet, consideration);
             } else {
-                if ((Boolean) parameters.get(restriction)) {
+                Log.d(TAG, (parameters.get(restriction)).toString());
+                if ((Boolean) (parameters.get(restriction))) {
                     Log.d(TAG, parameters.get(restriction).toString());
                     for (Shelter shelter : consideration) {
                         if ((Boolean) shelter.getRestrictions().get(restriction)) {
@@ -120,9 +122,9 @@ public class SearchActivity extends AppCompatActivity {
         // now, we can cast to int
         int rest = restriction.intValue();
         for (Shelter s: consideration) {
-            int ShelterAgeRestriction = ((Boolean) (s.getRestrictions().get("children")))
-                    ? (Integer) s.getRestrictions().get("child_age") : 19;
-            if (ShelterAgeRestriction > rest) {
+             Long ShelterAgeRestriction = ((Boolean) (s.getRestrictions().get("children")))
+                    ? (Long) s.getRestrictions().get("child_age") : 19;
+            if (ShelterAgeRestriction < rest) {
                 removeSet.add(s);
             }
         }

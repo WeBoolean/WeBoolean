@@ -99,14 +99,14 @@ public class SearchActivityTest {
         HashMap<String, Object> restrictions = new HashMap<>();
         restrictions.put("child_age", 0);
         List<Shelter> ret = SearchActivity.searchShelters(restrictions);
-        assert(ret.size() == 0);
+        assert(ret.size() == shelters.size());
     }
 
     @Test
     public void specifyAgeRestrictionsAll() throws Exception {
         HashMap<String, Object> restrictions = new HashMap<>();
-        restrictions.put("child_age", 18);
+        restrictions.put("child_age", 19);
         List<Shelter> ret = SearchActivity.searchShelters(restrictions);
-        assert(ret.size() == shelters.size());
+        assert(ret.size() == 0);
     }
 }
