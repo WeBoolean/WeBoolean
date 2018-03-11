@@ -66,5 +66,23 @@ public class SearchActivityTest {
         }
     }
 
+    @Test
+    public void searchSheltersExactMatch() throws Exception {
+        HashMap<String, Object> restrictions= new HashMap<>();
+        for (Shelter s: shelters) {
+            restrictions.put("name", s.getName()); // put exact name into restrictions
+            List<Shelter>  ret = SearchActivity.searchShelters(restrictions);
+            assert(ret.size() == 1);
+            assert(ret.get(0).equals(s));
+        }
+    }
+
+    @Test
+    public void searchSheltersNoExactMatch() throws Exception {
+        HashMap<String, Object> restrictions= new HashMap<>();
+        restrictions.put("name", "this does not exist");
+        List<Shelter> ret = SearchActivity.searchShelters(restrictions);
+        assert(ret.size() == 0);
+    }
 
 }

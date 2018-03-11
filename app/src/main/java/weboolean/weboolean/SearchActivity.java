@@ -67,22 +67,56 @@ public class SearchActivity extends AppCompatActivity {
     protected static List<Shelter> searchShelters(Map<String, Object> parameters) {
         List<Shelter> shelter_list = ShelterSingleton.getShelterArrayCopy();
         Set<Shelter> consideration = new HashSet<>(shelter_list);
+        //Exact String Searching -- later we'll move onto fuzzy matching with a more advanced mech
+        if (parameters.containsKey("name") && !((String) parameters.get("name")).equals("") ) {
+            ArrayList<Shelter> exactMatch = new ArrayList<Shelter>();
+            Log.d(TAG, "Exact String Searching launched for " + (String) parameters.get("name"));
+            for (Shelter shelter: consideration) {
+                if (shelter.toString().equals(parameters.get("name"))) {
+                    exactMatch.add(shelter);
+                }
+            }
+            return exactMatch;
+        }
+        //By default, this goes to "else"
         for (String restriction: parameters.keySet()) {
             Log.d(TAG, "Searching for Restriction\t" + restriction);
-            if ((Boolean) parameters.get(restriction))  {
-                Log.d(TAG, parameters.get(restriction).toString());
-                Set<Shelter> removeSet = new HashSet<>();
-                for (Shelter shelter: consideration) {
-                    if ((Boolean) shelter.getRestrictions().get(restriction)) {
-                        // Pass here. If the restriction is true then we don't wanna do anything
-                    } else {
-                        removeSet.add(shelter);
+            Set<Shelter> removeSet = new HashSet<>();
+            if (restriction == "childAge") {
+                // now do restriction matching
+                searchChildAge((Integer) parameters.get(restriction), removeSet, consideration);
+            } else {
+                if ((Boolean) parameters.get(restriction)) {
+                    Log.d(TAG, parameters.get(restriction).toString());
+                    for (Shelter shelter : consideration) {
+                        if ((Boolean) shelter.getRestrictions().get(restriction)) {
+                            // Pass here. If the restriction is true then we don't wanna do anything
+                        } else {
+                            removeSet.add(shelter);
+                        }
                     }
                 }
-                consideration.removeAll(removeSet);
             }
+            consideration.removeAll(removeSet);
         }
         return new ArrayList<>(consideration);
     }
+
+    private static void searchChildAge(Integer restriction, Set<Shelter> removeSet, final Set<Shelter> consideration) {
+        //modifies removeSet with all matches from consdieration
+        if (restriction == null) {
+            return;
+        }
+        // now, we can cast to int
+        int rest = restriction.intValue();
+        for (Shelter s: consideration) {
+            int ShelterAgeRestriction = ((Boolean) (s.getRestrictions().get("children")))
+                    ? (Integer) s.getRestrictions().get("child_age") : 19;
+            if (ShelterAgeRestriction > rest) {
+                removeSet.add(s);
+            }
+        }
+    }
+
 
 }
