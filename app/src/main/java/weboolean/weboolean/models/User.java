@@ -2,6 +2,8 @@ package weboolean.weboolean.models;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 /**
  * Created by rajshrimali on 2/17/18.
  *
@@ -12,16 +14,160 @@ import com.google.firebase.database.IgnoreExtraProperties;
  * Upon login, we simply instantiate a new user.
  */
 @IgnoreExtraProperties
-public class User {
+public class User implements Serializable {
+
     public String uid;
     public UserType usertype;
+    public String sex;
+    public Boolean fam;
+    public int dependents;
+    public int youngest;
+    public String spouse;
+    public Boolean vet;
+    public int age;
+    public boolean checkedIn;
+    public int currentShelter;
+    public boolean locked;
 
-    public User(){
-        //Default constructor required;
+
+    public User() {
+        this.uid = null;
+        this.usertype = null;
+        this.sex = null;
+        this.fam = false;
+        this.dependents = 0;
+        this.youngest = 0;
+        this.spouse = null;
+        this.vet = null;
+        this.age = 18;
+        this.currentShelter = -1;
+        this.locked = false;
+
     }
 
     public User(String UID, UserType type) {
-        this.uid = uid;
+        this();
+        this.uid = UID;
         this.usertype = type;
+    }
+
+    public User(String uid1, UserType usertype1, String sex1, Boolean fam1, int dep1, int young1,
+                String spouse1, Boolean vet1, int age1, boolean checked1, int curr1, boolean locked1) {
+        this(uid1, usertype1);
+        this.sex = sex1;
+        this.fam = fam1;
+        this.dependents = dep1;
+        this.youngest = young1;
+        this.spouse = spouse1;
+        this.vet = vet1;
+        this.age = age1;
+        this.checkedIn = checked1;
+        this.currentShelter = curr1;
+        this.locked = locked1;
+    }
+
+    public boolean getCheckedIn() {
+        return checkedIn;
+    }
+
+    public int getCurrentShelter() {
+        return currentShelter;
+    }
+
+    public int getFamilySize() {
+        int size = 1;
+        if (dependents != 0) {
+            size += dependents;
+        } if (spouse != null) {
+            size += 1;
+        } return size;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public UserType getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(UserType usertype) {
+        this.usertype = usertype;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Boolean getFam() {
+        return fam;
+    }
+
+    public void setFam(Boolean fam) {
+        this.fam = fam;
+    }
+
+    public int getDependents() {
+        return dependents;
+    }
+
+    public void setDependents(int dependents) {
+        this.dependents = dependents;
+    }
+
+    public int getYoungest() {
+        return youngest;
+    }
+
+    public void setYoungest(int youngest) {
+        this.youngest = youngest;
+    }
+
+    public String getSpouse() {
+        return spouse;
+    }
+
+    public void setSpouse(String spouse) {
+        this.spouse = spouse;
+    }
+
+    public Boolean getVet() {
+        return vet;
+    }
+
+    public void setVet(Boolean vet) {
+        this.vet = vet;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setCheckedIn(boolean checkedIn) {
+        this.checkedIn = checkedIn;
+    }
+
+    public void setCurrentShelter(int currentShelter) {
+        this.currentShelter = currentShelter;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 }

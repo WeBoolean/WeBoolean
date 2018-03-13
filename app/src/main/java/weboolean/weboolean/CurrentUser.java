@@ -2,6 +2,14 @@ package weboolean.weboolean;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import weboolean.weboolean.models.User;
 /**
@@ -11,10 +19,17 @@ import weboolean.weboolean.models.User;
  * this way, we know what type they are without having to read from the database every time.
  *
  */
-public class CurrentUser {
+public class CurrentUser implements Runnable {
     //Current user object represents the current user logged in
     private static FirebaseUser t;
     private static User u;
+    private static FirebaseDatabase db;
+    private static DatabaseReference reference;
+//    private FirebaseAuth mAuth;
+//    private DatabaseReference mDatabase;
+    private static final Lock mutexlock = new ReentrantLock();
+    private static boolean instantiated = false;
+    private static Thread thread;
 
     // [Getters and setters] =====================================================================//
     public static User getCurrentUser() {
@@ -25,20 +40,60 @@ public class CurrentUser {
         return t;
     }
 
-    public static void setUserInstance(User uu, FirebaseUser tt) {
+    public static void setUserInstance(User uu, FirebaseUser tt) throws InstantiationException {
         u = uu;
         t = tt;
+        thread = new Thread(new CurrentUser());
     }
 
     // [Methods] =================================================================================//
+
+    public CurrentUser() throws InstantiationException {
+        if (CurrentUser.instantiated) {
+            throw new InstantiationException("Only one current user is allowed at once.");
+        } else {
+            CurrentUser.instantiated = true;
+        }
+    }
+
+    public void run() {
+        db = FirebaseDatabase.getInstance();
+        while (getCurrentUser() == null);
+        reference = db.getReference("user/" + getCurrentUser().getUid());
+
+        //add listener to user list
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User u = dataSnapshot.getValue(User.class);
+                mutexlock.lock();
+                CurrentUser.u = u;
+                mutexlock.unlock();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
     public static boolean logOutUser() {
+        mutexlock.lock();
         try {
             FirebaseAuth.getInstance().signOut();
             u = null;
             t = null;
+            mutexlock.unlock();
+            thread.interrupt();
+            thread.join();
+            thread = null;
+            instantiated = false;
             return true;
         } catch (Exception e) {
+            mutexlock.unlock();
             return false;
         }
     }
+
 }

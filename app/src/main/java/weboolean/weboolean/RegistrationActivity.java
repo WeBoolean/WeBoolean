@@ -89,13 +89,20 @@ public class RegistrationActivity extends AppCompatActivity {
 
                         //Create custom user
                         User u = new User(user.getUid(), t);
+                        Log.e(TAG, "" + u.getCurrentShelter());
 
                         //Set current user instance
-                        CurrentUser.setUserInstance(u, user);
+                        try {
+                            CurrentUser.setUserInstance(u, user);
+                        } catch (InstantiationException e) {
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(RegistrationActivity.this, "Already logged in.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
 
                         //Write current user to database
                         mDatabase.child("users").child(user.getUid())
-                                .setValue(t);
+                                .setValue(u);
 
                         //Launch login activity
                         Intent intent = new Intent(RegistrationActivity.this, WelcomeActivity.class);
