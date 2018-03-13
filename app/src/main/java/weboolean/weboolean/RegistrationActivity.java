@@ -45,7 +45,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mDatabase = database.getReference();
 
         // Create button and listener, spinner and adapter for registration
-        final Button registerButton = findViewById(R.id.Registration_RegisterButton);
+        final Button registerButton = findViewById(R.id.register_button);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,10 +53,10 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
-        final Spinner userTypeSelection = (Spinner) findViewById(R.id.user_type_spinner);
+        /*final Spinner userTypeSelection = (Spinner) findViewById(R.id.user_type_spinner);
         ArrayAdapter<UserType> adapter = new ArrayAdapter<UserType>(this, android.R.layout.simple_spinner_item,
                 UserType.values());
-        userTypeSelection.setAdapter(adapter);
+        userTypeSelection.setAdapter(adapter);*/
     }
 
     @Override
@@ -68,8 +68,8 @@ public class RegistrationActivity extends AppCompatActivity {
     // [Methods] =================================================================================//
     private void attemptRegistration() {
         // Get username and password from user input
-        String userEmail = ((EditText) findViewById(R.id.Registration_Email)).getText().toString();
-        String userPassword = ((EditText) findViewById(R.id.Registration_Password)).getText().toString();
+        String userEmail = ((EditText) findViewById(R.id.email_input)).getText().toString();
+        String userPassword = ((EditText) findViewById(R.id.password_input)).getText().toString();
         // Invalid input check
         if (userEmail.equals("") || userPassword.equals("")) {
             Toast.makeText(this, "Must Provide Values", Toast.LENGTH_LONG).show();
@@ -85,11 +85,12 @@ public class RegistrationActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
 
                         //Get user type from spinner
-                        UserType t =  (UserType) ((Spinner) findViewById(R.id.user_type_spinner)).getSelectedItem();
+                        //UserType t =  (UserType) ((Spinner) findViewById(R.id.user_type_spinner)).getSelectedItem();
 
                         //Create custom user
-                        User u = new User(user.getUid(), t);
-                        Log.e(TAG, "" + u.getCurrentShelter());
+                        //User u = new User(user.getUid(), t);
+                        //Log.e(TAG, "" + u.getCurrentShelter());
+                        User u = new User();
 
                         //Set current user instance
                         try {

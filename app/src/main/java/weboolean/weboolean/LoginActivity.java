@@ -134,7 +134,12 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                                             UserType t = singleSnapshot.getValue(UserType.class);
-                                            CurrentUser.setUserInstance(new User(user.getUid(), t), user);
+                                            try {
+                                                CurrentUser.setUserInstance(new User(user.getUid(), t), user);
+                                            } catch (InstantiationException e) {
+                                                e.printStackTrace();
+                                            }
+
                                         }
                                     }
                                     @Override

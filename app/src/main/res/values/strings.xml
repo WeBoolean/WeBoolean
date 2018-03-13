@@ -27,4 +27,13 @@
     <string name="title_activity_maps">Map</string>
     <string name="female">Female</string>
     <string name="male">Male</string>
+
+
+
+    <!--Strings related to registration-->
+    <string-array name="spouse_sex">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+
 </resources>
