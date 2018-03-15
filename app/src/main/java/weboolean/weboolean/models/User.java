@@ -91,11 +91,11 @@ public class User implements Serializable {
         this.uid = uid;
     }
 
-    public UserType getUsertype() {
+    public UserType getUserType() {
         return usertype;
     }
 
-    public void setUsertype(UserType usertype) {
+    public void setUserType(UserType usertype) {
         this.usertype = usertype;
     }
 
@@ -163,7 +163,7 @@ public class User implements Serializable {
         this.currentShelter = currentShelter;
     }
 
-    public boolean isLocked() {
+    public boolean getLocked() {
         return locked;
     }
 
