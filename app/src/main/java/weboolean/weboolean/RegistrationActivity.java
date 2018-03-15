@@ -88,12 +88,10 @@ public class RegistrationActivity extends AppCompatActivity {
                         //UserType t =  (UserType) ((Spinner) findViewById(R.id.user_type_spinner)).getSelectedItem();
 
                         //Create custom user
-                        //User u = new User(user.getUid(), t);
-                        //Log.e(TAG, "" + u.getCurrentShelter());
-                        User u = new User();
 
-                        u = new User(user.getUid(), u.getUserType(), u.getSex(), u.getFam(), u.getDependents(), u.getYoungest(),
-                        u.getSpouse(), u.getVet(), u.getAge(), u.getCheckedIn(), u.getCurrentShelter(), u.getLocked());
+                        User u = new User();
+                        //User u = new User(user.getUid(), u.getUserType(), u.getSex(), u.getFam(), u.getDependents(), u.getYoungest(),
+                        //u.getSpouse(), u.getVet(), u.getAge(), u.getCheckedIn(), u.getCurrentShelter(), u.getLocked());
 
                         //Set current user instance
                         try {

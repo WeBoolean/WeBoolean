@@ -61,17 +61,26 @@ public class ShelterActivity extends AppCompatActivity {
         } else {
             available.setText("");
         }
-        if (shelter.getAvailable().get("rooms") != null) {
+        if (shelter.getAvailable().get("rooms") != null && shelter.getAvailable().get("rooms")!=0) {
             available.setText(available.getText() + "" + shelter.getAvailable().get("rooms") + " Rooms available");
         }
-        if (shelter.getCapacity().get("beds") != null) {
+        if (shelter.getAvailable().get("rooms") != null && shelter.getAvailable().get("rooms")==0) {
+            available.setText("N/A Rooms available");
+        }
+        if (shelter.getCapacity().get("beds") != null && shelter.getCapacity().get("beds") != 0) {
             capacity.setText("" + shelter.getCapacity().get("beds") + " Beds capacity ");
+        } else if (shelter.getCapacity().get("beds") != null && shelter.getCapacity().get("beds") == 0){
+            capacity.setText("N/A Beds Capacity \n");
         } else {
             capacity.setText("");
         }
-        if (shelter.getCapacity().get("rooms") != null) {
+
+        if (shelter.getCapacity().get("rooms") != null && shelter.getCapacity().get("rooms") != 0) {
             capacity.setText(capacity.getText() + "" + shelter.getCapacity().get("rooms") + " Rooms capacity");
+        } else if (shelter.getCapacity().get("rooms") != null && shelter.getCapacity().get("rooms") == 0) {
+            capacity.setText("N/A Rooms capacity");
         }
+
         note.setText("Notes: " + shelter.getNote());
         number.setText("Number: " + shelter.getNumber());
         if (shelter.getAnyone()) {

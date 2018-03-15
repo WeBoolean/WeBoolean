@@ -16,18 +16,18 @@ import java.io.Serializable;
 @IgnoreExtraProperties
 public class User implements Serializable {
 
-    public String uid;
-    public UserType usertype;
-    public String sex;
-    public Boolean fam;
-    public int dependents;
-    public int youngest;
-    public String spouse;
-    public Boolean vet;
-    public int age;
-    public boolean checkedIn;
-    public int currentShelter;
-    public boolean locked;
+    private String uid;
+    private UserType usertype;
+    private String sex;
+    private Boolean fam;
+    private int dependents;
+    private int youngest;
+    private String spouse;
+    private Boolean vet;
+    private int age;
+    private boolean checkedIn;
+    private int currentShelter;
+    private boolean locked;
 
 
     public User() {
