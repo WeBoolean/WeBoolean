@@ -25,8 +25,6 @@ public class CurrentUser implements Runnable {
     private static User u;
     private static FirebaseDatabase db;
     private static DatabaseReference reference;
-//    private FirebaseAuth mAuth;
-//    private DatabaseReference mDatabase;
     private static final Lock mutexlock = new ReentrantLock();
     private static boolean instantiated = false;
     private static Thread thread;
