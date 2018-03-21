@@ -103,10 +103,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="youngest age:" />
+                    android:text="Youngest child:" />
 
                 <EditText
-                    android:id="@+id/age"
+                    android:id="@+id/youngest_age_input"
                     android:layout_width="72dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -364,8 +364,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="text"
-                    android:text="@string/prompt_email"
+                    android:inputType="number"
                     tools:layout_editor_absoluteX="82dp"
                     tools:layout_editor_absoluteY="0dp" />
 
