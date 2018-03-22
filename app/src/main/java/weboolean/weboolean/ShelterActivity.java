@@ -30,6 +30,8 @@ public class ShelterActivity extends AppCompatActivity {
         // Firebase references
         database = FirebaseDatabase.getInstance();
         ref = database.getReference("shelters");
+        // Get current shelter
+        final Shelter shelter = getShelter();
 
         // Create back button and listener
         final Button backButton = findViewById(R.id.backButton);
@@ -44,12 +46,11 @@ public class ShelterActivity extends AppCompatActivity {
         checkInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkIn();
+                checkIn(shelter);
             }
         });
 
-        // Get current shelter
-        Shelter shelter = getShelter();
+
 
         // TextViews to display shelter data
         TextView name = findViewById(R.id.name);
@@ -146,7 +147,10 @@ public class ShelterActivity extends AppCompatActivity {
             capacity.setText("N/A Room capacity");
         }
     }
-    private void checkIn() {
+    private void checkIn(Shelter shelter) {
         //TODO: implement check in logic with firebase querying, updating, and updating views
+        if (shelter.getAvailable().get("beds") > 0) {
+
+        }
     }
 }
