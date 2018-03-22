@@ -40,12 +40,16 @@ public class ShelterActivity extends AppCompatActivity {
             }
         });
 
-        // Create shelter view intent, passed a shelter's number through the Intent extra data
-        Intent intent = getIntent();
-        int numberData = intent.getIntExtra("Shelter", -1);
-        // Select our shelter from shelter list to display
-        List<Shelter> shelterList = getShelterArrayCopy();
-        Shelter shelter = shelterList.get(numberData);
+        final Button checkInButton = findViewById(R.id.checkin_button);
+        checkInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkIn();
+            }
+        });
+
+        // Get current shelter
+        Shelter shelter = getShelter();
 
         // TextViews to display shelter data
         TextView name = findViewById(R.id.name);
@@ -56,39 +60,12 @@ public class ShelterActivity extends AppCompatActivity {
         TextView number = findViewById(R.id.number);
         TextView anyone = findViewById(R.id.anyone);
 
-        // Conditional logic to set shelter data
-
-        // [Capacities] ===========================================================================/
+        // Set shelter data
         name.setText(shelter.getName());
         address.setText(shelter.getAddress());
-        if (shelter.getAvailable().get("beds") != null) {
-            available.setText("" + shelter.getAvailable().get("beds") + " Beds available ");
-        } else {
-            available.setText("");
-        }
-        if (shelter.getAvailable().get("rooms") != null && shelter.getAvailable().get("rooms")!=0) {
-            available.setText(available.getText() + "" + shelter.getAvailable().get("rooms") + " Rooms available");
-        }
-        if (shelter.getAvailable().get("rooms") != null && shelter.getAvailable().get("rooms")==0) {
-            available.setText("N/A Rooms available");
-        }
-        if (shelter.getCapacity().get("beds") != null && shelter.getCapacity().get("beds") != 0) {
-            capacity.setText("" + shelter.getCapacity().get("beds") + " Bed capacity ");
-        } else if (shelter.getCapacity().get("beds") != null && shelter.getCapacity().get("beds") == 0){
-            capacity.setText("N/A Beds Capacity \n");
-        } else {
-            capacity.setText("");
-        }
-        if (shelter.getCapacity().get("rooms") != null && shelter.getCapacity().get("rooms") != 0) {
-            capacity.setText(capacity.getText() + "" + shelter.getCapacity().get("rooms") + " Room capacity");
-        } else if (shelter.getCapacity().get("rooms") != null && shelter.getCapacity().get("rooms") == 0) {
-            capacity.setText("N/A Room capacity");
-        }
+        setCapacities(shelter, available, capacity);
         note.setText("Notes: " + shelter.getNote());
         number.setText("Number: " + shelter.getNumber());
-
-
-
 
         // [Restrictions] ========================================================================//
         // Anyone case
@@ -130,5 +107,46 @@ public class ShelterActivity extends AppCompatActivity {
                 anyone.setText(anyone.getText() + "This shelter accepts veterans only. \n");
             }
         }
+    }
+
+    private Shelter getShelter() {
+        // Create shelter view intent, passed a shelter's number through the Intent extra data
+        Intent intent = getIntent();
+        int numberData = intent.getIntExtra("Shelter", -1);
+        // Select our shelter from shelter list to display
+        List<Shelter> shelterList = getShelterArrayCopy();
+        Shelter shelter = shelterList.get(numberData);
+        return shelter;
+    }
+
+    private void setCapacities(Shelter shelter, TextView available, TextView capacity) {
+        // [Availability] =========================================================================/
+        if (shelter.getAvailable().get("beds") != null) {
+            available.setText("" + shelter.getAvailable().get("beds") + " Beds available ");
+        } else {
+            available.setText("");
+        }
+        if (shelter.getAvailable().get("rooms") != null && shelter.getAvailable().get("rooms")!=0) {
+            available.setText(available.getText() + "" + shelter.getAvailable().get("rooms") + " Rooms available");
+        }
+        if (shelter.getAvailable().get("rooms") != null && shelter.getAvailable().get("rooms")==0) {
+            available.setText("N/A Rooms available");
+        }
+        // [Capacity] =============================================================================/
+        if (shelter.getCapacity().get("beds") != null && shelter.getCapacity().get("beds") != 0) {
+            capacity.setText("" + shelter.getCapacity().get("beds") + " Bed capacity ");
+        } else if (shelter.getCapacity().get("beds") != null && shelter.getCapacity().get("beds") == 0){
+            capacity.setText("N/A Beds Capacity \n");
+        } else {
+            capacity.setText("");
+        }
+        if (shelter.getCapacity().get("rooms") != null && shelter.getCapacity().get("rooms") != 0) {
+            capacity.setText(capacity.getText() + "" + shelter.getCapacity().get("rooms") + " Room capacity");
+        } else if (shelter.getCapacity().get("rooms") != null && shelter.getCapacity().get("rooms") == 0) {
+            capacity.setText("N/A Room capacity");
+        }
+    }
+    private void checkIn() {
+        //TODO: implement check in logic with firebase querying, updating, and updating views
     }
 }
