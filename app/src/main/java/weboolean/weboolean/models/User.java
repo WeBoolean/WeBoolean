@@ -16,6 +16,7 @@ import java.io.Serializable;
 @IgnoreExtraProperties
 public class User implements Serializable {
 
+
     public String uid;
     public UserType usertype;
     public String sex;

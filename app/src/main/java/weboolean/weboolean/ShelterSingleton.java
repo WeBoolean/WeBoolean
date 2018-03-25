@@ -34,7 +34,7 @@ public class ShelterSingleton implements Runnable {
     private static boolean instantiated = false;
 
     //Logging. Currently unused.
-    public static final String TAG = Shelter.class.getSimpleName();
+    private static final String TAG = Shelter.class.getSimpleName();
 
     //Mutex lock. Ensures we never try to write to the shelter array while someone is getting
     //a copy of it. Bad things could happen otherwise.
