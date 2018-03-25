@@ -92,8 +92,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         //Log.e(TAG, "" + u.getCurrentShelter());
                         User u = new User();
 
-                        u = new User(user.getUid(), u.getUserType(), u.getSex(), u.getFam(), u.getDependents(), u.getYoungest(),
-                        u.getSpouse(), u.getVet(), u.getAge(), u.getCheckedIn(), u.getCurrentShelter(), u.getLocked());
+                        u = new User(user.getUid(), u.getUserType(), u.getSex(), u.getFamily(), u.getDependents(), u.getYoungest(),
+                        u.getSpouse(), u.getVeteran(), u.getAge(), u.getCheckedIn(), u.getCurrentShelter(), u.getLocked());
 
                         //Set current user instance
                         try {

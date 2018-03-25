@@ -19,11 +19,11 @@ public class User implements Serializable {
     public String uid;
     public UserType usertype;
     public String sex;
-    public Boolean fam;
+    public Boolean family;
     public int dependents;
     public int youngest;
     public String spouse;
-    public Boolean vet;
+    public Boolean veteran;
     public int age;
     public boolean checkedIn;
     public int currentShelter;
@@ -34,11 +34,11 @@ public class User implements Serializable {
         this.uid = null;
         this.usertype = null;
         this.sex = null;
-        this.fam = false;
+        this.family = false;
         this.dependents = 0;
         this.youngest = 0;
         this.spouse = null;
-        this.vet = null;
+        this.veteran = null;
         this.age = 18;
         this.currentShelter = -1;
         this.locked = false;
@@ -55,11 +55,11 @@ public class User implements Serializable {
                 String spouse1, Boolean vet1, int age1, boolean checked1, int curr1, boolean locked1) {
         this(uid1, usertype1);
         this.sex = sex1;
-        this.fam = fam1;
+        this.family = fam1;
         this.dependents = dep1;
         this.youngest = young1;
         this.spouse = spouse1;
-        this.vet = vet1;
+        this.veteran = vet1;
         this.age = age1;
         this.checkedIn = checked1;
         this.currentShelter = curr1;
@@ -107,12 +107,12 @@ public class User implements Serializable {
         this.sex = sex;
     }
 
-    public Boolean getFam() {
-        return fam;
+    public Boolean getFamily() {
+        return family;
     }
 
-    public void setFam(Boolean fam) {
-        this.fam = fam;
+    public void setFamily(Boolean family) {
+        this.family = family;
     }
 
     public int getDependents() {
@@ -139,12 +139,12 @@ public class User implements Serializable {
         this.spouse = spouse;
     }
 
-    public Boolean getVet() {
-        return vet;
+    public Boolean getVeteran() {
+        return veteran;
     }
 
-    public void setVet(Boolean vet) {
-        this.vet = vet;
+    public void setVeteran(Boolean veteran) {
+        this.veteran = veteran;
     }
 
     public int getAge() {
