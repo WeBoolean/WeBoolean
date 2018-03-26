@@ -22,12 +22,11 @@ public class Shelter implements Serializable {
         this.address = address;
     }
 
-    //TODO: actually implement get and set availability
     //Indexed with string "beds" and "rooms"
     public Map<String, Integer> getCapacity() {
         return capacity;
     }
-    //TODO: actually implement capacity push to firebase
+
     public void setCapacity(Map<String, Integer> capacity) {
         this.capacity = capacity;
     }

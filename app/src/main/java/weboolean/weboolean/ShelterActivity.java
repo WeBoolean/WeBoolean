@@ -3,6 +3,7 @@ package weboolean.weboolean;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -35,24 +36,12 @@ public class ShelterActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         ref = database.getReference("shelters");
         // Get current shelter
-        Shelter shelter = getShelter();
+        shelter = getShelter();
 
         // Create back button and listener
         final Button backButton = findViewById(R.id.backButton);
-
         final Button checkinButton = findViewById(R.id.checkinButton);
         final Button checkoutButton = findViewById(R.id.checkoutButton);
-
-        checkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(checkOut()) {
-                    Toast.makeText(ShelterActivity.this, "Successful Check Out!", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(ShelterActivity.this, "Check Out Failed: have to be checked in to checkout", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
 
         checkinButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,19 +53,21 @@ public class ShelterActivity extends AppCompatActivity {
                 }
             }
         });
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkOut()) {
+                    Toast.makeText(ShelterActivity.this, "Successful Check Out!", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(ShelterActivity.this, "Check Out Failed: have to be checked in to checkout", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
-            }
-        });
-
-        final Button checkInButton = findViewById(R.id.checkin_button);
-        checkInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkIn(shelter);
             }
         });
 
@@ -146,6 +137,7 @@ public class ShelterActivity extends AppCompatActivity {
 
 
     private boolean checkIn(){
+        Log.w("TAG", "We TRYNA GET IN");
         if (CurrentUser.getCurrentUser().getCheckedIn()) {
             return false;
         } else {

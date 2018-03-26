@@ -126,6 +126,12 @@ public class LoginActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
                                 final FirebaseUser user = mAuth.getCurrentUser();
+                                //TODO: right now this is hardcoded with UserType user and has repeated code with the onDataChange method
+                                try {
+                                    CurrentUser.setUserInstance(new User(user.getUid(), UserType.User), user);
+                                } catch (InstantiationException e) {
+                                    e.printStackTrace();
+                                }
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference mDatabase = database.getReference();
                                 Query userQuery = mDatabase.orderByChild("users").equalTo(user.getUid());
