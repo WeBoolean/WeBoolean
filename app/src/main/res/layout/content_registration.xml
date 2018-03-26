@@ -258,27 +258,37 @@
                 android:text="sex:"
                 android:textAlignment="viewStart" />
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="44dp"
-                tools:layout_editor_absoluteY="403dp">
+            <Spinner
+                android:id="@+id/sex_input"
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:layout_marginBottom="1dp"
+                android:entries="@array/sex"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/spouse_constraint" />
+            <!--<RadioGroup-->
+                <!--android:id="@+id/radioGroup"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--tools:layout_editor_absoluteX="44dp"-->
+                <!--tools:layout_editor_absoluteY="403dp">-->
 
-                <RadioButton
-                    android:id="@+id/male_radio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Male" />
+                <!--<RadioButton-->
+                    <!--android:id="@+id/male_radio"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="Male" />-->
 
-                <RadioButton
-                    android:id="@+id/female_radio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Female" />
-            </RadioGroup>
+                <!--<RadioButton-->
+                    <!--android:id="@+id/female_radio"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="Female" />-->
+            <!--</RadioGroup>-->
         </LinearLayout>
 
         <android.support.design.widget.TextInputLayout

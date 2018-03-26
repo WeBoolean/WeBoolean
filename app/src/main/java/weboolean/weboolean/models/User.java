@@ -17,18 +17,18 @@ import java.io.Serializable;
 public class User implements Serializable {
 
 
-    public String uid;
-    public UserType usertype;
-    public String sex;
-    public Boolean family;
-    public int dependents;
-    public int youngest;
-    public String spouse;
-    public Boolean veteran;
-    public int age;
-    public boolean checkedIn;
-    public int currentShelter;
-    public boolean locked;
+    private String uid;
+    private UserType usertype;
+    private String sex;
+    private Boolean family;
+    private int dependents;
+    private int youngest;
+    private String spouse;
+    private Boolean veteran;
+    private int age;
+    private boolean checkedIn;
+    private int currentShelter;
+    private boolean locked;
 
 
     public User() {

@@ -135,9 +135,9 @@ public class ShelterActivity extends AppCompatActivity {
         }
     }
 
-
+    //TODO: Doesn't push checked in status to firebase or update UI yet
+    //TODO: also probably lots of edge cases and situations to check
     private boolean checkIn(){
-        Log.w("TAG", "We TRYNA GET IN");
         if (CurrentUser.getCurrentUser().getCheckedIn()) {
             return false;
         } else {
@@ -145,12 +145,13 @@ public class ShelterActivity extends AppCompatActivity {
                 if ((boolean) shelter.getRestrictions().get("fam") && !CurrentUser.getCurrentUser().getFamily()) {
                     return false;
                 }
-                if ((boolean) shelter.getRestrictions().get("men") && !CurrentUser.getCurrentUser().getSex().equals("male")) {
+                if ((boolean) shelter.getRestrictions().get("men") && !CurrentUser.getCurrentUser().getSex().equals("Male")) {
                     return false;
                 }
-                if ((boolean) shelter.getRestrictions().get("women") && !CurrentUser.getCurrentUser().getSex().equals("women")) {
+                if ((boolean) shelter.getRestrictions().get("women") && !CurrentUser.getCurrentUser().getSex().equals("Female")) {
                     return false;
                 }
+                Log.w("TAGGY", shelter.getRestrictions().get("vets").toString());
                 if ((boolean) shelter.getRestrictions().get("vets") && !CurrentUser.getCurrentUser().getVeteran()) {
                     return false;
                 }

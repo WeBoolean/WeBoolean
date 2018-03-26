@@ -28,8 +28,14 @@
 
     <!--Strings related to registration-->
     <string-array name="spouse_sex">
+        <item>None</item>
         <item>Female</item>
         <item>Male</item>
+    </string-array>
+
+    <string-array name = "sex">
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
 
 </resources>
