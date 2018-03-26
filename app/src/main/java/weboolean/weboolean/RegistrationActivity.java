@@ -72,8 +72,13 @@ public class RegistrationActivity extends AppCompatActivity {
         // Get username and password from user input
         String userEmail = ((EditText) findViewById(R.id.email_input)).getText().toString();
         String userPassword = ((EditText) findViewById(R.id.password_input)).getText().toString();
+
+
         // Invalid input check
-        if (userEmail.equals("") || userPassword.equals("")) {
+        if (userEmail.equals("") || userPassword.equals("")
+            || ((EditText) findViewById(R.id.dependent_input)).getText().toString().equals("")
+            || ((EditText) findViewById(R.id.youngest_age_input)).getText().toString().equals("")
+            || ((EditText) findViewById(R.id.age_input)).getText().toString().equals("")) {
             Toast.makeText(this, "Must Provide Values", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(this, "Valid Values", Toast.LENGTH_LONG).show();
@@ -86,18 +91,10 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.d(TAG, "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
 
-                        //TODO: Actually fix these to get proper data instead of hardcoding usertype
+                        // Get remaining user info, must be final to access in inner classes
+                        //TODO: Actually fix usertype to get proper data instead of hardcoding usertype
                         UserType usertype = UserType.User;
-                        //Get user type from spinner
-                        //String sex = "";
-//                        RadioButton maleradio =(RadioButton) findViewById(R.id.male_radio);
-//                        RadioButton femaleradio =(RadioButton) findViewById(R.id.female_radio);
-//                        if (maleradio.isSelected()) {
-//                            sex = (String) maleradio.getText();
-//                        } else if (femaleradio.isSelected()) {
-//                            sex = (String) femaleradio.getText();
-//                        }
-                        String sex = ((Spinner) findViewById(R.id.spouse_input)).getSelectedItem().toString();
+                        String sex = ((Spinner) findViewById(R.id.sex_input)).getSelectedItem().toString();
                         boolean family = ((Switch) findViewById(R.id.family_check)).isChecked();
                         int dependents = Integer.parseInt(((EditText) findViewById(R.id.dependent_input)).getText().toString());
                         int youngestage = Integer.parseInt(((EditText) findViewById(R.id.youngest_age_input)).getText().toString());
@@ -107,9 +104,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         boolean checkedIn = false;
                         int currentShelter = -1;
                         boolean locked = false;
-                        //Create custom user
 
-                        //User u = new User();
+                        //Create custom user
                         User u = new User(user.getUid(), usertype, sex, family, dependents, youngestage,
                         spouse, veteran, age, checkedIn, currentShelter, locked);
 
