@@ -60,6 +60,7 @@ public class ShelterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(checkOut()) {
+                    updateShelter(shelter.getKey(), shelter);
                     Toast.makeText(ShelterActivity.this, "Successful Check Out!", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(ShelterActivity.this, "Check Out Failed: have to be checked in to checkout", Toast.LENGTH_LONG).show();
