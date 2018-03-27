@@ -16,7 +16,7 @@ import java.io.Serializable;
 @IgnoreExtraProperties
 public class User implements Serializable {
 
-
+    // Private variables for user data
     private String uid;
     private UserType usertype;
     private String sex;
@@ -30,7 +30,7 @@ public class User implements Serializable {
     private int currentShelter;
     private boolean locked;
 
-
+    // [Constructors] ============================================================================//
     public User() {
         this.uid = null;
         this.usertype = null;
@@ -67,6 +67,7 @@ public class User implements Serializable {
         this.locked = locked1;
     }
 
+    // [Getters and Setters] =====================================================================//
     public boolean getCheckedIn() {
         return checkedIn;
     }

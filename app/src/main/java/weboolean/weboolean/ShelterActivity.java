@@ -166,25 +166,28 @@ public class ShelterActivity extends AppCompatActivity {
                     if ((int) shelter.getRestrictions().get("child_age") < CurrentUser.getCurrentUser().getYoungest()) {
                         return false;
                     }
+
+
                 }
-                if (CurrentUser.getCurrentUser().getFamilySize() > 1) {
-                    if (shelter.getAvailable().get("rooms") != null && shelter.getAvailable().get("rooms") > 0) {
-                        CurrentUser.getCurrentUser().setCurrentShelter(shelter.getKey());
-                        CurrentUser.getCurrentUser().setCheckedIn(true);
-                        Map<String, Integer> newAvaibility = new HashMap<>();
-                        newAvaibility.put("rooms", shelter.getAvailable().get("rooms") - 1);
-                        shelter.setAvailable(newAvaibility);
-                        return true;
-                    }
-                }
-                if (shelter.getAvailable().get("beds") != null && shelter.getAvailable().get("beds") > CurrentUser.getCurrentUser().getFamilySize()) {
+            }
+            // They passed restrictions, check if the space is available
+            if (CurrentUser.getCurrentUser().getFamilySize() > 1) {
+                if (shelter.getAvailable().get("rooms") != null && shelter.getAvailable().get("rooms") > 0) {
                     CurrentUser.getCurrentUser().setCurrentShelter(shelter.getKey());
                     CurrentUser.getCurrentUser().setCheckedIn(true);
                     Map<String, Integer> newAvaibility = new HashMap<>();
-                    newAvaibility.put("beds", shelter.getAvailable().get("beds") - CurrentUser.getCurrentUser().getFamilySize());
+                    newAvaibility.put("rooms", shelter.getAvailable().get("rooms") - 1);
                     shelter.setAvailable(newAvaibility);
                     return true;
                 }
+            }
+            if (shelter.getAvailable().get("beds") != null && shelter.getAvailable().get("beds") > CurrentUser.getCurrentUser().getFamilySize()) {
+                CurrentUser.getCurrentUser().setCurrentShelter(shelter.getKey());
+                CurrentUser.getCurrentUser().setCheckedIn(true);
+                Map<String, Integer> newAvaibility = new HashMap<>();
+                newAvaibility.put("beds", shelter.getAvailable().get("beds") - CurrentUser.getCurrentUser().getFamilySize());
+                shelter.setAvailable(newAvaibility);
+                return true;
             }
         }
         return false;

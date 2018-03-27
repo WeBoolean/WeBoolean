@@ -146,7 +146,6 @@ public class LoginActivity extends AppCompatActivity {
                                             } catch (InstantiationException e) {
                                                 e.printStackTrace();
                                             }
-
                                         }
                                     }
                                     @Override

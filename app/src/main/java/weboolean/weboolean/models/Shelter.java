@@ -16,7 +16,7 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class Shelter implements Serializable {
 
-    // Private variables
+    // Private variables for shelter data
     private String address;
     private Map<String, Integer> available;
     private Map<String, Integer> capacity;
