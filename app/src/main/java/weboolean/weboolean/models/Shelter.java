@@ -1,11 +1,13 @@
 package weboolean.weboolean.models;
 
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +29,7 @@ public class Shelter implements Serializable {
     private String note;
     private String number;
     private Map<String, Object> restrictions;
-
+    public final String TAG = "Shelter";
 
     // [Constructors] ============================================================================//
     // No-args constructor
@@ -41,7 +43,7 @@ public class Shelter implements Serializable {
         this.name = null;
         this.note = null;
         this.number = null;
-        this.restrictions = null;
+        this.restrictions = new HashMap<>();
     }
     // Full constructor
     public Shelter(String address, Map<String, Integer> available, Map<String, Integer> capacity, int key, double latitude, double longitude, String name, String note, String number,
@@ -138,6 +140,8 @@ public class Shelter implements Serializable {
     }
 
     public void setAnyone(boolean anyone) {
+        Log.d(TAG, String.valueOf(anyone));
+        Log.d(TAG, restrictions.toString());
         restrictions.put("anyone", anyone);
     }
 

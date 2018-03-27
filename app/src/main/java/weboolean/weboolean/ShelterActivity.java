@@ -151,10 +151,12 @@ public class ShelterActivity extends AppCompatActivity {
                     return false;
                 }
                 Log.w(TAG, "sex " + CurrentUser.getCurrentUser().getSex());
-                if ((boolean) shelter.getRestrictions().get("men") && (!CurrentUser.getCurrentUser().getSex().equals("Male") || CurrentUser.getCurrentUser().getSpouse().equals("Female"))) {
+                if ((boolean) shelter.getRestrictions().get("men") && (!CurrentUser.getCurrentUser().getSex().equals("Male")
+                    ||(CurrentUser.getCurrentUser().getSpouse() != null && CurrentUser.getCurrentUser().getSpouse().equals("Female")))) {
                     return false;
                 }
-                if ((boolean) shelter.getRestrictions().get("women") && ((!CurrentUser.getCurrentUser().getSex().equals("Female") || CurrentUser.getCurrentUser().getSpouse().equals("Male")))) {
+                if ((boolean) shelter.getRestrictions().get("women") && ((!CurrentUser.getCurrentUser().getSex().equals("Female")
+                    || (CurrentUser.getCurrentUser().getSpouse() != null && CurrentUser.getCurrentUser().getSpouse().equals("Male"))))) {
                     return false;
                 }
                 if ((boolean) shelter.getRestrictions().get("vets") && !CurrentUser.getCurrentUser().getVeteran()) {
@@ -164,7 +166,7 @@ public class ShelterActivity extends AppCompatActivity {
                     if (CurrentUser.getCurrentUser().getDependents() == 0) {
                         return false;
                     }
-                    if ((int) shelter.getRestrictions().get("child_age") < CurrentUser.getCurrentUser().getYoungest()) {
+                    if (((Long)shelter.getRestrictions().get("child_age")).intValue() < CurrentUser.getCurrentUser().getYoungest()) {
                         return false;
                     }
 

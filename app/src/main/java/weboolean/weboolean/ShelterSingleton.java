@@ -68,6 +68,7 @@ public class ShelterSingleton implements Runnable {
                 updateLock.lock();
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     //get our individual shelter.
+                    Log.d(TAG, singleSnapshot.toString());
                     Shelter s = singleSnapshot.getValue(Shelter.class);
                     Integer key = s.getKey();
                     if (shelters.size() <= key) {
