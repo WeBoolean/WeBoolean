@@ -52,7 +52,7 @@ public class ShelterActivity extends AppCompatActivity {
                     updateShelter(shelter.getKey(), shelter);
                     Toast.makeText(ShelterActivity.this, "Successful Check In!", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(ShelterActivity.this, "Check In Failed: you can only be checked in one shelter and if they have available space", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ShelterActivity.this, "Check In Failed, make sure you meet all shelter restrictions & there is available space.", Toast.LENGTH_LONG).show();
                 }
             }
         });
