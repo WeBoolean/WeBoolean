@@ -172,4 +172,9 @@ public class User implements Serializable {
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
+
+    @Override
+    public String toString() {
+        return getUid() + getSex();
+    }
 }

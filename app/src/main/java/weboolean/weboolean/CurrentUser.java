@@ -73,6 +73,7 @@ public class CurrentUser implements Runnable {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User u = dataSnapshot.getValue(User.class);
+                Log.d(TAG, u.toString());
                 mutexlock.lock();
                 CurrentUser.u = u;
                 mutexlock.unlock();
