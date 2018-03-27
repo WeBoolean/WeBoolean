@@ -47,6 +47,7 @@ public class CurrentUser implements Runnable {
         t = tt;
         userSet = true;
         thread = new Thread(new CurrentUser());
+        thread.start();
     }
 
     // [Methods] =================================================================================//
