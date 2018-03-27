@@ -67,14 +67,15 @@ public class CurrentUser implements Runnable {
             Log.d(TAG, "Waiting for userset");
         };
 
-        reference = db.getReference("user/" + getCurrentFirebaseUser().getUid());
+        Log.d(TAG , "users/" + getCurrentFirebaseUser().getUid());
+        reference = db.getReference("users/" + getCurrentFirebaseUser().getUid());
 
         //add listener to user list
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User u = dataSnapshot.getValue(User.class);
-                Log.d(TAG, u.toString());
+                Log.d(TAG, u == null? "null" : u.toString());
                 mutexlock.lock();
                 CurrentUser.u = u;
                 mutexlock.unlock();

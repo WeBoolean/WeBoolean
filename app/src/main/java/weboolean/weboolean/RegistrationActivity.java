@@ -131,7 +131,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 .setValue(u);
 
                         //Launch login activity
-                        Intent intent = new Intent(RegistrationActivity.this, WelcomeActivity.class);
+                        Intent intent = new Intent(RegistrationActivity.this, MapsActivity.class);
                         startActivity(intent);
                     } else {
                         // If sign in fails, display a message to the user.
