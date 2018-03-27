@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (InstantiationException e) {
             e.printStackTrace(); //this will never happen.
         }
+        // read shared preferences for previous user
+
         // Automatically opens login activity after main activity runs
         openLoginPage();
     }

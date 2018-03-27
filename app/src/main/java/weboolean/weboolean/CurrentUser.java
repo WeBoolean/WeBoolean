@@ -1,5 +1,7 @@
 package weboolean.weboolean;
 
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +22,7 @@ import weboolean.weboolean.models.User;
  *
  */
 public class CurrentUser implements Runnable {
+    private static final String TAG = "CurrentUserSingleton";
     //Current user object represents the current user logged in
     private static FirebaseUser t;
     private static User u;
@@ -27,6 +30,7 @@ public class CurrentUser implements Runnable {
     private static DatabaseReference reference;
     private static final Lock mutexlock = new ReentrantLock();
     private static boolean instantiated = false;
+    private static boolean userSet = false;
     private static Thread thread;
 
     // [Getters and setters] =====================================================================//
@@ -41,6 +45,7 @@ public class CurrentUser implements Runnable {
     public static void setUserInstance(User uu, FirebaseUser tt) throws InstantiationException {
         u = uu;
         t = tt;
+        userSet = true;
         thread = new Thread(new CurrentUser());
     }
 
@@ -56,8 +61,12 @@ public class CurrentUser implements Runnable {
 
     public void run() {
         db = FirebaseDatabase.getInstance();
-        while (getCurrentUser() == null);
-        reference = db.getReference("user/" + getCurrentUser().getUid());
+
+        while (!userSet) {
+            Log.d(TAG, "Waiting for userset");
+        };
+
+        reference = db.getReference("user/" + getCurrentFirebaseUser().getUid());
 
         //add listener to user list
         reference.addValueEventListener(new ValueEventListener() {
