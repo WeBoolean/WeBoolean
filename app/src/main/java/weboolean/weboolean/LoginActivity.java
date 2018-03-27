@@ -127,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d(TAG, "signInWithEmail:success");
                                 final FirebaseUser user = mAuth.getCurrentUser();
                                 //TODO: right now this is hardcoded with UserType user and has repeated code with the onDataChange method
+                                //TODO: also now since we have added data persistence with other fields, we must instantiate a current user with all these fields
                                 try {
                                     CurrentUser.setUserInstance(new User(user.getUid(), UserType.User), user);
                                 } catch (InstantiationException e) {

@@ -27,6 +27,7 @@ public class ShelterActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference ref;
     Shelter shelter;
+    public static final String TAG = ShelterActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +140,7 @@ public class ShelterActivity extends AppCompatActivity {
 
     //TODO: Doesn't push checked in status to firebase or update UI yet
     //TODO: also probably lots of edge cases and situations to check
+    //TODO: should make users with several different parameters and try to check into every shelter
     private boolean checkIn() {
         if (CurrentUser.getCurrentUser().getCheckedIn()) {
             return false;
@@ -147,6 +149,7 @@ public class ShelterActivity extends AppCompatActivity {
                 if ((boolean) shelter.getRestrictions().get("fam") && !CurrentUser.getCurrentUser().getFamily()) {
                     return false;
                 }
+                Log.w(TAG, "sex " + CurrentUser.getCurrentUser().getSex());
                 if ((boolean) shelter.getRestrictions().get("men") && !CurrentUser.getCurrentUser().getSex().equals("Male")) {
                     return false;
                 }
