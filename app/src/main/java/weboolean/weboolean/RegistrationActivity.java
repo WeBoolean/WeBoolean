@@ -76,10 +76,12 @@ public class RegistrationActivity extends AppCompatActivity {
 
         // Invalid input check
         if (userEmail.equals("") || userPassword.equals("")
-            || ((EditText) findViewById(R.id.dependent_input)).getText().toString().equals("")
-            || ((EditText) findViewById(R.id.youngest_age_input)).getText().toString().equals("")
             || ((EditText) findViewById(R.id.age_input)).getText().toString().equals("")) {
             Toast.makeText(this, "Must Provide Values", Toast.LENGTH_LONG).show();
+        } else if (((Switch) findViewById(R.id.family_check)).isChecked() &&
+            (((EditText) findViewById(R.id.dependent_input)).getText().toString().equals("")
+            || ((EditText) findViewById(R.id.youngest_age_input)).getText().toString().equals(""))){
+            Toast.makeText(this, "Must Input family size", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Valid Values", Toast.LENGTH_LONG).show();
             mAuth.createUserWithEmailAndPassword(userEmail, userPassword)
@@ -96,9 +98,15 @@ public class RegistrationActivity extends AppCompatActivity {
                         UserType usertype = UserType.User;
                         String sex = ((Spinner) findViewById(R.id.sex_input)).getSelectedItem().toString();
                         boolean family = ((Switch) findViewById(R.id.family_check)).isChecked();
-                        int dependents = Integer.parseInt(((EditText) findViewById(R.id.dependent_input)).getText().toString());
-                        int youngestage = Integer.parseInt(((EditText) findViewById(R.id.youngest_age_input)).getText().toString());
-                        String spouse = ((Spinner) findViewById(R.id.spouse_input)).getSelectedItem().toString();
+                        int dependents =
+                            ((EditText) findViewById(R.id.dependent_input)).getText().toString().equals("")
+                            ? 0 : Integer.parseInt(((EditText) findViewById(R.id.dependent_input)).getText().toString());
+                        int youngestage =
+                            ((EditText) findViewById(R.id.youngest_age_input)).getText().toString().equals("")
+                            ? -1 : Integer.parseInt(((EditText) findViewById(R.id.youngest_age_input)).getText().toString());
+                        String spouse =
+                            ((Spinner) findViewById(R.id.spouse_input)).getSelectedItem().toString().equals("None")
+                            ? null : ((Spinner) findViewById(R.id.spouse_input)).getSelectedItem().toString();
                         boolean veteran = ((Switch) findViewById(R.id.veteran_check)).isChecked();
                         int age = Integer.parseInt(((EditText) findViewById(R.id.age_input)).getText().toString());
                         boolean checkedIn = false;
