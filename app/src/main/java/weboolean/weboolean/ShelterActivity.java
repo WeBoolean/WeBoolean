@@ -197,7 +197,7 @@ public class ShelterActivity extends AppCompatActivity {
             CurrentUser.getCurrentUser().setCheckedIn(false);
             CurrentUser.getCurrentUser().setCurrentShelter(-1);
             Map<String, Integer> newAvaibility = new HashMap<>();
-            if (shelter.getCapacity().get("rooms") > 0) {
+            if (shelter.getCapacity().get("rooms") != null && shelter.getCapacity().get("rooms")> 0) {
                 newAvaibility.put("rooms", shelter.getAvailable().get("rooms") + CurrentUser.getCurrentUser().getFamilySize());
             } else {
                 newAvaibility.put("beds", shelter.getAvailable().get("beds") + 1);
