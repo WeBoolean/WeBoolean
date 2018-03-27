@@ -150,10 +150,10 @@ public class ShelterActivity extends AppCompatActivity {
                     return false;
                 }
                 Log.w(TAG, "sex " + CurrentUser.getCurrentUser().getSex());
-                if ((boolean) shelter.getRestrictions().get("men") && !CurrentUser.getCurrentUser().getSex().equals("Male") && (!(CurrentUser.getCurrentUser().getSpouse() == null || CurrentUser.getCurrentUser().getSpouse().equals("Male")))) {
+                if ((boolean) shelter.getRestrictions().get("men") && (!CurrentUser.getCurrentUser().getSex().equals("Male") || CurrentUser.getCurrentUser().getSpouse().equals("Female"))) {
                     return false;
                 }
-                if ((boolean) shelter.getRestrictions().get("women") && (!CurrentUser.getCurrentUser().getSex().equals("Female") && (!(CurrentUser.getCurrentUser().getSpouse() == null || CurrentUser.getCurrentUser().getSpouse().equals("Female"))))) {
+                if ((boolean) shelter.getRestrictions().get("women") && ((!CurrentUser.getCurrentUser().getSex().equals("Female") || CurrentUser.getCurrentUser().getSpouse().equals("Male")))) {
                     return false;
                 }
                 if ((boolean) shelter.getRestrictions().get("vets") && !CurrentUser.getCurrentUser().getVeteran()) {
@@ -200,7 +200,7 @@ public class ShelterActivity extends AppCompatActivity {
             if (shelter.getCapacity().get("rooms") != null && shelter.getCapacity().get("rooms")> 0) {
                 newAvaibility.put("rooms", shelter.getAvailable().get("rooms") + CurrentUser.getCurrentUser().getFamilySize());
             } else {
-                newAvaibility.put("beds", shelter.getAvailable().get("beds") + 1);
+                newAvaibility.put("beds", shelter.getAvailable().get("beds") + CurrentUser.getCurrentUser().getFamilySize());
             }
             shelter.setAvailable(newAvaibility);
             return true;
