@@ -56,9 +56,9 @@ public class ShelterActivity extends AppCompatActivity {
                     u.setCurrentShelter(shelter.getKey());
                     CurrentUser.getCurrentUser().setCheckedIn(true);
                     CurrentUser.updateUser(u);
-                    Toast.makeText(ShelterActivity.this, "Successful Check In!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ShelterActivity.this, "Successful Check In!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ShelterActivity.this, "Check In Failed, make sure you meet all shelter restrictions & there is available space.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ShelterActivity.this, "Check In Failed, make sure you meet all shelter restrictions & there is available space.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
