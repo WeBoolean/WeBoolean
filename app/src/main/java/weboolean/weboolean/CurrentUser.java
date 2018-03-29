@@ -63,10 +63,6 @@ public class CurrentUser implements Runnable {
     public void run() {
         db = FirebaseDatabase.getInstance();
 
-        while (!userSet) {
-            Log.d(TAG, "Waiting for userset");
-        };
-
         Log.d(TAG , "users/" + getCurrentFirebaseUser().getUid());
         reference = db.getReference("users/" + getCurrentFirebaseUser().getUid());
 
