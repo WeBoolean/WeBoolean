@@ -3,21 +3,26 @@
 
     To get one, follow this link, follow the directions and press "Create" at the end:
 
-    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=6D:37:3B:78:B1:15:91:F4:E8:0B:7F:0B:61:6A:7C:AA:63:67:9B:9E%3Bweboolean.weboolean
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=9C:A4:09:99:88:A6:05:FC:28:B4:53:4E:C4:72:E9:F6:D9:23:0C:96%3Bweboolean.weboolean
+    INSTRUCTIONS (by Raj):
+        - Run the app
+        - Look at LogCat. There should be 4 lines of red saying something along the lines of:
+E/Google Maps Android API: Authorization failure.  Please see https://developers.google.com/maps/documentation/android-api/start for how to correctly set up the map.
+E/Google Maps Android API: In the Google Developer Console (https://console.developers.google.com)
+                   Ensure that the "Google Maps Android API v2" is enabled.
+                   Ensure that the following Android Key exists:
+                    API Key: AIzaSyCVN3xVDMD3S5TU81uqy7Sq04ufTZvVwI
+                    Android Application (<cert_fingerprint>;<package_name>): 9C:A4:09:99:88:A6:05:FC:28:B4:53:4E:C4:72:E9:F6:D9:23:0C:96;weboolean.weboolean
 
-    You can also add your credentials to an existing key, using these values:
+        - You will have a different number there. I have the 9C...96, you will have something different. Replace [PASTE IN HERE] with you string.
+         The final version should be along the lines of the URL at the top.
 
-    Package name:
-    6D:37:3B:78:B1:15:91:F4:E8:0B:7F:0B:61:6A:7C:AA:63:67:9B:9E
-
-    SHA-1 certificate fingerprint:
-    6D:37:3B:78:B1:15:91:F4:E8:0B:7F:0B:61:6A:7C:AA:63:67:9B:9E
-
-    Alternatively, follow the directions here:
-    https://developers.google.com/maps/documentation/android/start#get-key
+https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=[PASTE IN HERE]%3Bweboolean.weboolean
+        - Copy and paste that string into a web browser and follow instructions
+        - Rename the key to yournameKey so that we know who's is who's.
 
     Once you have your key (it starts with "AIza"), replace the "google_maps_key"
     string in this file.
     -->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false"> AIzaSyDGsQtykkzOyNFIi2WPsPp4BkmbW7rUroo </string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">  AIzaSyCVN3axVDMD3S5TU81uqy7Sq04ufTZvVwI</string>
 </resources>
