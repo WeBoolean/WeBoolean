@@ -106,4 +106,9 @@ public class CurrentUser implements Runnable {
         }
     }
 
+    public static void updateUser(User u) {
+        DatabaseReference ref = db.getReference("users/");
+        ref.child(u.getUid()).setValue(u);
+    }
+
 }
