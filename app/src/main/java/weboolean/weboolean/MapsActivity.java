@@ -1,14 +1,20 @@
 package weboolean.weboolean;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,13 +22,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
 import weboolean.weboolean.models.Shelter;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener {
     private static final String TAG = "MapsActivity";
     private GoogleMap mMap;
     private LatLng atlanta;
@@ -54,8 +61,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -72,8 +77,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng pos;
         for (Shelter s : shelters) {
             pos = new LatLng(s.getLatitude(), s.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(pos).title(s.getName()));
+            Marker m = mMap.addMarker(new MarkerOptions().position(pos).title(s.getName()).snippet(s.getInformationStringSnippet()));
+            m.setTag(s.getKey());
         }
+        mMap.setOnMarkerClickListener(this);
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                Context mContext = getApplicationContext();
+                LinearLayout info = new LinearLayout(mContext);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(mContext);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(mContext);
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+
+            }
+        });
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -92,7 +129,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         enableAndSetUserLocation();
     }
-
 
     /** TODO: Actually find the user location
      * Enables myLocation and hypothetically centers camera
@@ -128,5 +164,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onBackPressed() {
         CurrentUser.logOutUser();
         finish();
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        marker.showInfoWindow();
+        return true;
     }
 }
