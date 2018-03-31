@@ -199,4 +199,12 @@ public class Shelter implements Serializable {
         }
         return s;
     }
+
+    public static ArrayList<Integer> toIDList(List<Shelter> okShelters) {
+        ArrayList<Integer> ret = new ArrayList<>(okShelters.size());
+        for (Shelter s : okShelters) {
+            ret.add(s.getKey());
+        }
+        return ret;
+    }
 }

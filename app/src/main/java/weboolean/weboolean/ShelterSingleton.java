@@ -87,7 +87,7 @@ public class ShelterSingleton implements Runnable {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+                Log.e(TAG, "The read failed: " + databaseError.getCode());
             }
         });
         //insert code to connect to database and populate here

@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Automatically opens login activity after main activity runs
         openLoginPage();
+        finish();
     }
     // See above
     private void openLoginPage() {
