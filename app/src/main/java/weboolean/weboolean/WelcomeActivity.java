@@ -23,10 +23,12 @@ import java.util.ArrayList;
 
 import weboolean.weboolean.models.Shelter;
 
+
+/**
+ * Shows Login and Registration Screen Options.
+ */
 public class WelcomeActivity extends AppCompatActivity {
-    // Firebase references
-    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference ref = mDatabase.getReference("shelters");
+
     // List of shelters
     ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
@@ -66,6 +68,10 @@ public class WelcomeActivity extends AppCompatActivity {
         } else {
             // Get Shelter array list from Shelter Singleton (Firebase)
             listItems = Shelter.toStrings(ShelterSingleton.getShelterArrayCopy());
+        }
+        // in case no shelters were found, and it's magically null (will never happen)
+        if (listItems == null) {
+            listItems = new ArrayList<>();
         }
         Log.d("SearchActivity", "" + listItems.size());
 

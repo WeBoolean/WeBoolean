@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
+/**
+ * Initialization Activity Only.
+ */
 public class MainActivity extends AppCompatActivity {
     // [AppCompat Activity Overridden Methods] ===================================================//
     @Override
@@ -19,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace(); //this will never happen.
         }
         // read shared preferences for previous user
+        // TODO.
 
         // Automatically opens login activity after main activity runs
         openLoginPage();
