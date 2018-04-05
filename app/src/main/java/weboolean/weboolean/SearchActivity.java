@@ -44,11 +44,6 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 HashMap vals = new HashMap();
-//                if (!(rb_male.isChecked()) && !(rb_female.isChecked()) && !(age.isChecked()) && !(vet.isChecked()) && !fam.isChecked()) {
-//                    vals.put("anyone", true);
-//                } else {
-//                    vals.put("anyone", false);
-//                }
                 vals.put("children", age.isChecked());
                 vals.put("fam", fam.isChecked());
                 vals.put("men", rb_male.isChecked());
@@ -104,7 +99,7 @@ public class SearchActivity extends AppCompatActivity {
         for (String restriction: parameters.keySet()) {
             Log.d(TAG, "Searching for Restriction\t" + restriction);
             Set<Shelter> removeSet = new HashSet<>();
-            if (restriction == "child_age") {
+            if (restriction.equals("child_age")) {
                 // now do restriction matching
                 searchChildAge((Integer) parameters.get(restriction), removeSet, consideration);
             } else {
@@ -126,7 +121,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private static void searchChildAge(Integer restriction, Set<Shelter> removeSet, final Set<Shelter> consideration) {
-        //modifies removeSet with all matches from consdieration
+        //modifies removeSet with all matches from consideration
         if (restriction == null) {
             return;
         }
