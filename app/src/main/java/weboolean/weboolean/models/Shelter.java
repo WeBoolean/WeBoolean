@@ -1,6 +1,5 @@
 package weboolean.weboolean.models;
 
-import android.os.Parcelable;
 import android.util.Log;
 
 import com.google.firebase.database.IgnoreExtraProperties;
@@ -18,7 +17,7 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class Shelter implements Serializable {
 
-    // Private variables for shelter data
+    // Private variables for shelter data. Self explanatory you dunce.
     private String address;
     private Map<String, Integer> available;
     private Map<String, Integer> capacity;
@@ -27,7 +26,7 @@ public class Shelter implements Serializable {
     private double longitude;
     private String name;
     private String note;
-    private String number;
+    private String phoneNumber;
     private Map<String, Object> restrictions;
     private final String TAG = "Shelter";
 
@@ -42,12 +41,13 @@ public class Shelter implements Serializable {
         this.longitude = -1;
         this.name = null;
         this.note = null;
-        this.number = null;
+        this.phoneNumber = null;
         this.restrictions = new HashMap<>();
     }
     // Full constructor
-    public Shelter(String address, Map<String, Integer> available, Map<String, Integer> capacity, int key, double latitude, double longitude, String name, String note, String number,
-                   Map<String, Object> restrictions) {
+    public Shelter(String address, Map<String, Integer> available, Map<String, Integer> capacity,
+                   int key, double latitude, double longitude, String name, String note,
+                   String phoneNumber, Map<String, Object> restrictions) {
         this.address = address;
         this.available = available;
         this.capacity = capacity;
@@ -56,7 +56,7 @@ public class Shelter implements Serializable {
         this.longitude = longitude;
         this.name = name;
         this.note = note;
-        this.number = number;
+        this.phoneNumber = phoneNumber;
         this.restrictions = restrictions;
     }
 
@@ -127,12 +127,12 @@ public class Shelter implements Serializable {
         this.note = note;
     }
 
-    public String getNumber() {
-        return number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public boolean getAnyone() {
@@ -154,8 +154,7 @@ public class Shelter implements Serializable {
     }
 
 
-    // [Overridden Methods] ======================================================================//
-    //Comparison codes
+    // [Object Methods] ==========================================================================//
     @Override
     public boolean equals(Object other) {
         if (! (other instanceof Shelter)) {
@@ -169,6 +168,11 @@ public class Shelter implements Serializable {
         return this.getName();
     }
 
+
+    /**
+     * @param okShelters        Shelters to get strings from
+     * @return                  Returns array of toString for the shelter.
+     */
     public static ArrayList<String> toStrings(List<Shelter> okShelters) {
         ArrayList<String> listItems = new ArrayList<>();
         for (int i = 0; i < okShelters.size(); i++) {
@@ -177,10 +181,13 @@ public class Shelter implements Serializable {
         return listItems;
     }
 
+    /**
+     * @return An information string, containing basic information
+     */
     public String getInformationStringSnippet() {
         String s = "";
-        // First add phone number
-        s += this.getNumber() + "\n";
+        // First add phone phoneNumber
+        s += this.getPhoneNumber() + "\n";
         // Address
         // Find substring without "atlanta in it"
         int i = this.getAddress().indexOf("Atlanta");
@@ -200,9 +207,17 @@ public class Shelter implements Serializable {
         return s;
     }
 
-    public static ArrayList<Integer> toIDList(List<Shelter> okShelters) {
-        ArrayList<Integer> ret = new ArrayList<>(okShelters.size());
-        for (Shelter s : okShelters) {
+    /**
+     * @param shelters      Shelters to get an ID list from
+     * @return              An ArrayList<Integer> of Shelter Keys/IDs
+     */
+    public static ArrayList<Integer> toIDList(List<Shelter> shelters) {
+        // Null control structure
+        if (shelters == null) {
+            return new ArrayList<>();
+        }
+        ArrayList<Integer> ret = new ArrayList<>(shelters.size());
+        for (Shelter s : shelters) {
             ret.add(s.getKey());
         }
         return ret;
