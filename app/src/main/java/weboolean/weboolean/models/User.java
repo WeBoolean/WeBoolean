@@ -18,7 +18,7 @@ public class User implements Serializable {
 
     // Private variables for user data
     private String uid;
-    private UserType usertype;
+    private UserType userType;
     private String sex;
     private Boolean family;
     private int dependents;
@@ -33,7 +33,7 @@ public class User implements Serializable {
     // [Constructors] ============================================================================//
     public User() {
         this.uid = null;
-        this.usertype = null;
+        this.userType = null;
         this.sex = null;
         this.family = false;
         this.dependents = 0;
@@ -49,22 +49,22 @@ public class User implements Serializable {
     public User(String UID, UserType type) {
         this();
         this.uid = UID;
-        this.usertype = type;
+        this.userType = type;
     }
 
-    public User(String uid1, UserType usertype1, String sex1, Boolean fam1, int dep1, int young1,
-                String spouse1, Boolean vet1, int age1, boolean checked1, int curr1, boolean locked1) {
-        this(uid1, usertype1);
-        this.sex = sex1;
-        this.family = fam1;
-        this.dependents = dep1;
-        this.youngest = young1;
-        this.spouse = spouse1;
-        this.veteran = vet1;
-        this.age = age1;
-        this.checkedIn = checked1;
-        this.currentShelter = curr1;
-        this.locked = locked1;
+    public User(String uid, UserType usertype, String sex, Boolean fam, int dep, int young,
+                String spouse, Boolean vet, int age, boolean checked, int curr, boolean locked) {
+        this(uid, usertype);
+        this.sex = sex;
+        this.family = fam;
+        this.dependents = dep;
+        this.youngest = young;
+        this.spouse = spouse;
+        this.veteran = vet;
+        this.age = age;
+        this.checkedIn = checked;
+        this.currentShelter = curr;
+        this.locked = locked;
     }
 
     // [Getters and Setters] =====================================================================//
@@ -72,17 +72,16 @@ public class User implements Serializable {
         return checkedIn;
     }
 
+    public void setCheckedIn(boolean checkedIn) {
+        this.checkedIn = checkedIn;
+    }
+
     public int getCurrentShelter() {
         return currentShelter;
     }
 
-    public int getFamilySize() {
-        int size = 1;
-        if (dependents != 0) {
-            size += dependents;
-        } if (spouse != null) {
-            size += 1;
-        } return size;
+    public void setCurrentShelter(int currentShelter) {
+        this.currentShelter = currentShelter;
     }
 
     public String getUid() {
@@ -94,11 +93,11 @@ public class User implements Serializable {
     }
 
     public UserType getUserType() {
-        return usertype;
+        return userType;
     }
 
     public void setUserType(UserType usertype) {
-        this.usertype = usertype;
+        this.userType = usertype;
     }
 
     public String getSex() {
@@ -157,14 +156,6 @@ public class User implements Serializable {
         this.age = age;
     }
 
-    public void setCheckedIn(boolean checkedIn) {
-        this.checkedIn = checkedIn;
-    }
-
-    public void setCurrentShelter(int currentShelter) {
-        this.currentShelter = currentShelter;
-    }
-
     public boolean getLocked() {
         return locked;
     }
@@ -173,8 +164,23 @@ public class User implements Serializable {
         this.locked = locked;
     }
 
+    // [Object Methods] ===========================================================================/
     @Override
     public String toString() {
         return getUid() + getSex();
     }
+
+    /**
+     * @return Computed family size for logic.
+     */
+    public int getFamilySize() {
+        int size = 1;
+        if (dependents != 0) {
+            size += dependents;
+        }
+        if (spouse != null) {
+            size += 1;
+        } return size;
+    }
+
 }
