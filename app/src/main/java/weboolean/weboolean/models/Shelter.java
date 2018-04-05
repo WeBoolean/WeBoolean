@@ -29,7 +29,7 @@ public class Shelter implements Serializable {
     private String note;
     private String number;
     private Map<String, Object> restrictions;
-    public final String TAG = "Shelter";
+    private final String TAG = "Shelter";
 
     // [Constructors] ============================================================================//
     // No-args constructor
@@ -175,5 +175,36 @@ public class Shelter implements Serializable {
             listItems.add(okShelters.get(i).toString());
         }
         return listItems;
+    }
+
+    public String getInformationStringSnippet() {
+        String s = "";
+        // First add phone number
+        s += this.getNumber() + "\n";
+        // Address
+        // Find substring without "atlanta in it"
+        int i = this.getAddress().indexOf("Atlanta");
+        s += this.getAddress().substring(0, i) + "\n";
+        // Capacity
+        if (this.capacity.containsKey("beds") && this.capacity.containsKey("rooms")
+                && this.capacity.get("beds") != 0 && this.capacity.get("rooms") != 0) {
+            s += "Beds Available: " + this.available.get("beds") + "\n";
+            s += "Rooms Available: " + this.available.get("rooms") + "\n";
+        } else if (this.capacity.containsKey("beds") && this.capacity.get("beds") != 0) {
+            s += "Beds Available: " + this.available.get("beds") + "\n";
+        } else if (this.capacity.containsKey("rooms") && this.capacity.get("rooms") != 0) {
+            s += "Rooms Available: " + this.available.get("rooms") + "\n";
+        } else {
+            s += "No Availability Information";
+        }
+        return s;
+    }
+
+    public static ArrayList<Integer> toIDList(List<Shelter> okShelters) {
+        ArrayList<Integer> ret = new ArrayList<>(okShelters.size());
+        for (Shelter s : okShelters) {
+            ret.add(s.getKey());
+        }
+        return ret;
     }
 }

@@ -27,22 +27,21 @@ public class WelcomeActivity extends AppCompatActivity {
     // Firebase references
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference ref = mDatabase.getReference("shelters");
-    //List of shelters
-    ArrayList<String> listItems = new ArrayList<String>();
+    // List of shelters
+    ArrayList<String> listItems = new ArrayList<>();
     ArrayAdapter<String> adapter;
     private ListView mListView;
     // TAG for log
     public static final String TAG = WelcomeActivity.class.getSimpleName();
 
-    // [AppCompat Activity Overridden Methods] ===================================================//
+    // [AppCompat Activity Overridden Methods]
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Setup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        //Obtain intent
 
-        //Create logout button and list of shelters with listener and adapter
+        // Create logout button and list of shelters with listener and adapter
         final Button logoutButton = findViewById(R.id.LogOutButton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,14 +55,16 @@ public class WelcomeActivity extends AppCompatActivity {
         if (mListView == null) {
             mListView = findViewById(R.id.list);
         }
-        // Get Shelter array list from Shelter Singleton (Firebase)
 
+        // Obtain intent
         Intent startIntent = getIntent();
         Bundle instructions = startIntent.getExtras();
-        if (instructions != null && !instructions.isEmpty() && instructions.containsKey("shelters")) {
-            //Read Shelters from bundle
+        if (instructions != null && !instructions.isEmpty()
+                && instructions.containsKey("shelters")) {
+            // Read Shelters from bundle
             listItems = (ArrayList<String>) instructions.get("shelters");
         } else {
+            // Get Shelter array list from Shelter Singleton (Firebase)
             listItems = Shelter.toStrings(ShelterSingleton.getShelterArrayCopy());
         }
         Log.d("SearchActivity", "" + listItems.size());
@@ -74,14 +75,16 @@ public class WelcomeActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(WelcomeActivity.this, ShelterActivity.class);
-                intent.putExtra("Shelter", ShelterSingleton.getShelterKeyByCommonName(listItems.get(i)));
-                //based on item add info to intent
+                Intent intent = new Intent(WelcomeActivity.this,
+                        ShelterActivity.class);
+                intent.putExtra("Shelter",
+                        ShelterSingleton.getShelterKeyByCommonName(listItems.get(i)));
+                // based on item add info to intent
                 startActivity(intent);
             }
         });
     }
-    // [ Getters and setters ] ===================================================================//
+    // [ Getters and setters ]
     protected ListView getListView() {
         if (mListView == null) {
             mListView = findViewById(R.id.list);
@@ -93,15 +96,17 @@ public class WelcomeActivity extends AppCompatActivity {
         getListView().setAdapter(adapter);
     }
 
-    // [ Methods ] ===============================================================================//
+    // [ Methods ]
     private void logOut() {
         if ( CurrentUser.logOutUser()) {
-            Toast.makeText(WelcomeActivity.this, "Successful LogOut", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WelcomeActivity.this,
+                    "Successful LogOut", Toast.LENGTH_SHORT).show();
             // Go back to main activity after successful logout
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
-            Toast.makeText(WelcomeActivity.this, "Unsuccessful LogOut", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WelcomeActivity.this,
+                    "Unsuccessful LogOut", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -28,7 +28,7 @@ public class SearchActivity extends AppCompatActivity {
     public final static String TAG =  SearchActivity.class.getSimpleName();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         // Setup
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
@@ -64,11 +64,22 @@ public class SearchActivity extends AppCompatActivity {
                 }
                 vals.put("name", shelter_name_match);
                 List<Shelter> okShelters = searchShelters(vals);
-                Intent browseShelters = new Intent(SearchActivity.this, WelcomeActivity.class);
+
                 Bundle shelterBundle = new Bundle();
-                shelterBundle.putStringArrayList("shelters", Shelter.toStrings(okShelters));
-                browseShelters.putExtras(shelterBundle);
-                startActivity(browseShelters);
+                Bundle prevBundle = getIntent().getExtras();
+                if (prevBundle != null
+                        && prevBundle.containsKey("map_filter")
+                        && prevBundle.getInt("map_filter") == 1) {
+                    Intent rebrowseMap = new Intent(SearchActivity.this, MapsActivity.class);
+                    shelterBundle.putIntegerArrayList("shelters", Shelter.toIDList(okShelters));
+                    rebrowseMap.putExtras(shelterBundle);
+                    startActivity(rebrowseMap);
+                } else {
+                    Intent browseShelters = new Intent(SearchActivity.this, WelcomeActivity.class);
+                    shelterBundle.putStringArrayList("shelters", Shelter.toStrings(okShelters));
+                    browseShelters.putExtras(shelterBundle);
+                    startActivity(browseShelters);
+                }
 
             }
         });
