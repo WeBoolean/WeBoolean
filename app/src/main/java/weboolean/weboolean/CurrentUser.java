@@ -19,13 +19,12 @@ import weboolean.weboolean.models.User;
  * The purpose of this class is to manage the users while the app is running
  * By having a single static class, we can reference this class to see the user type.
  * This way, we know what type they are without having to read from the database every time.
- *
  */
 public class CurrentUser implements Runnable {
     private static final String TAG = "CurrentUserSingleton";
     //Current user object represents the current user logged in
-    private static FirebaseUser t;
-    private static User u;
+    private static FirebaseUser firebaseUser;
+    private static User user;
     private static FirebaseDatabase db;
     private static DatabaseReference reference;
     private static final Lock mutexlock = new ReentrantLock();
@@ -34,17 +33,17 @@ public class CurrentUser implements Runnable {
     private static Thread thread;
 
     // [Getters and setters] =====================================================================//
-    public static User getCurrentUser() {
-        return u;
+    static User getCurrentUser() {
+        return user;
     }
 
-    public static FirebaseUser getCurrentFirebaseUser() {
-        return t;
+    static FirebaseUser getCurrentFirebaseUser() {
+        return firebaseUser;
     }
 
-    public static void setUserInstance(User uu, FirebaseUser tt) throws InstantiationException {
-        u = uu;
-        t = tt;
+    static void setUserInstance(User user, FirebaseUser firebaseUser) throws InstantiationException {
+        CurrentUser.user = user;
+        CurrentUser.firebaseUser = firebaseUser;
         userSet = true;
         thread = new Thread(new CurrentUser());
         thread.start();
@@ -52,7 +51,12 @@ public class CurrentUser implements Runnable {
 
     // [Methods] =================================================================================//
 
-    public CurrentUser() throws InstantiationException {
+    /** Instantiation for worker thread
+     *
+     * This should NEVER be instantiated outside of this class.
+     * @throws InstantiationException
+     */
+    private CurrentUser() throws InstantiationException {
         if (CurrentUser.instantiated) {
             throw new InstantiationException("Only one current user is allowed at once.");
         } else {
@@ -60,6 +64,7 @@ public class CurrentUser implements Runnable {
         }
     }
 
+    @Override
     public void run() {
         db = FirebaseDatabase.getInstance();
 
@@ -71,9 +76,9 @@ public class CurrentUser implements Runnable {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User u = dataSnapshot.getValue(User.class);
-                Log.d(TAG, u == null? "null" : u.toString());
+                Log.d(TAG, u == null ? "null" : u.toString());
                 mutexlock.lock();
-                CurrentUser.u = u;
+                CurrentUser.user = u;
                 mutexlock.unlock();
             }
 
@@ -84,12 +89,15 @@ public class CurrentUser implements Runnable {
         });
     }
 
-    public static boolean logOutUser() {
+    /** Log the user out.
+     * @return true/false based on if logout succeeded.
+     */
+    static boolean logOutUser() {
         mutexlock.lock();
         try {
             FirebaseAuth.getInstance().signOut();
-            u = null;
-            t = null;
+            user = null;
+            firebaseUser = null;
             mutexlock.unlock();
             thread.interrupt();
             thread.join();
@@ -102,7 +110,11 @@ public class CurrentUser implements Runnable {
         }
     }
 
-    public static void updateUser(User u) {
+
+    /**
+     * @param u update the user state.
+     */
+    static void updateUser(User u) {
         DatabaseReference ref = db.getReference("users/");
         ref.child(u.getUid()).setValue(u);
     }
