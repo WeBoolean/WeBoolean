@@ -64,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
         else {
-            Log.d(TAG, "Instructions was null or empty");
+            Log.d(TAG, "Instructions were null or empty");
             shelters = ShelterSingleton.getShelterArrayCopy();
         }
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -213,7 +213,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     private void setLocationToAtlanta() {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atlanta, 10));
-        Log.e(TAG, "Location not Granted: missing locations ");
+        Log.e(TAG, "Location Not Granted: Missing Locations ");
     }
     /**
      * Log out user when they go "back" from MapActivity

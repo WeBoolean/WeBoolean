@@ -54,11 +54,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 attemptRegistration();
             }
         });
-
-        /*final Spinner userTypeSelection = (Spinner) findViewById(R.id.user_type_spinner);
-        ArrayAdapter<UserType> adapter = new ArrayAdapter<UserType>(this, android.R.layout.simple_spinner_item,
-                UserType.values());
-        userTypeSelection.setAdapter(adapter);*/
     }
 
     @Override
@@ -73,7 +68,6 @@ public class RegistrationActivity extends AppCompatActivity {
         String userEmail = ((EditText) findViewById(R.id.email_input)).getText().toString();
         String userPassword = ((EditText) findViewById(R.id.password_input)).getText().toString();
 
-
         // Invalid input check
         if (userEmail.equals("") || userPassword.equals("")
             || ((EditText) findViewById(R.id.age_input)).getText().toString().equals("")) {
@@ -81,7 +75,7 @@ public class RegistrationActivity extends AppCompatActivity {
         } else if (((Switch) findViewById(R.id.family_check)).isChecked() &&
             (((EditText) findViewById(R.id.dependent_input)).getText().toString().equals("")
             || ((EditText) findViewById(R.id.youngest_age_input)).getText().toString().equals(""))){
-            Toast.makeText(this, "Must Input family size", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Must Input Family Size", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Valid Values", Toast.LENGTH_LONG).show();
             mAuth.createUserWithEmailAndPassword(userEmail, userPassword)
@@ -130,7 +124,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         mDatabase.child("users").child(user.getUid())
                                 .setValue(u);
 
-                        //Launch login activit
+                        //Launch login activity
                         Intent intent = new Intent(RegistrationActivity.this, MapsActivity.class);
                         startActivity(intent);
 
