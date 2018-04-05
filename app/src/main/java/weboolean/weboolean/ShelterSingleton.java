@@ -25,12 +25,12 @@ public class ShelterSingleton implements Runnable {
 
     // Holds our copy of the shelters
     private static ArrayList<Shelter> shelters = new ArrayList<>();
-    // Firebase
+
+    // Firebase setup.
     private static FirebaseDatabase db;
     private static DatabaseReference reference;
 
     // Make sure only one copy of this is ever instantiated
-    // Ideally, we find some better way that deletes this on deletion
     private static boolean instantiated = false;
 
     // Logging. Currently unused.
@@ -38,7 +38,7 @@ public class ShelterSingleton implements Runnable {
 
     // Mutex lock ensures we never try to write to the shelter array while someone is getting
     // a copy of it.
-    private static final Lock mutexloc = new ReentrantLock();
+    private static final Lock mutexLock = new ReentrantLock();
     private static final Lock updateLock = new ReentrantLock();
 
     /** Creates our first shelter.
@@ -46,7 +46,7 @@ public class ShelterSingleton implements Runnable {
      * @throws InstantiationException multiple instantiation
      */
 
-    public ShelterSingleton() throws InstantiationException {
+    ShelterSingleton() throws InstantiationException {
         if (ShelterSingleton.instantiated) {
             throw new InstantiationException("Only one ShelterSingleton instance allowed.");
         }
@@ -65,21 +65,27 @@ public class ShelterSingleton implements Runnable {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot == null) {
+                    return;
+                }
                 // Go through our data update
                 updateLock.lock();
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
                     // Get our individual shelter
                     Log.d(TAG, singleSnapshot.toString());
                     Shelter s = singleSnapshot.getValue(Shelter.class);
+                    if (s == null) {
+                        continue;
+                    }
                     Integer key = s.getKey();
                     if (shelters.size() <= key) {
-                        mutexloc.lock();
+                        mutexLock.lock();
                         shelters.add(key, s);
-                        mutexloc.unlock();
+                        mutexLock.unlock();
                     } else {
-                        mutexloc.lock();
+                        mutexLock.lock();
                         shelters.set(key, s);
-                        mutexloc.unlock();
+                        mutexLock.unlock();
                     }
                 }
                 updateLock.unlock();
@@ -98,10 +104,10 @@ public class ShelterSingleton implements Runnable {
      * @return A copy of the shelter list. This will not be live.
      */
 
-    public static List<Shelter> getShelterArrayCopy() {
-        mutexloc.lock();
-        ArrayList<Shelter> copy = (ArrayList<Shelter>) shelters.clone();
-        mutexloc.unlock();
+    static List<Shelter> getShelterArrayCopy() {
+        mutexLock.lock();
+        ArrayList<Shelter> copy = new ArrayList<>(shelters);
+        mutexLock.unlock();
         return copy;
     }
 
@@ -112,14 +118,14 @@ public class ShelterSingleton implements Runnable {
      * @param key  shelter key
      * @param s    the new shelter.
      */
-    public static void updateShelter(int key, Shelter s) {
+    static void updateShelter(int key, Shelter s) {
         updateLock.lock();
-        mutexloc.lock();
+        mutexLock.lock();
         shelters.set(key, s);
-        mutexloc.unlock();
+        mutexLock.unlock();
         updateLock.unlock();
-        // Now change will be broadcasted
-        reference.child((new Integer(key)).toString()).setValue(s);
+        // Now change will be broadcast
+        reference.child((Integer.valueOf(key)).toString()).setValue(s);
     }
 
     /** Thread safe, but this shouldn't really be called unless restoring from backup
@@ -131,13 +137,13 @@ public class ShelterSingleton implements Runnable {
         shelters = list;
     }
 
-    public static int getShelterKeyByCommonName(String name) {
+    static int getShelterKeyByCommonName(String name) {
         List<Shelter> shelters = getShelterArrayCopy();
         for (Shelter s: shelters) {
             if (s.getName().equals(name)) {
                 return s.getKey();
             }
         }
-        throw new NoSuchElementException("Shelter " + name + "Does not exist in db");
+        throw new NoSuchElementException("Shelter " + name + " does not exist in database");
     }
 }
