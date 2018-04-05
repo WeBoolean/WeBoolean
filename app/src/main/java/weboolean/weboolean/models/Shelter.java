@@ -179,13 +179,13 @@ public class Shelter implements Serializable {
 
     public String getInformationStringSnippet() {
         String s = "";
-        // FIrst add phone number
+        // First add phone number
         s += this.getNumber() + "\n";
         // Address
-        // find substring without "atlanta in it"
+        // Find substring without "atlanta in it"
         int i = this.getAddress().indexOf("Atlanta");
         s += this.getAddress().substring(0, i) + "\n";
-        // Capactiy
+        // Capacity
         if (this.capacity.containsKey("beds") && this.capacity.containsKey("rooms")
                 && this.capacity.get("beds") != 0 && this.capacity.get("rooms") != 0) {
             s += "Beds Available: " + this.available.get("beds") + "\n";
