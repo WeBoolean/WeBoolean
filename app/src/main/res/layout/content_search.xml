@@ -99,7 +99,6 @@
         android:layout_height="37dp"
         android:ems="10"
         android:hint="youngest age"
-        android:inputType="phoneNumber"
         app:layout_constraintBottom_toTopOf="@+id/vet_check"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.363"

@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="phoneNumber" />
+                    android:inputType="number" />
 
             </LinearLayout>
         </android.support.design.widget.TextInputLayout>
@@ -229,7 +229,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="phoneNumber" />
+                    android:inputType="number" />
 
             </LinearLayout>
         </android.support.design.widget.TextInputLayout>
@@ -374,7 +374,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="phoneNumber"
+                    android:inputType="number"
                     tools:layout_editor_absoluteX="82dp"
                     tools:layout_editor_absoluteY="0dp" />
 
