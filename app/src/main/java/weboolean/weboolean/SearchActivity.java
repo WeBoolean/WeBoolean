@@ -43,7 +43,7 @@ public class SearchActivity extends AppCompatActivity {
         final Button searchButton = findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                HashMap vals = new HashMap();
+                Map vals = new HashMap();
                 vals.put("children", age.isChecked());
                 vals.put("fam", fam.isChecked());
                 vals.put("men", rb_male.isChecked());
@@ -84,7 +84,7 @@ public class SearchActivity extends AppCompatActivity {
         List<Shelter> shelter_list = ShelterSingleton.getShelterArrayCopy();
         Set<Shelter> consideration = new HashSet<>(shelter_list);
         //Exact String Searching -- later we'll move onto fuzzy matching with a more advanced mech
-        if (parameters.containsKey("name") && !((String) parameters.get("name")).equals("") ) {
+        if (parameters.containsKey("name") && !(parameters.get("name")).equals("") ) {
             ArrayList<Shelter> exactMatch = new ArrayList<Shelter>();
             Log.d(TAG, "Exact String Searching launched for " + (String) parameters.get("name"));
             for (Shelter shelter: consideration) {
@@ -107,11 +107,14 @@ public class SearchActivity extends AppCompatActivity {
                 if ((Boolean) (parameters.get(restriction))) {
                     Log.d(TAG, parameters.get(restriction).toString());
                     for (Shelter shelter : consideration) {
-                        if ((Boolean) shelter.getRestrictions().get(restriction)) {
-                            // Pass here. If the restriction is true then we don't wanna do anything
-                        } else {
+                        if (!(Boolean) shelter.getRestrictions().get(restriction)) {
                             removeSet.add(shelter);
                         }
+//                        if ((Boolean) shelter.getRestrictions().get(restriction)) {
+//                            // Pass here. If the restriction is true then we don't wanna do anything
+//                        } else {
+//                            removeSet.add(shelter);
+//                        }
                     }
                 }
             }

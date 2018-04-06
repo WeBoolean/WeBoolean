@@ -30,6 +30,9 @@ import java.util.HashMap;
 import weboolean.weboolean.models.User;
 import weboolean.weboolean.models.UserType;
 
+/**
+ * Activity for User to login or register
+ */
 public class LoginActivity extends AppCompatActivity {
     //FirebaseAuth to get current user
     private FirebaseAuth mAuth;

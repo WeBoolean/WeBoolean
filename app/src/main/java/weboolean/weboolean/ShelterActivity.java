@@ -41,7 +41,7 @@ public class ShelterActivity extends AppCompatActivity {
 
         // Create back button and listener
         final Button backButton = findViewById(R.id.backButton);
-        final Button checkInButton = findViewById(R.id.checkinButton);
+        final Button checkInButton = findViewById(R.id.checkInButton);
         final Button checkoutButton = findViewById(R.id.checkoutButton);
 
         checkInButton.setOnClickListener(new View.OnClickListener() {

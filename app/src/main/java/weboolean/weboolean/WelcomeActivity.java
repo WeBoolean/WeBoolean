@@ -52,7 +52,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        ListView listView = findViewById(R.id.list);
+
 
         if (mListView == null) {
             mListView = findViewById(R.id.list);
@@ -78,7 +78,7 @@ public class WelcomeActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
         setListAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(WelcomeActivity.this,

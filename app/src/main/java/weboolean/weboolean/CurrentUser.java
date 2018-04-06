@@ -54,7 +54,7 @@ public class CurrentUser implements Runnable {
     /** Instantiation for worker thread
      *
      * This should NEVER be instantiated outside of this class.
-     * @throws InstantiationException
+     * @throws InstantiationException thrown when another CurrentUser instantiation attempt made
      */
     private CurrentUser() throws InstantiationException {
         if (CurrentUser.instantiated) {

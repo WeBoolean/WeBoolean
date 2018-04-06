@@ -40,7 +40,7 @@ public class User implements Serializable {
         this.youngest = 0;
         this.spouse = null;
         this.veteran = null;
-        this.age = 18;
+        this.age = 0;
         this.currentShelter = -1;
         this.locked = false;
 
