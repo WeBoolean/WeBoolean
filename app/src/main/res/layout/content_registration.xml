@@ -103,7 +103,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Youngest child:" />
+                    android:text="@string/youngest_child"
+                    android:labelFor="@+id/youngest_age_input"
+                    />
 
                 <EditText
                     android:id="@+id/youngest_age_input"

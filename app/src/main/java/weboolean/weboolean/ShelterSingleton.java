@@ -106,7 +106,7 @@ public class ShelterSingleton implements Runnable {
 
     static List<Shelter> getShelterArrayCopy() {
         mutexLock.lock();
-        ArrayList<Shelter> copy = new ArrayList<>(shelters);
+        List<Shelter> copy = new ArrayList<>(shelters);
         mutexLock.unlock();
         return copy;
     }
