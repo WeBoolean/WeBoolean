@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 /**
  * Created by rajshrimali on 3/8/18.
  */
-public class SearchActivityTest {
+public class SearchSheltersTest {
     List<Shelter> shelters;
     @Before
     public void setUp() throws Exception {
