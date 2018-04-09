@@ -28,7 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
     // TAG for log
     public static final String TAG = WelcomeActivity.class.getSimpleName();
 
-    // [AppCompat Activity Overridden Methods]
+    // [AppCompat Activity Overridden Methods] ===================================================//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Setup
@@ -83,7 +83,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
     }
-    // [ Getters and setters ]
+    // [ Getters and setters ] ===================================================================//
     private ListView getListView() {
         if (mListView == null) {
             mListView = findViewById(R.id.list);
@@ -95,7 +95,7 @@ public class WelcomeActivity extends AppCompatActivity {
         getListView().setAdapter(adapter);
     }
 
-    // [ Methods ]
+    // [ Methods ] ===============================================================================//
     private void logOut() {
         if ( CurrentUser.logOutUser()) {
             Toast.makeText(WelcomeActivity.this,
