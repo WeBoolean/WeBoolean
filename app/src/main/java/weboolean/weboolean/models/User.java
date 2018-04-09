@@ -15,7 +15,8 @@ import java.io.Serializable;
  * Instead, right now, we save the UID on user creation
  * Upon login, we simply instantiate a new user.
  */
-@SuppressWarnings("ConstructorWithTooManyParameters")
+//we're ignoring JavaDoc because this is all pretty much self explanatory
+@SuppressWarnings({"ConstructorWithTooManyParameters", "unused", "JavaDoc"})
 @IgnoreExtraProperties
 public class User implements Serializable {
 
@@ -54,14 +55,14 @@ public class User implements Serializable {
 
     }
 
-    public User(String UID, UserType type) {
+    public User(@Nullable String UID, @Nullable UserType type) {
         this();
         this.uid = UID;
         this.userType = type;
     }
 
-    public User(String uid, UserType usertype, String sex, Boolean fam, int dep, int young,
-                String spouse, Boolean vet, int age, boolean checked, int curr, boolean locked) {
+    public User(String uid, UserType usertype, @Nullable String sex, Boolean fam, int dep, int young,
+                @Nullable String spouse, @Nullable Boolean vet, int age, boolean checked, int curr, boolean locked) {
         this(uid, usertype);
         this.sex = sex;
         this.family = fam;
@@ -92,27 +93,30 @@ public class User implements Serializable {
         this.currentShelter = currentShelter;
     }
 
+    @Nullable
     public String getUid() {
         return uid;
     }
 
-    public void setUid(String uid) {
+    public void setUid(@Nullable String uid) {
         this.uid = uid;
     }
 
+    @Nullable
     public UserType getUserType() {
         return userType;
     }
 
-    public void setUserType(UserType usertype) {
+    public void setUserType(@Nullable UserType usertype) {
         this.userType = usertype;
     }
 
+    @Nullable
     public String getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(@Nullable String sex) {
         this.sex = sex;
     }
 
@@ -140,19 +144,21 @@ public class User implements Serializable {
         this.youngest = youngest;
     }
 
+    @Nullable
     public String getSpouse() {
         return spouse;
     }
 
-    public void setSpouse(String spouse) {
+    public void setSpouse(@Nullable String spouse) {
         this.spouse = spouse;
     }
 
+    @Nullable
     public Boolean getVeteran() {
         return veteran;
     }
 
-    public void setVeteran(Boolean veteran) {
+    public void setVeteran(@Nullable Boolean veteran) {
         this.veteran = veteran;
     }
 

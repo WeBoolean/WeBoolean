@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         facebookRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchFacebookRegistration(view);
+                launchFacebookRegistration();
             }
         });
 
@@ -79,20 +79,20 @@ public class LoginActivity extends AppCompatActivity {
         googleRegisterButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                launchGoogleRegistration(view);
+                launchGoogleRegistration();
             }
         }) ;
 
     }
 
 
-    private void launchFacebookRegistration(View view) {
+    private void launchFacebookRegistration() {
         Toast text = Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT);
         text.show();
     }
 
     @SuppressWarnings("ChainedMethodCall")
-    private void launchGoogleRegistration(View view) {
+    private void launchGoogleRegistration() {
         Toast text = Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT);
         text.show();
     }
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+       // FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
     }
 
@@ -135,20 +135,23 @@ public class LoginActivity extends AppCompatActivity {
                                 final FirebaseUser user = mAuth.getCurrentUser();
                                 try {
                                     assert user != null;
-                                    CurrentUser.setUserInstance(new User(user.getUid(), UserType.User), user);
+                                    CurrentUser.setUserInstance(
+                                            new User(user.getUid(), UserType.User), user);
                                 } catch (InstantiationException e) {
                                     e.printStackTrace();
                                 }
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference mDatabase = database.getReference();
-                                Query userQuery = mDatabase.orderByChild("users").equalTo(user.getUid());
+                                Query userQuery = mDatabase.orderByChild("users")
+                                        .equalTo(user.getUid());
                                 userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                                            UserType t = singleSnapshot.getValue(UserType.class);
+                                        for (DataSnapshot singleSnap : dataSnapshot.getChildren()) {
+                                            UserType t = singleSnap.getValue(UserType.class);
                                             try {
-                                                CurrentUser.setUserInstance(new User(user.getUid(), t), user);
+                                                CurrentUser.setUserInstance(
+                                                        new User(user.getUid(), t), user);
                                             } catch (InstantiationException e) {
                                                 e.printStackTrace();
                                             }
@@ -160,7 +163,8 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                                 // Successful login, change activity
-                                Toast.makeText(LoginActivity.this, "Successful Login", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this,
+                                        "Successful Login", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
                                 startActivity(intent);
                             } else {

@@ -11,6 +11,7 @@ import weboolean.weboolean.models.Shelter;
 
 /**
  * Created by rajshrimali on 3/8/18.
+ * Tests.
  */
 @SuppressWarnings("JavaDoc")
 public class SearchSheltersTest {
@@ -104,7 +105,7 @@ public class SearchSheltersTest {
     @Test
     public void specifyAgeRestrictionsAll() throws Exception {
         Map<String, Object> restrictions = new HashMap<>();
-        restrictions.put("child_age", 19);
+        restrictions.put("child_age", Shelter.getMaxAge());
         List<Shelter> ret = SearchActivity.searchShelters(restrictions);
         assert(ret.isEmpty());
     }

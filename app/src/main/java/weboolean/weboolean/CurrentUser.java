@@ -45,10 +45,10 @@ final class CurrentUser implements Runnable {
         return firebaseUser;
     }
 
-    static void setUserInstance(User user, FirebaseUser firebaseUser) throws InstantiationException {
+    static void setUserInstance(User user, FirebaseUser firebaseUser)
+            throws InstantiationException {
         CurrentUser.user = user;
         CurrentUser.firebaseUser = firebaseUser;
-        boolean userSet = true;
         thread = new Thread(new CurrentUser());
         thread.start();
     }
@@ -108,6 +108,7 @@ final class CurrentUser implements Runnable {
             user = null;
             firebaseUser = null;
             mutexLock.unlock();
+            assert thread != null;
             thread.interrupt();
             thread.join();
             thread = null;

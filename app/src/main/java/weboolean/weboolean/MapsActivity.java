@@ -31,8 +31,14 @@ import java.util.List;
 
 import weboolean.weboolean.models.Shelter;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMarkerClickListener {
+/**
+ * Activity that is capable of plotting either a bundle of shelters or all shelters.
+ */
+public class MapsActivity extends FragmentActivity
+        implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback,
+        GoogleMap.OnMarkerClickListener {
     private static final String TAG = "MapsActivity";
+    private static final int MAP_REQUEST_CODE = 12345;
     private GoogleMap mMap;
     private LatLng atlanta;
     private List<Shelter> shelters;
@@ -139,18 +145,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 snippet.setTextColor(Color.GRAY);
                 snippet.setText(marker.getSnippet());
 
-//                TextView nav = new TextView(mContext);
-//                String navURL = Uri.parse("https://www.google.com/maps/dir/?api=1")
-//                        .buildUpon()
-//                        .appendQueryParameter("destination", ShelterSingleton.getShelterArrayCopy().get((Integer) (marker.getTag())).getAddress())
-//                        .build()
-//                        .toString();
-//                String navLink = "<a href='" + navURL + "'>Open in Maps</a>";
-//                nav.setText(Html.fromHtml(navLink));
-//                nav.setMovementMethod(LinkMovementMethod.getInstance());
                 info.addView(title);
                 info.addView(snippet);
-//                info.addView(nav);
                 return info;
 
             }
@@ -161,7 +157,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 != PackageManager.PERMISSION_GRANTED)) {
             String[] perms = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"};
 
-            ActivityCompat.requestPermissions(this, perms, 12345);
+            ActivityCompat.requestPermissions(this, perms, MAP_REQUEST_CODE);
             return;
         }
         enableAndSetUserLocation();
@@ -176,7 +172,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng pos;
         for (Shelter s : shelters) {
             pos = new LatLng(s.getLatitude(), s.getLongitude());
-            Marker m = map.addMarker(new MarkerOptions().position(pos).title(s.getName()).snippet(s.getInformationStringSnippet()));
+            Marker m = map.addMarker(
+                    new MarkerOptions().position(pos).title(s.getName())
+                            .snippet(s.getInformationStringSnippet()));
             m.setTag(s.getKey());
         }
     }
@@ -196,7 +194,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onRequestPermissionsResult(int rq, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(rq, permissions, grantResults);
-        if (rq == 12345) {
+        if (rq == MAP_REQUEST_CODE) {
             if ((grantResults[0] != 1) && (grantResults[1] != 1)) {
                 // Set location to ATL
                 setLocationToAtlanta();

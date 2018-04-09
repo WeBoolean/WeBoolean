@@ -48,14 +48,16 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Map vals = new HashMap();
+                Map<String, Object> vals = new HashMap<>();
                 vals.put("children", age.isChecked());
                 vals.put("fam", fam.isChecked());
                 vals.put("men", rb_male.isChecked());
                 vals.put("vets", vet.isChecked());
                 vals.put("women", rb_female.isChecked());
-                final String shelter_name_match = ((EditText) findViewById(R.id.name_input)).getText().toString();
-                String child_age_string = ((EditText) findViewById(R.id.age_input)).getText().toString();
+                final String shelter_name_match = ((EditText) findViewById(R.id.name_input))
+                        .getText().toString();
+                String child_age_string = ((EditText) findViewById(R.id.age_input))
+                        .getText().toString();
                 if (!"".equals(child_age_string)) {
                     final int child_age = Integer.parseInt(child_age_string);
                     vals.put("child_age", child_age);
@@ -63,7 +65,7 @@ public class SearchActivity extends AppCompatActivity {
                     vals.put("child_age", null);
                 }
                 vals.put("name", shelter_name_match);
-                List<Shelter> okShelters = searchShelters(vals);
+                @SuppressWarnings("unchecked") List<Shelter> okShelters = searchShelters(vals); // actually not an issue.
 
                 Bundle shelterBundle = new Bundle();
                 Bundle prevBundle = getIntent().getExtras();
@@ -103,7 +105,7 @@ public class SearchActivity extends AppCompatActivity {
         parameters.remove("name");
         for (String restriction: parameters.keySet()) {
             Log.d(TAG, "Searching for Restriction\t" + restriction);
-            Set<Shelter> removeSet = new HashSet<>();
+            Collection<Shelter> removeSet = new HashSet<>();
             if ("child_age".equals(restriction)) {
                 // now do restriction matching
                 searchChildAge((Integer) parameters.get(restriction), removeSet, consideration);
@@ -115,11 +117,6 @@ public class SearchActivity extends AppCompatActivity {
                         if (!(Boolean) shelter.getRestrictions().get(restriction)) {
                             removeSet.add(shelter);
                         }
-//                        if ((Boolean) shelter.getRestrictions().get(restriction)) {
-//                            // Pass here. If the restriction is true then we don't wanna do anything
-//                        } else {
-//                            removeSet.add(shelter);
-//                        }
                     }
                 }
             }
@@ -128,7 +125,8 @@ public class SearchActivity extends AppCompatActivity {
         return new ArrayList<>(consideration);
     }
 
-    private static void searchChildAge(Integer restriction, Collection<Shelter> removeSet, final Iterable<Shelter> consideration) {
+    private static void searchChildAge(Integer restriction, Collection<Shelter> removeSet,
+                                       final Iterable<Shelter> consideration) {
         //modifies removeSet with all matches from consideration
         if (restriction == null) {
             return;

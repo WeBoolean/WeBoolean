@@ -19,6 +19,7 @@ import weboolean.weboolean.models.Shelter;
 
 /**
  * Created by rajshrimali on 2/28/18.
+ * Handles all shelter management.
  */
 
 @SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
@@ -136,7 +137,6 @@ class ShelterSingleton implements Runnable {
      * Future-proofing implies we should have a way to reload the singleton from a copy
      * @param list the list to use
      */
-    @SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
     public static void forciblySetLocalBackingArray(ArrayList<Shelter> list) {
         shelters = list;
     }
