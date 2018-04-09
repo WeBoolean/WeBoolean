@@ -3,16 +3,11 @@ package weboolean.weboolean;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -21,7 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,12 +23,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import weboolean.weboolean.models.User;
 import weboolean.weboolean.models.UserType;
 
+/**
+ * Activity to register the user.
+ */
 public class RegistrationActivity extends AppCompatActivity {
     // Firebase references
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     // TAG for logcat
-    public static final String TAG = RegistrationActivity.class.getSimpleName();
+    private static final String TAG = RegistrationActivity.class.getSimpleName();
 
     // [AppCompat Activity Overridden Methods] ===================================================//
     @Override
@@ -69,12 +66,12 @@ public class RegistrationActivity extends AppCompatActivity {
         String userPassword = ((EditText) findViewById(R.id.password_input)).getText().toString();
 
         // Invalid input check
-        if (userEmail.equals("") || userPassword.equals("")
-            || ((EditText) findViewById(R.id.age_input)).getText().toString().equals("")) {
+        if ("".equals(userEmail) || "".equals(userPassword)
+            || "".equals(((EditText) findViewById(R.id.age_input)).getText().toString())) {
             Toast.makeText(this, "Must Provide Values", Toast.LENGTH_LONG).show();
         } else if (((Switch) findViewById(R.id.family_check)).isChecked() &&
-            (((EditText) findViewById(R.id.dependent_input)).getText().toString().equals("")
-            || ((EditText) findViewById(R.id.youngest_age_input)).getText().toString().equals(""))){
+            ("".equals(((EditText) findViewById(R.id.dependent_input)).getText().toString())
+            || "".equals(((EditText) findViewById(R.id.youngest_age_input)).getText().toString()))){
             Toast.makeText(this, "Must Input Family Size", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Valid Values", Toast.LENGTH_LONG).show();
@@ -88,18 +85,17 @@ public class RegistrationActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
 
                         // Get remaining user info, must be final to access in inner classes
-                        //TODO: Actually fix usertype to get proper data instead of hardcoding usertype
                         UserType usertype = UserType.User;
                         String sex = ((Spinner) findViewById(R.id.sex_input)).getSelectedItem().toString();
                         boolean family = ((Switch) findViewById(R.id.family_check)).isChecked();
                         int dependents =
-                            ((EditText) findViewById(R.id.dependent_input)).getText().toString().equals("")
+                                "".equals(((EditText) findViewById(R.id.dependent_input)).getText().toString())
                             ? 0 : Integer.parseInt(((EditText) findViewById(R.id.dependent_input)).getText().toString());
                         int youngestage =
-                            ((EditText) findViewById(R.id.youngest_age_input)).getText().toString().equals("")
+                                "".equals(((EditText) findViewById(R.id.youngest_age_input)).getText().toString())
                             ? -1 : Integer.parseInt(((EditText) findViewById(R.id.youngest_age_input)).getText().toString());
                         String spouse =
-                            ((Spinner) findViewById(R.id.spouse_input)).getSelectedItem().toString().equals("None")
+                                "None".equals(((Spinner) findViewById(R.id.spouse_input)).getSelectedItem().toString())
                             ? null : ((Spinner) findViewById(R.id.spouse_input)).getSelectedItem().toString();
                         boolean veteran = ((Switch) findViewById(R.id.veteran_check)).isChecked();
                         int age = Integer.parseInt(((EditText) findViewById(R.id.age_input)).getText().toString());

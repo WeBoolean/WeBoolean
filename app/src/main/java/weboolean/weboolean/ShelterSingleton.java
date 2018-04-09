@@ -21,13 +21,12 @@ import weboolean.weboolean.models.Shelter;
  * Created by rajshrimali on 2/28/18.
  */
 
-public class ShelterSingleton implements Runnable {
+@SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
+class ShelterSingleton implements Runnable {
 
     // Holds our copy of the shelters
     private static ArrayList<Shelter> shelters = new ArrayList<>();
 
-    // Firebase setup.
-    private static FirebaseDatabase db;
     private static DatabaseReference reference;
 
     // Make sure only one copy of this is ever instantiated
@@ -51,14 +50,18 @@ public class ShelterSingleton implements Runnable {
             throw new InstantiationException("Only one ShelterSingleton instance allowed.");
         }
         else {
-            ShelterSingleton.instantiated = true;
+            ShelterSingleton.instantiate();
         }
+    }
+
+    private static void instantiate() {
+        ShelterSingleton.instantiated = true;
     }
 
     @Override
     public void run() {
         // Initialize our connection.
-        db = FirebaseDatabase.getInstance();
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
         reference = db.getReference("shelters");
 
         // Add a permanent listener to our reference.
@@ -133,6 +136,7 @@ public class ShelterSingleton implements Runnable {
      * Future-proofing implies we should have a way to reload the singleton from a copy
      * @param list the list to use
      */
+    @SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
     public static void forciblySetLocalBackingArray(ArrayList<Shelter> list) {
         shelters = list;
     }

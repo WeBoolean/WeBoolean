@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -46,15 +44,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final Button searchButton = findViewById(R.id.search_button);
         Bundle instructions = getIntent().getExtras();
-        if (instructions != null && !instructions.isEmpty()) {
+        if ((instructions != null) && !instructions.isEmpty()) {
             // manage shelter intent
             if (instructions.containsKey("shelters")) {
                 Log.d(TAG, "Shelter Filter Requested");
                 List<Integer> shelterIDs =  instructions.getIntegerArrayList("shelters");
                 List<Shelter> shelters_list = ShelterSingleton.getShelterArrayCopy();
                 shelters = new ArrayList<>();
-                for (Integer i: shelterIDs) {
-                    shelters.add(shelters_list.get(i));
+                if (shelterIDs != null) {
+                    for (Integer i : shelterIDs) {
+                        shelters.add(shelters_list.get(i));
+                    }
                 }
                 filter_state = true;
             }
@@ -155,17 +155,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if ((ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED)
+                && (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED)) {
             String[] perms = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"};
 
             ActivityCompat.requestPermissions(this, perms, 12345);
@@ -175,10 +168,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /** Create a plot shelters function
-     * @param shelters
-     * @param map
+     *
+     * @param shelters  shelters to plot
+     * @param map       map to plot on
      */
-    private static void plotShelters(List<Shelter> shelters, GoogleMap map) {
+    private static void plotShelters(Iterable<Shelter> shelters, GoogleMap map) {
         LatLng pos;
         for (Shelter s : shelters) {
             pos = new LatLng(s.getLatitude(), s.getLongitude());
@@ -187,7 +181,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    /** TODO: Actually find the user location
+    /**  Actually find the user location
      * Enables myLocation and hypothetically centers camera
      * Currently just puts it to ATL
      * @throws SecurityException    If security permissions haven't been granted yet
@@ -200,10 +194,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @SuppressLint("MissingPermission") //else will only run on granted perms
     @Override
-    public void onRequestPermissionsResult(int rq, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int rq, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(rq, permissions, grantResults);
         if (rq == 12345) {
-            if (grantResults[0] != 1 && grantResults[1] != 1) {
+            if ((grantResults[0] != 1) && (grantResults[1] != 1)) {
                 // Set location to ATL
                 setLocationToAtlanta();
             } else {
@@ -218,9 +212,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Log out user when they go "back" from MapActivity
      */
+    @Override
     public void onBackPressed() {
-        if (!filter_state)
+        if (!filter_state) {
             CurrentUser.logOutUser();
+        }
         finish();
     }
 

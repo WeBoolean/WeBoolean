@@ -23,10 +23,8 @@ import static weboolean.weboolean.ShelterSingleton.getShelterArrayCopy;
 import static weboolean.weboolean.ShelterSingleton.updateShelter;
 
 public class ShelterActivity extends AppCompatActivity {
-    FirebaseDatabase database;
-    DatabaseReference ref;
-    Shelter shelter;
-    public static final String TAG = ShelterActivity.class.getSimpleName();
+    private Shelter shelter;
+    private static final String TAG = ShelterActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +32,8 @@ public class ShelterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter);
         // FireBase references
-        database = FirebaseDatabase.getInstance();
-        ref = database.getReference("shelters");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("shelters");
         // Get current shelter
         shelter = getShelter();
 
@@ -159,12 +157,12 @@ public class ShelterActivity extends AppCompatActivity {
                     return false;
                 }
                 Log.w(TAG, "sex " + CurrentUser.getCurrentUser().getSex());
-                if ((boolean) s.getRestrictions().get("men") && (!CurrentUser.getCurrentUser().getSex().equals("Male")
-                    ||(CurrentUser.getCurrentUser().getSpouse() != null && CurrentUser.getCurrentUser().getSpouse().equals("Female")))) {
+                if ((boolean) s.getRestrictions().get("men") && (!"Male".equals(CurrentUser.getCurrentUser().getSex())
+                        || ((CurrentUser.getCurrentUser().getSpouse() != null) && "Female".equals(CurrentUser.getCurrentUser().getSpouse())))) {
                     return false;
                 }
-                if ((boolean) s.getRestrictions().get("women") && ((!CurrentUser.getCurrentUser().getSex().equals("Female")
-                    || (CurrentUser.getCurrentUser().getSpouse() != null && CurrentUser.getCurrentUser().getSpouse().equals("Male"))))) {
+                if ((boolean) s.getRestrictions().get("women") && ((!"Female".equals(CurrentUser.getCurrentUser().getSex())
+                        || ((CurrentUser.getCurrentUser().getSpouse() != null) && "Male".equals(CurrentUser.getCurrentUser().getSpouse()))))) {
                     return false;
                 }
                 if ((boolean) s.getRestrictions().get("vets") && !CurrentUser.getCurrentUser().getVeteran()) {
@@ -183,7 +181,7 @@ public class ShelterActivity extends AppCompatActivity {
             }
             // They passed restrictions, check if the space is available
             if (CurrentUser.getCurrentUser().getFamily()) {
-                if (s.getAvailable().get("rooms") != null && s.getAvailable().get("rooms") > 0) {
+                if ((s.getAvailable().get("rooms") != null) && (s.getAvailable().get("rooms") > 0)) {
                     CurrentUser.getCurrentUser().setCurrentShelter(s.getKey());
                     CurrentUser.getCurrentUser().setCheckedIn(true);
                     Map<String, Integer> newAvailability = new HashMap<>();
@@ -193,7 +191,7 @@ public class ShelterActivity extends AppCompatActivity {
 
                     return true;
                 } else {
-                    if (s.getAvailable().get("beds") != null && s.getAvailable().get("beds") >= CurrentUser.getCurrentUser().getFamilySize()) {
+                    if ((s.getAvailable().get("beds") != null) && (s.getAvailable().get("beds") >= CurrentUser.getCurrentUser().getFamilySize())) {
                         CurrentUser.getCurrentUser().setCurrentShelter(s.getKey());
                         CurrentUser.getCurrentUser().setCheckedIn(true);
                         Map<String, Integer> newAvailability = new HashMap<>();
@@ -204,7 +202,7 @@ public class ShelterActivity extends AppCompatActivity {
                     }
                 }
             } else {
-                if (s.getAvailable().get("rooms") != null && s.getAvailable().get("rooms") > 0) {
+                if ((s.getAvailable().get("rooms") != null) && (s.getAvailable().get("rooms") > 0)) {
                     CurrentUser.getCurrentUser().setCurrentShelter(s.getKey());
                     CurrentUser.getCurrentUser().setCheckedIn(true);
                     Map<String, Integer> newAvailability = new HashMap<>();
@@ -213,7 +211,7 @@ public class ShelterActivity extends AppCompatActivity {
                     shelter = s;
 
                     return true;
-                } else if (s.getAvailable().get("beds") != null && s.getAvailable().get("beds") >= CurrentUser.getCurrentUser().getFamilySize()) {
+                } else if ((s.getAvailable().get("beds") != null) && (s.getAvailable().get("beds") >= CurrentUser.getCurrentUser().getFamilySize())) {
                     CurrentUser.getCurrentUser().setCurrentShelter(s.getKey());
                     CurrentUser.getCurrentUser().setCheckedIn(true);
                     Map<String, Integer> newAvailability = new HashMap<>();
@@ -228,19 +226,19 @@ public class ShelterActivity extends AppCompatActivity {
         return false;
     }
     private boolean checkOut() {
-        if (CurrentUser.getCurrentUser().getCheckedIn() && CurrentUser.getCurrentUser().getCurrentShelter() == shelter.getKey()) {
+        if (CurrentUser.getCurrentUser().getCheckedIn() && (CurrentUser.getCurrentUser().getCurrentShelter() == shelter.getKey())) {
             CurrentUser.getCurrentUser().setCheckedIn(false);
             CurrentUser.getCurrentUser().setCurrentShelter(-1);
             Map<String, Integer> newAvailability = new HashMap<>();
             Shelter s = getShelter();
             if (CurrentUser.getCurrentUser().getFamily()) {
-                if (s.getCapacity().get("rooms") != null && s.getCapacity().get("rooms") > 0) {
+                if ((s.getCapacity().get("rooms") != null) && (s.getCapacity().get("rooms") > 0)) {
                     newAvailability.put("rooms", s.getAvailable().get("rooms") + 1);
                 } else {
                     newAvailability.put("beds", s.getAvailable().get("beds") + CurrentUser.getCurrentUser().getFamilySize());
                 }
             } else {
-                if (s.getCapacity().get("beds") != null && s.getCapacity().get("beds") > 0) {
+                if ((s.getCapacity().get("beds") != null) && (s.getCapacity().get("beds") > 0)) {
                     newAvailability.put("beds", s.getAvailable().get("beds") + CurrentUser.getCurrentUser().getFamilySize());
                 } else {
                     newAvailability.put("rooms", s.getAvailable().get("rooms") + 1);
@@ -259,8 +257,7 @@ public class ShelterActivity extends AppCompatActivity {
         int numberData = intent.getIntExtra("Shelter", -1);
         // Select our shelter from shelter list to display
         List<Shelter> shelterList = getShelterArrayCopy();
-        Shelter shelter = shelterList.get(numberData);
-        return shelter;
+        return shelterList.get(numberData);
     }
 
     private void setCapacities(Shelter shelter, TextView available, TextView capacity) {
@@ -270,23 +267,23 @@ public class ShelterActivity extends AppCompatActivity {
         } else {
             available.setText("");
         }
-        if (shelter.getAvailable().get("rooms") != null && shelter.getAvailable().get("rooms")!=0) {
+        if ((shelter.getAvailable().get("rooms") != null) && (shelter.getAvailable().get("rooms") != 0)) {
             available.setText(available.getText() + "" + shelter.getAvailable().get("rooms") + " Rooms available");
         }
-        if (shelter.getAvailable().get("rooms") != null && shelter.getAvailable().get("rooms")==0) {
+        if ((shelter.getAvailable().get("rooms") != null) && (shelter.getAvailable().get("rooms") == 0)) {
             available.setText("N/A Rooms available");
         }
         // [Capacity] =============================================================================/
-        if (shelter.getCapacity().get("beds") != null && shelter.getCapacity().get("beds") != 0) {
+        if ((shelter.getCapacity().get("beds") != null) && (shelter.getCapacity().get("beds") != 0)) {
             capacity.setText("" + shelter.getCapacity().get("beds") + " Bed capacity ");
-        } else if (shelter.getCapacity().get("beds") != null && shelter.getCapacity().get("beds") == 0){
+        } else if ((shelter.getCapacity().get("beds") != null) && (shelter.getCapacity().get("beds") == 0)){
             capacity.setText("N/A Beds Capacity \n");
         } else {
             capacity.setText("");
         }
-        if (shelter.getCapacity().get("rooms") != null && shelter.getCapacity().get("rooms") != 0) {
+        if ((shelter.getCapacity().get("rooms") != null) && (shelter.getCapacity().get("rooms") != 0)) {
             capacity.setText(capacity.getText() + "" + shelter.getCapacity().get("rooms") + " Room capacity");
-        } else if (shelter.getCapacity().get("rooms") != null && shelter.getCapacity().get("rooms") == 0) {
+        } else if ((shelter.getCapacity().get("rooms") != null) && (shelter.getCapacity().get("rooms") == 0)) {
             capacity.setText("N/A Room capacity");
         }
     }
