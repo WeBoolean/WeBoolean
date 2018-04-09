@@ -123,7 +123,7 @@ public class SearchActivity extends AppCompatActivity {
         return new ArrayList<>(consideration);
     }
 
-    private static void searchChildAge(Integer restriction, Set<Shelter> removeSet, final Set<Shelter> consideration) {
+    static void searchChildAge(Integer restriction, Set<Shelter> removeSet, final Set<Shelter> consideration) {
         //modifies removeSet with all matches from consideration
         if (restriction == null) {
             return;
