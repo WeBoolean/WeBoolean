@@ -3,8 +3,6 @@ package weboolean.weboolean;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 
 /**
@@ -23,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace(); //this will never happen.
         }
         // read shared preferences for previous user
-        // TODO.
+        // TOO.
 
         // Automatically opens login activity after main activity runs
         openLoginPage();

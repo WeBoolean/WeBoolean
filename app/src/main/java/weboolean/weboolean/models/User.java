@@ -1,5 +1,7 @@
 package weboolean.weboolean.models;
 
+import android.support.annotation.Nullable;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
@@ -13,17 +15,23 @@ import java.io.Serializable;
  * Instead, right now, we save the UID on user creation
  * Upon login, we simply instantiate a new user.
  */
+@SuppressWarnings("ConstructorWithTooManyParameters")
 @IgnoreExtraProperties
 public class User implements Serializable {
 
     // Private variables for user data
+    @Nullable
     private String uid;
+    @Nullable
     private UserType userType;
+    @Nullable
     private String sex;
     private Boolean family;
     private int dependents;
     private int youngest;
+    @Nullable
     private String spouse;
+    @Nullable
     private Boolean veteran;
     private int age;
     private boolean checkedIn;

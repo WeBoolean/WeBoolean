@@ -3,12 +3,9 @@ package weboolean.weboolean;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,8 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-
 import weboolean.weboolean.models.User;
 import weboolean.weboolean.models.UserType;
 
@@ -37,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     //FirebaseAuth to get current user
     private FirebaseAuth mAuth;
     // TAG for logcat
-    public static final String TAG = LoginActivity.class.getSimpleName();
+    private static final String TAG = LoginActivity.class.getSimpleName();
 
     // [AppCompat Activity Overridden Methods] ===================================================//
     @Override
@@ -66,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
         final Button emailRegisterButton = findViewById(R.id.email_register);
         emailRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
                 openEmailRegistrationPage();
             }
@@ -73,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
         final Button facebookRegisterButton = findViewById(R.id.facebook_register);
         facebookRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View view) {
                 launchFacebookRegistration(view);
             }
@@ -80,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
         final Button googleRegisterButton = findViewById(R.id.gplus_register);
         googleRegisterButton.setOnClickListener(new View.OnClickListener(){
+            @Override
             public void onClick(View view) {
                 launchGoogleRegistration(view);
             }
@@ -89,11 +87,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void launchFacebookRegistration(View view) {
-        Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT).show();
+        Toast text = Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT);
+        text.show();
     }
 
+    @SuppressWarnings("ChainedMethodCall")
     private void launchGoogleRegistration(View view) {
-        Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT).show();
+        Toast text = Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT);
+        text.show();
     }
 
     // [Overridden AppCompatActivity Method] =====================================================//
@@ -112,17 +113,20 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
     // Login button handling
+    @SuppressWarnings("ChainedMethodCall")
     private void attemptedLogin() {
         // Get username and password from user input
         String userEmail = ((EditText) findViewById(R.id.email)).getText().toString();
         String userPassword = ((EditText) findViewById(R.id.password)).getText().toString();
         // Invalid input checks
-        if (userEmail.equals("") || userPassword.equals("")) {
-            Toast.makeText(this, "Must Provide Values", Toast.LENGTH_LONG).show();
+        if ("".equals(userEmail) || "".equals(userPassword)) {
+            Toast text = Toast.makeText(this, "Must Provide Values", Toast.LENGTH_LONG);
+            text.show();
         } else {
             // Attempt sign in using FirebaseAuth
             mAuth.signInWithEmailAndPassword(userEmail, userPassword)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @SuppressWarnings("ChainedMethodCall")
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
@@ -130,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.d(TAG, "signInWithEmail:success");
                                 final FirebaseUser user = mAuth.getCurrentUser();
                                 try {
+                                    assert user != null;
                                     CurrentUser.setUserInstance(new User(user.getUid(), UserType.User), user);
                                 } catch (InstantiationException e) {
                                     e.printStackTrace();
@@ -174,6 +179,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
     public void onBackPressed() {
 
     }

@@ -1,11 +1,13 @@
 package weboolean.weboolean.models;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,21 +16,28 @@ import java.util.Map;
  * Created by Max Brauer on 2/17/18.
  *
  */
+@SuppressWarnings({"ALL", "ConstructorWithTooManyParameters"})
 @IgnoreExtraProperties
 public class Shelter implements Serializable {
 
     // Private variables for shelter data. Self explanatory you dunce.
+    @Nullable
     private String address;
+    @Nullable
     private Map<String, Integer> available;
+    @Nullable
     private Map<String, Integer> capacity;
     private int key;
     private double latitude;
     private double longitude;
+    @Nullable
     private String name;
+    @Nullable
     private String note;
+    @Nullable
     private String phoneNumber;
     private Map<String, Object> restrictions;
-    private final String TAG = "Shelter";
+    private static final int MAX_ADULT_AGE = 18;
 
     // [Constructors] ============================================================================//
     // No-args constructor
@@ -140,6 +149,7 @@ public class Shelter implements Serializable {
     }
 
     public void setAnyone(boolean anyone) {
+        String TAG = "Shelter";
         Log.d(TAG, String.valueOf(anyone));
         Log.d(TAG, restrictions.toString());
         restrictions.put("anyone", anyone);
@@ -157,10 +167,7 @@ public class Shelter implements Serializable {
     // [Object Methods] ==========================================================================//
     @Override
     public boolean equals(Object other) {
-        if (! (other instanceof Shelter)) {
-            return false;
-        }
-        return ((Shelter)other).getKey() == this.getKey();
+        return other instanceof Shelter && ((Shelter) other).getKey() == this.getKey();
     }
 
     @Override
@@ -194,12 +201,12 @@ public class Shelter implements Serializable {
         s += this.getAddress().substring(0, i) + "\n";
         // Capacity
         if (this.capacity.containsKey("beds") && this.capacity.containsKey("rooms")
-                && this.capacity.get("beds") != 0 && this.capacity.get("rooms") != 0) {
+                && (this.capacity.get("beds") != 0) && (this.capacity.get("rooms") != 0)) {
             s += "Beds Available: " + this.available.get("beds") + "\n";
             s += "Rooms Available: " + this.available.get("rooms") + "\n";
-        } else if (this.capacity.containsKey("beds") && this.capacity.get("beds") != 0) {
+        } else if (this.capacity.containsKey("beds") && (this.capacity.get("beds") != 0)) {
             s += "Beds Available: " + this.available.get("beds") + "\n";
-        } else if (this.capacity.containsKey("rooms") && this.capacity.get("rooms") != 0) {
+        } else if (this.capacity.containsKey("rooms") && (this.capacity.get("rooms") != 0)) {
             s += "Rooms Available: " + this.available.get("rooms") + "\n";
         } else {
             s += "No Availability Information";
@@ -211,7 +218,7 @@ public class Shelter implements Serializable {
      * @param shelters      Shelters to get an ID list from
      * @return              An ArrayList<Integer> of Shelter Keys/IDs
      */
-    public static ArrayList<Integer> toIDList(List<Shelter> shelters) {
+    public static ArrayList<Integer> toIDList(Collection<Shelter> shelters) {
         // Null control structure
         if (shelters == null) {
             return new ArrayList<>();
@@ -221,5 +228,13 @@ public class Shelter implements Serializable {
             ret.add(s.getKey());
         }
         return ret;
+    }
+
+    /**
+     * Get the max adult age (i.e. the age you become an adult)
+     * @return the age. int.
+     */
+    public static final int getMaxAge() {
+        return MAX_ADULT_AGE;
     }
 }

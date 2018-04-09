@@ -1,9 +1,11 @@
 package weboolean.weboolean;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,16 +22,18 @@ import weboolean.weboolean.models.User;
  * By having a single static class, we can reference this class to see the user type.
  * This way, we know what type they are without having to read from the database every time.
  */
-public class CurrentUser implements Runnable {
+@SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
+final class CurrentUser implements Runnable {
     private static final String TAG = "CurrentUserSingleton";
     //Current user object represents the current user logged in
+    @Nullable
     private static FirebaseUser firebaseUser;
+    @Nullable
     private static User user;
     private static FirebaseDatabase db;
-    private static DatabaseReference reference;
-    private static final Lock mutexlock = new ReentrantLock();
+    private static final Lock mutexLock = new ReentrantLock();
     private static boolean instantiated = false;
-    private static boolean userSet = false;
+    @Nullable
     private static Thread thread;
 
     // [Getters and setters] =====================================================================//
@@ -37,14 +41,14 @@ public class CurrentUser implements Runnable {
         return user;
     }
 
-    static FirebaseUser getCurrentFirebaseUser() {
+    private static UserInfo getCurrentFirebaseUser() {
         return firebaseUser;
     }
 
     static void setUserInstance(User user, FirebaseUser firebaseUser) throws InstantiationException {
         CurrentUser.user = user;
         CurrentUser.firebaseUser = firebaseUser;
-        userSet = true;
+        boolean userSet = true;
         thread = new Thread(new CurrentUser());
         thread.start();
     }
@@ -60,31 +64,35 @@ public class CurrentUser implements Runnable {
         if (CurrentUser.instantiated) {
             throw new InstantiationException("Only one current user is allowed at once.");
         } else {
-            CurrentUser.instantiated = true;
+            CurrentUser.instantiate();
         }
+    }
+
+    private static void instantiate() {
+        CurrentUser.instantiated = true;
     }
 
     @Override
     public void run() {
         db = FirebaseDatabase.getInstance();
-
-        Log.d(TAG , "users/" + getCurrentFirebaseUser().getUid());
-        reference = db.getReference("users/" + getCurrentFirebaseUser().getUid());
+        UserInfo curUser = getCurrentFirebaseUser();
+        Log.d(TAG , "users/" + curUser.getUid());
+        DatabaseReference reference = db.getReference("users/" + curUser.getUid());
 
         //add listener to user list
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User u = dataSnapshot.getValue(User.class);
-                Log.d(TAG, u == null ? "null" : u.toString());
-                mutexlock.lock();
+                Log.d(TAG, (u == null) ? "null" : u.toString());
+                mutexLock.lock();
                 CurrentUser.user = u;
-                mutexlock.unlock();
+                mutexLock.unlock();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+                Log.d(TAG, "The read failed: " + databaseError.getCode());
             }
         });
     }
@@ -93,19 +101,20 @@ public class CurrentUser implements Runnable {
      * @return true/false based on if logout succeeded.
      */
     static boolean logOutUser() {
-        mutexlock.lock();
+        mutexLock.lock();
         try {
-            FirebaseAuth.getInstance().signOut();
+            FirebaseAuth instance = FirebaseAuth.getInstance();
+            instance.signOut();
             user = null;
             firebaseUser = null;
-            mutexlock.unlock();
+            mutexLock.unlock();
             thread.interrupt();
             thread.join();
             thread = null;
             instantiated = false;
             return true;
         } catch (Exception e) {
-            mutexlock.unlock();
+            mutexLock.unlock();
             return false;
         }
     }
@@ -114,6 +123,7 @@ public class CurrentUser implements Runnable {
     /**
      * @param u update the user state.
      */
+    @SuppressWarnings("ChainedMethodCall")
     static void updateUser(User u) {
         DatabaseReference ref = db.getReference("users/");
         ref.child(u.getUid()).setValue(u);

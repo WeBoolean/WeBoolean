@@ -3,20 +3,18 @@ package weboolean.weboolean;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import weboolean.weboolean.models.Shelter;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by rajshrimali on 3/8/18.
  */
+@SuppressWarnings("JavaDoc")
 public class SearchSheltersTest {
-    List<Shelter> shelters;
+    private List<Shelter> shelters;
     @Before
     public void setUp() throws Exception {
         shelters = ShelterSingleton.getShelterArrayCopy();
@@ -83,7 +81,7 @@ public class SearchSheltersTest {
         Map<String, Object> restrictions= new HashMap<>();
         restrictions.put("name", "this does not exist");
         List<Shelter> ret = SearchActivity.searchShelters(restrictions);
-        assert(ret.size() == 0);
+        assert(ret.isEmpty());
     }
 
     @Test
@@ -108,6 +106,6 @@ public class SearchSheltersTest {
         Map<String, Object> restrictions = new HashMap<>();
         restrictions.put("child_age", 19);
         List<Shelter> ret = SearchActivity.searchShelters(restrictions);
-        assert(ret.size() == 0);
+        assert(ret.isEmpty());
     }
 }

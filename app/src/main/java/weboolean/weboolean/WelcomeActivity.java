@@ -12,13 +12,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 import weboolean.weboolean.models.Shelter;
@@ -30,8 +23,8 @@ import weboolean.weboolean.models.Shelter;
 public class WelcomeActivity extends AppCompatActivity {
 
     // List of shelters
-    ArrayList<String> listItems = new ArrayList<>();
-    ArrayAdapter<String> adapter;
+    private ArrayList<String> listItems = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
     private ListView mListView;
     // TAG for log
     public static final String TAG = WelcomeActivity.class.getSimpleName();
@@ -61,7 +54,7 @@ public class WelcomeActivity extends AppCompatActivity {
         // Obtain intent
         Intent startIntent = getIntent();
         Bundle instructions = startIntent.getExtras();
-        if (instructions != null && !instructions.isEmpty()
+        if ((instructions != null) && !instructions.isEmpty()
                 && instructions.containsKey("shelters")) {
             // Read Shelters from bundle
             listItems = (ArrayList<String>) instructions.get("shelters");
@@ -91,14 +84,14 @@ public class WelcomeActivity extends AppCompatActivity {
         });
     }
     // [ Getters and setters ]
-    protected ListView getListView() {
+    private ListView getListView() {
         if (mListView == null) {
             mListView = findViewById(R.id.list);
         }
         return mListView;
     }
 
-    protected void setListAdapter(ListAdapter adapter) {
+    private void setListAdapter(ListAdapter adapter) {
         getListView().setAdapter(adapter);
     }
 

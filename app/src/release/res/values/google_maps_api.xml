@@ -1,4 +1,4 @@
-<!--<resources>-->
+<resources>
     <!--
        To get one, follow this link, follow the directions and press "Create" at the end:
 
@@ -24,5 +24,5 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     string in this file. (currently mine is in there)
 
     -->
-<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">YOUR_KEY_HERE</string>
-</resources>-->
+<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCVN3axVDMD3S5TU81uqy7Sq04ufTZvVwI</string>
+</resources>
