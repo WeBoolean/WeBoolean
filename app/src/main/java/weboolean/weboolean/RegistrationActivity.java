@@ -56,7 +56,6 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     // [Methods] =================================================================================//
@@ -86,26 +85,36 @@ public class RegistrationActivity extends AppCompatActivity {
 
                         // Get remaining user info, must be final to access in inner classes
                         UserType usertype = UserType.User;
-                        String sex = ((Spinner) findViewById(R.id.sex_input)).getSelectedItem().toString();
+                        String sex = ((Spinner) findViewById(R.id.sex_input))
+                                .getSelectedItem().toString();
                         boolean family = ((Switch) findViewById(R.id.family_check)).isChecked();
                         int dependents =
-                                "".equals(((EditText) findViewById(R.id.dependent_input)).getText().toString())
-                            ? 0 : Integer.parseInt(((EditText) findViewById(R.id.dependent_input)).getText().toString());
+                                "".equals(((EditText) findViewById(R.id.dependent_input))
+                                        .getText().toString())
+                            ? 0 : Integer.parseInt(((EditText) findViewById(R.id.dependent_input))
+                                        .getText().toString());
                         int youngestage =
-                                "".equals(((EditText) findViewById(R.id.youngest_age_input)).getText().toString())
-                            ? -1 : Integer.parseInt(((EditText) findViewById(R.id.youngest_age_input)).getText().toString());
+                                "".equals(((EditText) findViewById(R.id.youngest_age_input))
+                                        .getText().toString())
+                            ? -1 : Integer.parseInt(((EditText)
+                                        findViewById(R.id.youngest_age_input))
+                                        .getText().toString());
                         String spouse =
-                                "None".equals(((Spinner) findViewById(R.id.spouse_input)).getSelectedItem().toString())
-                            ? null : ((Spinner) findViewById(R.id.spouse_input)).getSelectedItem().toString();
+                                "None".equals(((Spinner) findViewById(R.id.spouse_input))
+                                        .getSelectedItem().toString())
+                            ? null : ((Spinner) findViewById(R.id.spouse_input))
+                                        .getSelectedItem().toString();
                         boolean veteran = ((Switch) findViewById(R.id.veteran_check)).isChecked();
-                        int age = Integer.parseInt(((EditText) findViewById(R.id.age_input)).getText().toString());
+                        int age = Integer.parseInt(((EditText) findViewById(R.id.age_input))
+                                .getText().toString());
                         boolean checkedIn = false;
                         int currentShelter = -1;
                         boolean locked = false;
 
                         //Create custom user
-                        User u = new User(user.getUid(), usertype, sex, family, dependents, youngestage,
-                        spouse, veteran, age, checkedIn, currentShelter, locked);
+                        User u = new User(user.getUid(), usertype, sex, family, dependents,
+                                youngestage, spouse, veteran, age, false, currentShelter,
+                                false);
 
                         //Set current user instance
                         try {

@@ -33,6 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // Setup
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "Started Welcome Activity");
         setContentView(R.layout.activity_welcome);
 
         // Create logout button and list of shelters with listener and adapter
