@@ -24,6 +24,12 @@ public class SearchSheltersTest {
     }
 
     @Test
+    public void searchSheltersVoidParameter() throws Exception {
+        List<Shelter> compatible = SearchActivity.searchShelters(null);
+        assert(compatible.size() == shelters.size());
+    }
+
+    @Test
     public void searchSheltersNoRestrictions() throws Exception {
         Map<String, Object> restrictions= new HashMap<>();
         // Test
@@ -83,6 +89,13 @@ public class SearchSheltersTest {
         restrictions.put("name", "this does not exist");
         List<Shelter> ret = SearchActivity.searchShelters(restrictions);
         assert(ret.isEmpty());
+    }
+    @Test
+    public void searchSheltersEmpty() throws Exception {
+        Map<String, Object> restrictions= new HashMap<>();
+        restrictions.put("name", "");
+        List<Shelter> ret = SearchActivity.searchShelters(restrictions);
+        assert(ret.size() == shelters.size());
     }
 
     @Test

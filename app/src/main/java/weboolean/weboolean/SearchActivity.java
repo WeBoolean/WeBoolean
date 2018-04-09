@@ -89,6 +89,9 @@ public class SearchActivity extends AppCompatActivity {
 
     static List<Shelter> searchShelters(Map<String, Object> parameters) {
         List<Shelter> shelter_list = ShelterSingleton.getShelterArrayCopy();
+        if (parameters == null) {
+            return shelter_list;
+        }
         Set<Shelter> consideration = new HashSet<>(shelter_list);
         //Exact String Searching -- later we'll move onto fuzzy matching with a more advanced mech
         if (parameters.containsKey("name") && !"".equals(parameters.get("name"))) {
