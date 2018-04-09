@@ -128,7 +128,7 @@ public class SearchActivity extends AppCompatActivity {
         return new ArrayList<>(consideration);
     }
 
-    private static void searchChildAge(Integer restriction, Collection<Shelter> removeSet,
+    static void searchChildAge(Integer restriction, Collection<Shelter> removeSet,
                                        final Iterable<Shelter> consideration) {
         //modifies removeSet with all matches from consideration
         if (restriction == null) {
