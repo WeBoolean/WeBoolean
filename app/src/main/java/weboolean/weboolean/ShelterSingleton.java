@@ -136,6 +136,7 @@ class ShelterSingleton implements Runnable {
      * Future-proofing implies we should have a way to reload the singleton from a copy
      * @param list the list to use
      */
+    @SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
     public static void forciblySetLocalBackingArray(ArrayList<Shelter> list) {
         shelters = list;
     }

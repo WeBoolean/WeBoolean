@@ -137,7 +137,7 @@ public class SearchActivity extends AppCompatActivity {
         int rest = restriction;
         for (Shelter s: consideration) {
              Long ShelterAgeRestriction = ((Boolean) (s.getRestrictions().get("children")))
-                    ? (Long) s.getRestrictions().get("child_age") : Shelter.getMaxAge() + 1;
+                     ? (Long) s.getRestrictions().get("child_age") : (Shelter.getMaxAge() + 1);
             if (ShelterAgeRestriction < rest) {
                 removeSet.add(s);
             }

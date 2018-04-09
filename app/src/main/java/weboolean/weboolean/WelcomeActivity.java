@@ -24,7 +24,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     // List of shelters
     private ArrayList<String> listItems = new ArrayList<>();
-    private ArrayAdapter<String> adapter;
     private ListView mListView;
     // TAG for log
     public static final String TAG = WelcomeActivity.class.getSimpleName();
@@ -68,7 +67,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
         Log.d("SearchActivity", "" + listItems.size());
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
         setListAdapter(adapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){

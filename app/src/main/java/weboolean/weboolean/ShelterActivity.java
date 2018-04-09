@@ -23,8 +23,6 @@ import static weboolean.weboolean.ShelterSingleton.getShelterArrayCopy;
 import static weboolean.weboolean.ShelterSingleton.updateShelter;
 
 public class ShelterActivity extends AppCompatActivity {
-    private FirebaseDatabase database;
-    private DatabaseReference ref;
     private Shelter shelter;
     private static final String TAG = ShelterActivity.class.getSimpleName();
 
@@ -34,8 +32,8 @@ public class ShelterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter);
         // FireBase references
-        database = FirebaseDatabase.getInstance();
-        ref = database.getReference("shelters");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("shelters");
         // Get current shelter
         shelter = getShelter();
 
