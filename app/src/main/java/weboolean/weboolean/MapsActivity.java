@@ -50,12 +50,12 @@ public class MapsActivity extends FragmentActivity
 
         final Button searchButton = findViewById(R.id.search_button);
         Bundle instructions = getIntent().getExtras();
+        List<Shelter> shelters_list = ShelterSingleton.getShelterArrayCopy();
         if ((instructions != null) && !instructions.isEmpty()) {
             // manage shelter intent
             if (instructions.containsKey("shelters")) {
                 Log.d(TAG, "Shelter Filter Requested");
                 List<Integer> shelterIDs =  instructions.getIntegerArrayList("shelters");
-                List<Shelter> shelters_list = ShelterSingleton.getShelterArrayCopy();
                 shelters = new ArrayList<>();
                 if (shelterIDs != null) {
                     for (Integer i : shelterIDs) {
@@ -66,12 +66,12 @@ public class MapsActivity extends FragmentActivity
             }
             else {
                 Log.d(TAG, "Instructions did not contain keys");
-                shelters = ShelterSingleton.getShelterArrayCopy();
+                shelters = shelters_list;
             }
         }
         else {
             Log.d(TAG, "Instructions were null or empty");
-            shelters = ShelterSingleton.getShelterArrayCopy();
+            shelters = shelters_list;
         }
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +168,7 @@ public class MapsActivity extends FragmentActivity
      * @param shelters  shelters to plot
      * @param map       map to plot on
      */
+    @SuppressWarnings("FeatureEnvy") // what does this even mean.
     private static void plotShelters(Iterable<Shelter> shelters, GoogleMap map) {
         LatLng pos;
         for (Shelter s : shelters) {
