@@ -46,6 +46,7 @@ public class SearchChildAgeTests {
         }
         assert(removeSet.equals(checkSet));
         assert(removeSet.size() == 8);
+        removeSet.clear();
     }
 
     @Test
@@ -56,9 +57,10 @@ public class SearchChildAgeTests {
             if ((Integer) shelter.getRestrictions().get("child_age") != 18) {
                 checkSet.add(shelter);
             }
-            assert(removeSet.equals(checkSet));
-            assert(removeSet.size() == 5);
         }
+        assert(removeSet.equals(checkSet));
+        assert(removeSet.size() == 5);
+        removeSet.clear();
     }
 
     @Test
@@ -69,9 +71,10 @@ public class SearchChildAgeTests {
             if ((Integer) shelter.getRestrictions().get("child_age") > 18 || (Integer) shelter.getRestrictions().get("child_age") < 5) {
                 checkSet.add(shelter);
             }
-            assert(removeSet.equals(checkSet));
-            assert(removeSet.size() == 6);
         }
+        assert(removeSet.equals(checkSet));
+        assert(removeSet.size() == 6);
+        removeSet.clear();
     }
 
     @Test
@@ -82,8 +85,9 @@ public class SearchChildAgeTests {
             if ((Integer) shelter.getRestrictions().get("child_age") > 18 || (Integer) shelter.getRestrictions().get("child_age") < 2) {
                 checkSet.add(shelter);
             }
-            assert(removeSet.equals(checkSet));
-            assert(removeSet.size() == 7);
         }
+        assert(removeSet.equals(checkSet));
+        assert(removeSet.size() == 7);
+        removeSet.clear();
     }
 }
