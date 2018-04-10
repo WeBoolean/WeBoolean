@@ -178,6 +178,7 @@
 
                 <TextView
                     android:id="@+id/password_"
+                    android:labelFor="@+id/password_input"
                     android:layout_width="91dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -220,6 +221,7 @@
 
                 <TextView
                     android:id="@+id/age_view"
+                    android:labelFor="@+id/age_input"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -316,6 +318,7 @@
 
                 <TextView
                     android:id="@+id/email_textview"
+                    android:labelFor="@+id/email_input"
                     android:layout_width="71dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -360,6 +363,7 @@
 
                 <TextView
                     android:id="@+id/dependents_textview"
+                    android:labelFor="@+id/dependent_input"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

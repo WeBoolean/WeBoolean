@@ -127,7 +127,9 @@ final class CurrentUser implements Runnable {
     @SuppressWarnings("ChainedMethodCall")
     static void updateUser(User u) {
         DatabaseReference ref = db.getReference("users/");
-        ref.child(u.getUid()).setValue(u);
+        if (u.getUid() != null) {
+            ref.child(u.getUid()).setValue(u);
+        }
     }
 
 }

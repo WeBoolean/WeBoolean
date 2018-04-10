@@ -19,19 +19,21 @@ public class SearchChildAgeTests {
     Set<Shelter> consideration = new HashSet<>();
     Set<Shelter> removeSet = new HashSet<>();
 
+    /**
+     * 
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         List<Shelter>shelters = ShelterSingleton.getShelterArrayCopy();
-        for (Shelter shelter : shelters) {
-            consideration.add(shelter);
-        }
+        consideration.addAll(shelters);
     }
 
     @Test
     public void searchShelterAge_noRestriction() throws Exception {
         // Test
         SearchActivity.searchChildAge(null, removeSet, consideration);
-        assert(removeSet.size() == 0);
+        assert(removeSet.isEmpty());
     }
 
     @Test

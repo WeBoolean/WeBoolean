@@ -1,18 +1,9 @@
 package weboolean.weboolean;
 
-/**
- * Created by Michael Xiao Local on 4/9/2018.
- */
-
-import android.util.Log;
-
 import org.junit.Test;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import weboolean.weboolean.models.Shelter;
-
 import static org.junit.Assert.assertEquals;
 
 /**
