@@ -34,6 +34,7 @@ import weboolean.weboolean.models.Shelter;
 /**
  * Activity that is capable of plotting either a bundle of shelters or all shelters.
  */
+@SuppressWarnings("MagicNumber")
 public class MapsActivity extends FragmentActivity
         implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback,
         GoogleMap.OnMarkerClickListener {
@@ -151,11 +152,14 @@ public class MapsActivity extends FragmentActivity
 
             }
         });
-        if ((ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+        if ((ActivityCompat.checkSelfPermission(this,
+            android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED)
-                && (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                && (ActivityCompat.checkSelfPermission(this,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED)) {
-            String[] perms = {"android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"};
+            String[] perms = {"android.permission.ACCESS_FINE_LOCATION",
+                "android.permission.ACCESS_COARSE_LOCATION"};
 
             ActivityCompat.requestPermissions(this, perms, MAP_REQUEST_CODE);
             return;
@@ -193,7 +197,8 @@ public class MapsActivity extends FragmentActivity
 
     @SuppressLint("MissingPermission") //else will only run on granted perms
     @Override
-    public void onRequestPermissionsResult(int rq, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int rq, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(rq, permissions, grantResults);
         if (rq == MAP_REQUEST_CODE) {
             if ((grantResults[0] != 1) && (grantResults[1] != 1)) {

@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -35,7 +34,7 @@ public class ShelterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter);
         // FireBase references
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
         //DatabaseReference ref = database.getReference("shelters");
         // Get current shelter
         shelter = getShelter();
@@ -110,13 +109,13 @@ public class ShelterActivity extends AppCompatActivity {
         name.setText(shelter.getName());
         address.setText(shelter.getAddress());
         setCapacities(shelter, available, capacity);
-        note.setText("Notes: " + shelter.getNote());
-        number.setText("Number: " + shelter.getPhoneNumber());
+        note.setText(getString(R.string.notes, shelter.getNote()));
+        number.setText(getString(R.string.number, shelter.getPhoneNumber()));
 
         // [Restrictions] ========================================================================//
         // Anyone case
         if (shelter.getAnyone()) {
-            anyone.setText("This shelter accepts anyone");
+            anyone.setText(R.string.anyone_accepted);
         } else {
             // Case where there ARE restrictions
             anyone.setText("Restrictions: \n\n");
@@ -298,23 +297,31 @@ public class ShelterActivity extends AppCompatActivity {
         } else {
             available.setText("");
         }
-        if ((shelter.getAvailable().get("rooms") != null) && (shelter.getAvailable().get("rooms") != 0)) {
-            available.setText(available.getText() + "" + shelter.getAvailable().get("rooms") + " Rooms available");
+        if ((shelter.getAvailable().get("rooms") != null) &&
+            (shelter.getAvailable().get("rooms") != 0)) {
+            available.setText(available.getText() + "" + shelter.getAvailable().get("rooms") +
+                " Rooms available");
         }
-        if ((shelter.getAvailable().get("rooms") != null) && (shelter.getAvailable().get("rooms") == 0)) {
+        if ((shelter.getAvailable().get("rooms") != null) &&
+            (shelter.getAvailable().get("rooms") == 0)) {
             available.setText("N/A Rooms available");
         }
         // [Capacity] =============================================================================/
-        if ((shelter.getCapacity().get("beds") != null) && (shelter.getCapacity().get("beds") != 0)) {
+        if ((shelter.getCapacity().get("beds") != null) &&
+            (shelter.getCapacity().get("beds") != 0)) {
             capacity.setText("" + shelter.getCapacity().get("beds") + " Bed capacity ");
-        } else if ((shelter.getCapacity().get("beds") != null) && (shelter.getCapacity().get("beds") == 0)){
+        } else if ((shelter.getCapacity().get("beds") != null) &&
+            (shelter.getCapacity().get("beds") == 0)){
             capacity.setText("N/A Beds Capacity \n");
         } else {
             capacity.setText("");
         }
-        if ((shelter.getCapacity().get("rooms") != null) && (shelter.getCapacity().get("rooms") != 0)) {
-            capacity.setText(capacity.getText() + "" + shelter.getCapacity().get("rooms") + " Room capacity");
-        } else if ((shelter.getCapacity().get("rooms") != null) && (shelter.getCapacity().get("rooms") == 0)) {
+        if ((shelter.getCapacity().get("rooms") != null) &&
+            (shelter.getCapacity().get("rooms") != 0)) {
+            capacity.setText(capacity.getText() + "" + shelter.getCapacity().get("rooms") +
+                " Room capacity");
+        } else if ((shelter.getCapacity().get("rooms") != null) &&
+            (shelter.getCapacity().get("rooms") == 0)) {
             capacity.setText("N/A Room capacity");
         }
     }

@@ -7,7 +7,6 @@ import org.junit.Test;
 import java.util.Collection;
 import java.util.List;
 import java.util.HashSet;
-import java.util.Set;
 
 import weboolean.weboolean.models.Shelter;
 
@@ -15,6 +14,7 @@ import weboolean.weboolean.models.Shelter;
 /**
  * JUnit tests for searching child by age
  */
+@SuppressWarnings("MagicNumber")
 public class SearchChildAgeTests {
     private final Collection<Shelter> consideration = new HashSet<>();
     private final Collection<Shelter> removeSet = new HashSet<>();
@@ -59,6 +59,10 @@ public class SearchChildAgeTests {
         removeSet.clear();
     }
 
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void searchShelterAge_18() throws Exception {
         SearchActivity.searchChildAge(18, removeSet, consideration);
@@ -73,12 +77,17 @@ public class SearchChildAgeTests {
         removeSet.clear();
     }
 
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void searchShelterAge_5() throws Exception {
         SearchActivity.searchChildAge(18, removeSet, consideration);
         Collection<Shelter> checkSet = new HashSet<>();
         for (Shelter shelter : consideration) {
-            if ((Integer) shelter.getRestrictions().get("child_age") > 18 || (Integer) shelter.getRestrictions().get("child_age") < 5) {
+            if (((Integer) shelter.getRestrictions().get("child_age") > 18) ||
+                ((Integer) shelter.getRestrictions().get("child_age") < 5)) {
                 checkSet.add(shelter);
             }
         }
@@ -87,12 +96,17 @@ public class SearchChildAgeTests {
         removeSet.clear();
     }
 
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void searchShelterAge_2() throws Exception {
         SearchActivity.searchChildAge(2, removeSet, consideration);
         Collection<Shelter> checkSet = new HashSet<>();
         for (Shelter shelter : consideration) {
-            if ((Integer) shelter.getRestrictions().get("child_age") > 18 || (Integer) shelter.getRestrictions().get("child_age") < 2) {
+            if ((Integer) shelter.getRestrictions().get("child_age") > 18 ||
+                (Integer) shelter.getRestrictions().get("child_age") < 2) {
                 checkSet.add(shelter);
             }
         }

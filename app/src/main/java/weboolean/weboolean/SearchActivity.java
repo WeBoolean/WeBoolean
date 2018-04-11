@@ -65,7 +65,7 @@ public class SearchActivity extends AppCompatActivity {
                     vals.put("child_age", null);
                 }
                 vals.put("name", shelter_name_match);
-                @SuppressWarnings("unchecked") List<Shelter> okShelters = searchShelters(vals); // actually not an issue.
+                @SuppressWarnings("unchecked") List<Shelter> okShelters = searchShelters(vals);
 
                 Bundle shelterBundle = new Bundle();
                 Bundle prevBundle = getIntent().getExtras();

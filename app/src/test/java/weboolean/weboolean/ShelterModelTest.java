@@ -11,8 +11,12 @@ import static org.junit.Assert.assertEquals;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+@SuppressWarnings("MagicNumber")
 public class ShelterModelTest {
-
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void noAvailabilityInformation() throws Exception {
         Shelter testShelter = initialize();
@@ -21,6 +25,10 @@ public class ShelterModelTest {
         assertEquals(test, "18009001\ntestAddress, \nNo Availability Information");
     }
 
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void bedsAndRooms() throws Exception {
 
@@ -37,6 +45,11 @@ public class ShelterModelTest {
         // Test case: No Availability Information
         assertEquals(test, "18009001\ntestAddress, \nBeds Available: 1\nRooms Available: 1\n");
     }
+
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void bedsOnly() throws Exception {
         Shelter testShelter = initialize();
@@ -53,6 +66,10 @@ public class ShelterModelTest {
         assertEquals(test, "18009001\ntestAddress, \nBeds Available: 1\n");
     }
 
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void roomsOnly() throws Exception {
         Shelter testShelter = initialize();

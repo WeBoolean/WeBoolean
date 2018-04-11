@@ -80,7 +80,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(WelcomeActivity.this,
                         ShelterActivity.class);
                 intent.putExtra("Shelter",
-                        ShelterSingleton.getShelterKeyByCommonName(listItems.get(i), getShelterArrayCopy()));
+                        ShelterSingleton.getShelterKeyByCommonName(listItems.get(i),
+                            getShelterArrayCopy()));
                 // based on item add info to intent
                 startActivity(intent);
             }

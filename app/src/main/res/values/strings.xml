@@ -11,7 +11,8 @@
     <!--<string name="error_invalid_password">This password is too short</string>-->
     <!--<string name="error_incorrect_password">This password is incorrect</string>-->
     <!--<string name="error_field_required">This field is required</string>-->
-    <!--<string name="permission_rationale">Contacts permissions are needed for providing email completions.</string>-->
+    <!--<string name="permission_rationale">Contacts permissions are needed for providing
+    email completions.</string>-->
     <string name="title_activity_registration">RegistrationActivity</string>
     <string name="login">Login</string>
     <string name="cancel">Cancel</string>
@@ -26,9 +27,10 @@
     <string name="female">Female</string>
     <string name="male">Male</string>
     <string name="filter">Filter</string>
-    <string name = "youngest_child">Youngest Child: </string>
+    <string name="youngest_child">Youngest Child: </string>
 
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">  AIzaSyCVN3axVDMD3S5TU81uqy7Sq04ufTZvVwI</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyCVN3axVDMD3S5TU81uqy7Sq04ufTZvVwI</string>
 
 
     <!--Strings related to registration-->
@@ -42,5 +44,27 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+
+
+    <!--Strings related to activities-->
+    <string name="back">Back</string>
+    <string name="check_in">Check In</string>
+    <string name="check_out">Check Out</string>
+    <string name="log_out">Log Out</string>
+    <string name="family">family:</string>
+    <string name="veteran_status">veteran status:</string>
+    <string name="spouse">spouse:</string>
+    <string name="password">Password:</string>
+    <string name="age">age:</string>
+    <string name="sex">sex:</string>
+    <string name="dependents">dependents:</string>
+    <string name="veteran_restrictions">Veteran Restrictions</string>
+    <string name="families_accepted">Families accepted</string>
+    <string name="age_restrictions">Age Restrictions</string>
+    <string name="youngest_age">youngest age</string>
+    <string name="shelter_name">shelter name</string>
+    <string name="notes">Notes: %1$s</string>
+    <string name="number">Number: %1$s</string>
+    <string name="anyone_accepted">"This shelter accepts anyone"</string>
 
 </resources>

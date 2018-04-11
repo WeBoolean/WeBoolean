@@ -3,6 +3,7 @@ package weboolean.weboolean;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,61 +14,78 @@ import static org.junit.Assert.assertEquals;
 import static weboolean.weboolean.ShelterSingleton.getShelterKeyByCommonName;
 
 /**
- * Created by Max Brauer on 4/10/18.
+ *
  */
+@SuppressWarnings("MagicNumber")
 public class GetShelterKeyByCommonNameTest {
-
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void negativeData() throws Exception {
         Shelter testShelter = createShelter("", -1);
-        List<Shelter> shelters = new ArrayList<>();
+        Collection<Shelter> shelters = new ArrayList<>();
         shelters.add(testShelter);
         int foundKey = getShelterKeyByCommonName("", shelters);
         assertEquals(foundKey, -1);
     }
-
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void weirdNames() throws Exception {
         Shelter testShelter = createShelter("2387dhsacwelnsdnsdfcxa($Recsd", 1);
-        List<Shelter> shelters = new ArrayList<>();
+        Collection<Shelter> shelters = new ArrayList<>();
         shelters.add(testShelter);
         int foundKey = getShelterKeyByCommonName("2387dhsacwelnsdnsdfcxa($Recsd", shelters);
         assertEquals(foundKey, 1);
     }
-
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void longKey() throws Exception {
         Shelter testShelter = createShelter("test", 1191128334);
-        List<Shelter> shelters = new ArrayList<>();
+        Collection<Shelter> shelters = new ArrayList<>();
         shelters.add(testShelter);
         int foundKey = getShelterKeyByCommonName("test", shelters);
         assertEquals(foundKey, 1191128334);
     }
-
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void lotsOfEntries() throws Exception {
-        List<Shelter> shelters = new ArrayList<>();
+        Collection<Shelter> shelters = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
-            Shelter test = createShelter("test" + i, i * i - i);
+            Shelter test = createShelter("test" + i, (i * i) - i);
             shelters.add(test);
         }
         for (int i = 9999; i >= 0; i-- ) {
             int foundKey = getShelterKeyByCommonName("test" + i, shelters);
-            assertEquals(foundKey, i * i - i);
+            assertEquals(foundKey, (i * i) - i);
         }
     }
-
+    /**
+     *
+     */
     @Test(expected = NoSuchElementException.class)
     public void notPresentInEmptyList() {
-        List<Shelter> shelters = new ArrayList<>();
+        Iterable<Shelter> shelters = new ArrayList<>();
         getShelterKeyByCommonName("test", shelters);
     }
-
+    /**
+     *
+     */
     @Test(expected = NoSuchElementException.class)
     public void notPresentInLongList() {
-        List<Shelter> shelters = new ArrayList<>();
+        Collection<Shelter> shelters = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
-            Shelter test = createShelter("test" + i, i * i - i);
+            Shelter test = createShelter("test" + i, (i * i) - i);
             shelters.add(test);
         }
         getShelterKeyByCommonName("test", shelters);

@@ -60,8 +60,9 @@ public class User implements Serializable {
         this.userType = type;
     }
 
-    public User(String uid, UserType usertype, @Nullable String sex, Boolean fam, int dep, int young,
-                @Nullable String spouse, @Nullable Boolean vet, int age, boolean checked, int curr, boolean locked) {
+    public User(String uid, UserType usertype, @Nullable String sex, Boolean fam, int dep,
+                int young, @Nullable String spouse, @Nullable Boolean vet, int age, boolean checked,
+                int curr, boolean locked) {
         this(uid, usertype);
         this.sex = sex;
         this.family = fam;
