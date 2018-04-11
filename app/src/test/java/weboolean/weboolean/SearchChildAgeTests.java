@@ -4,6 +4,7 @@ package weboolean.weboolean;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,16 +13,15 @@ import weboolean.weboolean.models.Shelter;
 
 
 /**
- * Created by sophiehandel on 4/9/18.
+ * JUnit tests for searching child by age
  */
-
 public class SearchChildAgeTests {
-    Set<Shelter> consideration = new HashSet<>();
-    Set<Shelter> removeSet = new HashSet<>();
+    Collection<Shelter> consideration = new HashSet<>();
+    Collection<Shelter> removeSet = new HashSet<>();
 
     /**
      * 
-     * @throws Exception
+     * @throws Exception throws an exception if can't add shelters properly
      */
     @Before
     public void setUp() throws Exception {
@@ -29,6 +29,10 @@ public class SearchChildAgeTests {
         consideration.addAll(shelters);
     }
 
+    /**
+     *
+     * @throws Exception throws exception if search without restriction fails
+     */
     @Test
     public void searchShelterAge_noRestriction() throws Exception {
         // Test
@@ -40,7 +44,7 @@ public class SearchChildAgeTests {
     public void searchShelterAge_adult() throws Exception {
         //Test
         SearchActivity.searchChildAge(19, removeSet, consideration);
-        Set<Shelter> checkSet = new HashSet<>();
+        Collection<Shelter> checkSet = new HashSet<>();
         for (Shelter shelter : consideration) {
             if ((Boolean) shelter.getRestrictions().get("children")) {
                 checkSet.add(shelter);
@@ -54,7 +58,7 @@ public class SearchChildAgeTests {
     @Test
     public void searchShelterAge_18() throws Exception {
         SearchActivity.searchChildAge(18, removeSet, consideration);
-        Set<Shelter> checkSet = new HashSet<>();
+        Collection<Shelter> checkSet = new HashSet<>();
         for (Shelter shelter : consideration) {
             if ((Integer) shelter.getRestrictions().get("child_age") != 18) {
                 checkSet.add(shelter);
@@ -68,7 +72,7 @@ public class SearchChildAgeTests {
     @Test
     public void searchShelterAge_5() throws Exception {
         SearchActivity.searchChildAge(18, removeSet, consideration);
-        Set<Shelter> checkSet = new HashSet<>();
+        Collection<Shelter> checkSet = new HashSet<>();
         for (Shelter shelter : consideration) {
             if ((Integer) shelter.getRestrictions().get("child_age") > 18 || (Integer) shelter.getRestrictions().get("child_age") < 5) {
                 checkSet.add(shelter);
@@ -82,7 +86,7 @@ public class SearchChildAgeTests {
     @Test
     public void searchShelterAge_2() throws Exception {
         SearchActivity.searchChildAge(2, removeSet, consideration);
-        Set<Shelter> checkSet = new HashSet<>();
+        Collection<Shelter> checkSet = new HashSet<>();
         for (Shelter shelter : consideration) {
             if ((Integer) shelter.getRestrictions().get("child_age") > 18 || (Integer) shelter.getRestrictions().get("child_age") < 2) {
                 checkSet.add(shelter);

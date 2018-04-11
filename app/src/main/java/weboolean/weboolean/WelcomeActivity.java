@@ -68,7 +68,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
         Log.d("SearchActivity", "" + listItems.size());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        ListAdapter adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, listItems);
         setListAdapter(adapter);
 
