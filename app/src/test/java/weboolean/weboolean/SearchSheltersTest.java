@@ -10,7 +10,6 @@ import java.util.Map;
 import weboolean.weboolean.models.Shelter;
 
 /**
- * Created by rajshrimali on 3/8/18.
  * Tests.
  */
 @SuppressWarnings("JavaDoc")

@@ -87,13 +87,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void launchFacebookRegistration() {
-        Toast text = Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT);
+        Toast text = Toast.makeText(LoginActivity.this, "Not implemented", Toast.LENGTH_SHORT);
         text.show();
     }
 
     @SuppressWarnings("ChainedMethodCall")
     private void launchGoogleRegistration() {
-        Toast text = Toast.makeText(LoginActivity.this, "Unimplememnted", Toast.LENGTH_SHORT);
+        Toast text = Toast.makeText(LoginActivity.this, "Not implemented", Toast.LENGTH_SHORT);
         text.show();
     }
 

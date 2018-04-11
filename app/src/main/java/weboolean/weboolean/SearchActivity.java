@@ -93,7 +93,7 @@ public class SearchActivity extends AppCompatActivity {
             return shelter_list;
         }
         Set<Shelter> consideration = new HashSet<>(shelter_list);
-        //Exact String Searching -- later we'll move onto fuzzy matching with a more advanced mech
+        //Exact String Searching -- later we'll move onto fuzzy matching
         if (parameters.containsKey("name") && !"".equals(parameters.get("name"))) {
             List<Shelter> exactMatch = new ArrayList<>();
             Log.d(TAG, "Exact String Searching launched for " + parameters.get("name"));

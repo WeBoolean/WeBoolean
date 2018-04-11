@@ -93,7 +93,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                         .getText().toString())
                             ? 0 : Integer.parseInt(((EditText) findViewById(R.id.dependent_input))
                                         .getText().toString());
-                        int youngestage =
+                        int youngestAge =
                                 "".equals(((EditText) findViewById(R.id.youngest_age_input))
                                         .getText().toString())
                             ? -1 : Integer.parseInt(((EditText)
@@ -116,7 +116,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                         if (user != null) {
                             u = new User(user.getUid(), usertype, sex, family, dependents,
-                                youngestage, spouse, veteran, age, false, currentShelter,
+                                youngestAge, spouse, veteran, age, false, currentShelter,
                                 false);
                         }
 
