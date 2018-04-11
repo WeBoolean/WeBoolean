@@ -16,8 +16,8 @@ import weboolean.weboolean.models.Shelter;
  * JUnit tests for searching child by age
  */
 public class SearchChildAgeTests {
-    Collection<Shelter> consideration = new HashSet<>();
-    Collection<Shelter> removeSet = new HashSet<>();
+    private final Collection<Shelter> consideration = new HashSet<>();
+    private final Collection<Shelter> removeSet = new HashSet<>();
 
     /**
      * 

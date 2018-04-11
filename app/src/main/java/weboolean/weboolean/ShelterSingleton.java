@@ -26,7 +26,7 @@ import weboolean.weboolean.models.Shelter;
 class ShelterSingleton implements Runnable {
 
     // Holds our copy of the shelters
-    private static ArrayList<Shelter> shelters = new ArrayList<>();
+    private static final ArrayList<Shelter> shelters = new ArrayList<>();
 
     private static DatabaseReference reference;
 
@@ -137,9 +137,9 @@ class ShelterSingleton implements Runnable {
      * Future-proofing implies we should have a way to reload the singleton from a copy
      * @param list the list to use
      */
-    public static void forciblySetLocalBackingArray(ArrayList<Shelter> list) {
-        shelters = list;
-    }
+//    public static void forciblySetLocalBackingArray(ArrayList<Shelter> list) {
+//        shelters = list;
+//    }
 
     static int getShelterKeyByCommonName(String name) {
         List<Shelter> shelters = getShelterArrayCopy();

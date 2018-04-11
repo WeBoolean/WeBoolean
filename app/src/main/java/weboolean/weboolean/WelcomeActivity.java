@@ -26,7 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private ArrayList<String> listItems = new ArrayList<>();
     private ListView mListView;
     // TAG for log
-    public static final String TAG = WelcomeActivity.class.getSimpleName();
+    private static final String TAG = WelcomeActivity.class.getSimpleName();
 
     // [AppCompat Activity Overridden Methods] ===================================================//
     @Override

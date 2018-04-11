@@ -36,7 +36,7 @@ public class ShelterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shelter);
         // FireBase references
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("shelters");
+        //DatabaseReference ref = database.getReference("shelters");
         // Get current shelter
         shelter = getShelter();
 
