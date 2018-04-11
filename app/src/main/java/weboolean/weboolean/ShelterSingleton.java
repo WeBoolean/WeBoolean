@@ -132,11 +132,11 @@ class ShelterSingleton implements Runnable {
         reference.child((Integer.valueOf(key)).toString()).setValue(s);
     }
 
-    /** Thread safe, but this shouldn't really be called unless restoring from backup
-     *
-     * Future-proofing implies we should have a way to reload the singleton from a copy
-     * @param list the list to use
-     */
+//    /** Thread safe, but this shouldn't really be called unless restoring from backup
+//     *
+//     * Future-proofing implies we should have a way to reload the singleton from a copy
+//     * @param list the list to use
+//     */
 //    public static void forciblySetLocalBackingArray(ArrayList<Shelter> list) {
 //        shelters = list;
 //    }

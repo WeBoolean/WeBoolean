@@ -107,16 +107,17 @@ public class RegistrationActivity extends AppCompatActivity {
                         boolean veteran = ((Switch) findViewById(R.id.veteran_check)).isChecked();
                         int age = Integer.parseInt(((EditText) findViewById(R.id.age_input))
                                 .getText().toString());
-                        boolean checkedIn = false;
+//                        boolean checkedIn = false;
                         int currentShelter = -1;
-                        boolean locked = false;
+//                        boolean locked = false;
 
                         //Create custom user
                         User u = null;
+
                         if (user != null) {
                             u = new User(user.getUid(), usertype, sex, family, dependents,
-                                youngestage, spouse, veteran, age, checkedIn, currentShelter,
-                                locked);
+                                youngestage, spouse, veteran, age, false, currentShelter,
+                                false);
                         }
 
                         //Set current user instance
