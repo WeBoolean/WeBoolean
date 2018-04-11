@@ -112,13 +112,13 @@ public class RegistrationActivity extends AppCompatActivity {
 //                        boolean locked = false;
 
                         //Create custom user
-                        User u = null;
+                        User u;
+                        assert(user != null);
+                        String Uid = user.getUid();
+                        u = new User(Uid, usertype, sex, family, dependents,
+                            youngestAge, spouse, veteran, age, false, currentShelter,
+                            false);
 
-                        if (user != null) {
-                            u = new User(user.getUid(), usertype, sex, family, dependents,
-                                youngestAge, spouse, veteran, age, false, currentShelter,
-                                false);
-                        }
 
                         //Set current user instance
                         try {

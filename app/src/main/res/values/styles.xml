@@ -1,14 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar" tools:keep="@style/AppTheme">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"
+        tools:keep="@style/AppTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="splashScreenTheme" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar" tools:keep="@style/splashScreenTheme">
+    <style name="splashScreenTheme" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar"
+        tools:keep="@style/splashScreenTheme">
         <!--<item name="android:windowBackground">@drawable/splashscreen</item>-->
     </style>
 
