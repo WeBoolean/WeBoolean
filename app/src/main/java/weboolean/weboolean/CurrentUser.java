@@ -17,7 +17,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import weboolean.weboolean.models.User;
 /**
- * Created by rajshrimali on 2/17/18.
  * The purpose of this class is to manage the users while the app is running
  * By having a single static class, we can reference this class to see the user type.
  * This way, we know what type they are without having to read from the database every time.

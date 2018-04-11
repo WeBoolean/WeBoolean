@@ -60,7 +60,7 @@ public class GetShelterKeyByCommonNameTest {
     @Test(expected = NoSuchElementException.class)
     public void notPresentInEmptyList() {
         List<Shelter> shelters = new ArrayList<>();
-        int foundKey = getShelterKeyByCommonName("test", shelters);
+        getShelterKeyByCommonName("test", shelters);
     }
 
     @Test(expected = NoSuchElementException.class)
@@ -70,7 +70,7 @@ public class GetShelterKeyByCommonNameTest {
             Shelter test = createShelter("test" + i, i * i - i);
             shelters.add(test);
         }
-        int foundKey = getShelterKeyByCommonName("test", shelters);
+        getShelterKeyByCommonName("test", shelters);
     }
 
     private Shelter createShelter(String name, int key) {
