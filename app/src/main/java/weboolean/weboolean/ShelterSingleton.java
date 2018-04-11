@@ -18,7 +18,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import weboolean.weboolean.models.Shelter;
 
 /**
- * Created by rajshrimali on 2/28/18.
  * Handles all shelter management.
  */
 

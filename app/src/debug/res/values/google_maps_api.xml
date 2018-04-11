@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!--
 
     To get one, follow this link, follow the directions and press "Create" at the end:
@@ -31,5 +31,5 @@ apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=[PASTE IN HERE]%3Bweboo
     Once you have your key, replace the "google_maps_key"
     string in this file. (currently mine is in there)
     -->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">  AIzaSyCVN3axVDMD3S5TU81uqy7Sq04ufTZvVwI</string>
+   <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">  AIzaSyCVN3axVDMD3S5TU81uqy7Sq04ufTZvVwI</string>-->
 </resources>

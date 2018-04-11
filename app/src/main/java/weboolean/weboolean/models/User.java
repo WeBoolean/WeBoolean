@@ -7,7 +7,6 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.io.Serializable;
 
 /**
- * Created by rajshrimali on 2/17/18.
  *
  * The purpose of this is to represent a User in our models.
  *
