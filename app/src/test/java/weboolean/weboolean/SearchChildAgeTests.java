@@ -40,6 +40,10 @@ public class SearchChildAgeTests {
         assert(removeSet.isEmpty());
     }
 
+    /**
+     *
+     * @throws Exception failed test
+     */
     @Test
     public void searchShelterAge_adult() throws Exception {
         //Test
