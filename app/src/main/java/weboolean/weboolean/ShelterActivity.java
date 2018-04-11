@@ -1,6 +1,7 @@
 package weboolean.weboolean;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -107,8 +108,12 @@ public class ShelterActivity extends AppCompatActivity {
         name.setText(shelter.getName());
         address.setText(shelter.getAddress());
         setCapacities(shelter, available, capacity);
-        note.setText(getString(R.string.notes, shelter.getNote()));
-        number.setText(getString(R.string.number, shelter.getPhoneNumber()));
+        if (shelter.getNote() != null) {
+            note.setText(getString(R.string.notes, shelter.getNote()));
+        }
+        if (shelter.getPhoneNumber() != null) {
+            number.setText(getString(R.string.number, shelter.getPhoneNumber()));
+        }
 
         // [Restrictions] ========================================================================//
         // Anyone case
@@ -125,8 +130,8 @@ public class ShelterActivity extends AppCompatActivity {
             if (childRestriction) {
                 if (shelter.getRestrictions().get("child_age") != null) {
                     if ((boolean) shelter.getRestrictions().get("women")) {
-                        anyone.setText(anyone.getText() + "This shelter accepts women and children "
-                                + shelter.getRestrictions().get("child_age") + " or younger. \n");
+                        anyone.setText(getString(R.string.women_children_restriction,
+                            anyone.getText(), shelter.getRestrictions().get("child_age")));
                         // already set female
                         femaleRestriction = false;
                     } else {

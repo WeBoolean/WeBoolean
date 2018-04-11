@@ -65,6 +65,8 @@
     <string name="shelter_name">shelter name</string>
     <string name="notes">Notes: %1$s</string>
     <string name="number">Number: %1$s</string>
-    <string name="anyone_accepted">"This shelter accepts anyone"</string>
+    <string name="anyone_accepted">This shelter accepts anyone</string>
+    <string name="women_children_restriction">%1$s This shelter accepts women and children %2$s
+        or younger. \n</string>
 
 </resources>
