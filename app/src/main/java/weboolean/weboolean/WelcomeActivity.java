@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 import weboolean.weboolean.models.Shelter;
 
+import static weboolean.weboolean.ShelterSingleton.getShelterArrayCopy;
+
 
 /**
  * Shows Login and Registration Screen Options.
@@ -60,7 +62,7 @@ public class WelcomeActivity extends AppCompatActivity {
             listItems = (ArrayList<String>) instructions.get("shelters");
         } else {
             // Get Shelter array list from Shelter Singleton (Firebase)
-            listItems = Shelter.toStrings(ShelterSingleton.getShelterArrayCopy());
+            listItems = Shelter.toStrings(getShelterArrayCopy());
         }
         // in case no shelters were found, and it's magically null (will never happen)
         if (listItems == null) {
@@ -78,7 +80,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(WelcomeActivity.this,
                         ShelterActivity.class);
                 intent.putExtra("Shelter",
-                        ShelterSingleton.getShelterKeyByCommonName(listItems.get(i)));
+                        ShelterSingleton.getShelterKeyByCommonName(listItems.get(i), getShelterArrayCopy()));
                 // based on item add info to intent
                 startActivity(intent);
             }

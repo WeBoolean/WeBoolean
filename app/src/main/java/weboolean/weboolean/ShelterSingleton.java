@@ -141,8 +141,7 @@ class ShelterSingleton implements Runnable {
 //        shelters = list;
 //    }
 
-    static int getShelterKeyByCommonName(String name) {
-        List<Shelter> shelters = getShelterArrayCopy();
+    static int getShelterKeyByCommonName(String name, List<Shelter> shelters) {
         for (Shelter s: shelters) {
             if (s.getName().equals(name)) {
                 return s.getKey();
