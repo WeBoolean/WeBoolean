@@ -144,7 +144,8 @@ public class ShelterActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    anyone.setText(getString(R.string.children_restriction, anyone.getText(), "18"));
+                    anyone.setText(getString(R.string.children_restriction,
+                            anyone.getText(), "18"));
                 }
             }
 
@@ -163,94 +164,133 @@ public class ShelterActivity extends AppCompatActivity {
         }
     }
 
+    private boolean checkInFailureTest1() {
+        User currentUser = CurrentUser.getCurrentUser();
+        Shelter s = shelter;
+        if (!s.getAnyone()) {
+            if ((boolean) s.getRestrictions().get("fam")
+                    && !currentUser.getFamily()) {
+                return false;
+            }
+            Log.w(TAG, "sex " + currentUser.getSex());
+            if ((boolean) s.getRestrictions().get("men") && (!"Male"
+                    .equals(currentUser.getSex())
+                    || ((currentUser.getSpouse() != null) &&
+                    "Female".equals(currentUser.getSpouse())))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkInFailureTest2() {
+        User currentUser = CurrentUser.getCurrentUser();
+        Shelter s = shelter;
+        if (!s.getAnyone()) {
+            if ((boolean) s.getRestrictions().get("vets") &&
+                    !currentUser.getVeteran()) {
+                return false;
+            }
+            if ((boolean) s.getRestrictions().get("children")) {
+                if (currentUser.getDependents() == 0) {
+                    return false;
+                }
+                if (((Long)s.getRestrictions().get("child_age")).intValue()
+                        < currentUser.getYoungest()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean checkInFailureTest3() {
+        User currentUser = CurrentUser.getCurrentUser();
+        Shelter s = shelter;
+        if (!s.getAnyone()) {
+            if ((boolean) s.getRestrictions().get("women") && ((!"Female"
+                    .equals(currentUser.getSex())
+                    || ((currentUser.getSpouse() != null)
+                    && "Male".equals(currentUser.getSpouse()))))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkInFamily() {
+        User currentUser = CurrentUser.getCurrentUser();
+        Shelter s = shelter;
+        if ((s.getAvailable().get("rooms") != null)
+                && (s.getAvailable().get("rooms") > 0)) {
+            currentUser.setCurrentShelter(s.getKey());
+            currentUser.setCheckedIn(true);
+            Map<String, Integer> newAvailability = new HashMap<>();
+            newAvailability.put("rooms", s.getAvailable().get("rooms") - 1);
+            s.setAvailable(newAvailability);
+            shelter = s;
+            return true;
+        } else {
+            if ((s.getAvailable().get("beds") != null) &&
+                    (s.getAvailable().get("beds")
+                            >= currentUser.getFamilySize())) {
+                currentUser.setCurrentShelter(s.getKey());
+                currentUser.setCheckedIn(true);
+                Map<String, Integer> newAvailability = new HashMap<>();
+                newAvailability.put("beds", s.getAvailable().get("beds")
+                        - currentUser.getFamilySize());
+                s.setAvailable(newAvailability);
+                shelter = s;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkInNonFamily() {
+        User currentUser = CurrentUser.getCurrentUser();
+        Shelter s = shelter;
+        if ((s.getAvailable().get("rooms") != null)
+                && (s.getAvailable().get("rooms") > 0)) {
+            currentUser.setCurrentShelter(s.getKey());
+            currentUser.setCheckedIn(true);
+            Map<String, Integer> newAvailability = new HashMap<>();
+            newAvailability.put("rooms", s.getAvailable().get("rooms") - 1);
+            s.setAvailable(newAvailability);
+            shelter = s;
+
+            return true;
+        } else if ((s.getAvailable().get("beds") != null)
+                && (s.getAvailable().get("beds")
+                >= currentUser.getFamilySize())) {
+            currentUser.setCurrentShelter(s.getKey());
+            currentUser.setCheckedIn(true);
+            Map<String, Integer> newAvailability = new HashMap<>();
+            newAvailability.put("beds", s.getAvailable().get("beds")
+                    - currentUser.getFamilySize());
+            s.setAvailable(newAvailability);
+            shelter = s;
+            return true;
+        }
+        return false;
+    }
+
     private boolean checkIn() {
         User currentUser = CurrentUser.getCurrentUser();
         if (currentUser.getCheckedIn()) {
             return false;
         } else {
-            Shelter s = shelter;
             Log.d(TAG, String.valueOf(shelter.getAnyone()));
-            if (!s.getAnyone()) {
-                if ((boolean) s.getRestrictions().get("fam")
-                        && !currentUser.getFamily()) {
-                    return false;
-                }
-                Log.w(TAG, "sex " + currentUser.getSex());
-                if ((boolean) s.getRestrictions().get("men") && (!"Male"
-                        .equals(currentUser.getSex())
-                        || ((currentUser.getSpouse() != null) &&
-                        "Female".equals(currentUser.getSpouse())))) {
-                    return false;
-                }
-                if ((boolean) s.getRestrictions().get("women") && ((!"Female"
-                        .equals(currentUser.getSex())
-                        || ((currentUser.getSpouse() != null)
-                        && "Male".equals(currentUser.getSpouse()))))) {
-                    return false;
-                }
-                if ((boolean) s.getRestrictions().get("vets") &&
-                        !currentUser.getVeteran()) {
-                    return false;
-                }
-                if ((boolean) s.getRestrictions().get("children")) {
-                    if (currentUser.getDependents() == 0) {
-                        return false;
-                    }
-                    if (((Long)s.getRestrictions().get("child_age")).intValue()
-                            < currentUser.getYoungest()) {
-                        return false;
-                    }
-
-
-                }
+            if (!checkInFailureTest1() || !checkInFailureTest2() || checkInFailureTest3()) {
+                return false;
             }
             // They passed restrictions, check if the space is available
             if (currentUser.getFamily()) {
-                if ((s.getAvailable().get("rooms") != null)
-                        && (s.getAvailable().get("rooms") > 0)) {
-                    currentUser.setCurrentShelter(s.getKey());
-                    currentUser.setCheckedIn(true);
-                    Map<String, Integer> newAvailability = new HashMap<>();
-                    newAvailability.put("rooms", s.getAvailable().get("rooms") - 1);
-                    s.setAvailable(newAvailability);
-                    shelter = s;
-
+                if (checkInFamily()) {
                     return true;
-                } else {
-                    if ((s.getAvailable().get("beds") != null) &&
-                            (s.getAvailable().get("beds")
-                                    >= currentUser.getFamilySize())) {
-                        currentUser.setCurrentShelter(s.getKey());
-                        currentUser.setCheckedIn(true);
-                        Map<String, Integer> newAvailability = new HashMap<>();
-                        newAvailability.put("beds", s.getAvailable().get("beds")
-                                - currentUser.getFamilySize());
-                        s.setAvailable(newAvailability);
-                        shelter = s;
-                        return true;
-                    }
                 }
             } else {
-                if ((s.getAvailable().get("rooms") != null)
-                        && (s.getAvailable().get("rooms") > 0)) {
-                    currentUser.setCurrentShelter(s.getKey());
-                    currentUser.setCheckedIn(true);
-                    Map<String, Integer> newAvailability = new HashMap<>();
-                    newAvailability.put("rooms", s.getAvailable().get("rooms") - 1);
-                    s.setAvailable(newAvailability);
-                    shelter = s;
-
-                    return true;
-                } else if ((s.getAvailable().get("beds") != null)
-                        && (s.getAvailable().get("beds")
-                        >= currentUser.getFamilySize())) {
-                    currentUser.setCurrentShelter(s.getKey());
-                    currentUser.setCheckedIn(true);
-                    Map<String, Integer> newAvailability = new HashMap<>();
-                    newAvailability.put("beds", s.getAvailable().get("beds")
-                            - currentUser.getFamilySize());
-                    s.setAvailable(newAvailability);
-                    shelter = s;
+                if (checkInNonFamily()) {
                     return true;
                 }
             }
