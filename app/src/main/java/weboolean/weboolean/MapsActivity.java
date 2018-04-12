@@ -79,7 +79,8 @@ public class MapsActivity extends FragmentActivity
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast text = Toast.makeText(MapsActivity.this, "Advanced Search", Toast.LENGTH_LONG);
+                Toast text = Toast.makeText(MapsActivity.this,
+                        "Advanced Search", Toast.LENGTH_LONG);
                 text.show();
                 Intent intent = new Intent(MapsActivity.this, SearchActivity.class);
                 startActivity(intent);
@@ -102,7 +103,8 @@ public class MapsActivity extends FragmentActivity
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         FragmentManager mapFragmentmanager = getSupportFragmentManager();
-        SupportMapFragment mapFragment = (SupportMapFragment) mapFragmentmanager.findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment)
+                mapFragmentmanager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         //Create buttons and listeners
     }

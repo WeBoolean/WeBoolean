@@ -144,7 +144,8 @@ public class ShelterActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    anyone.setText(getString(R.string.children_restriction, anyone.getText(), "18"));
+                    anyone.setText(getString(R.string.children_restriction,
+                            anyone.getText(), "18"));
                 }
             }
 
