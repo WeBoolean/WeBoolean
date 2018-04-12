@@ -144,16 +144,16 @@ public class ShelterActivity extends AppCompatActivity {
             }
 
             if (familyRestriction) {
-                anyone.setText(getString(R.string.shelter_veteran_restrictions, anyone.getText()));
+                anyone.setText(getString(R.string.families_restriction, anyone.getText()));
             }
             if (maleRestriction) {
-                anyone.setText(anyone.getText() + "This shelter accepts males only. \n");
+                anyone.setText(getString(R.string.males_restriction, anyone.getText()));
             }
             if (femaleRestriction) {
-                anyone.setText(anyone.getText() + "This shelter accepts females only. \n");
+                anyone.setText(getString(R.string.females_restriction, anyone.getText()));
             }
             if (veteranRestriction) {
-                anyone.setText(anyone.getText() + "This shelter accepts veterans only. \n");
+                anyone.setText(getString(R.string.shelter_veterans_restriction, anyone.getText()));
             }
         }
     }
