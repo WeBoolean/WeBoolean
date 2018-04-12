@@ -301,29 +301,31 @@ public class ShelterActivity extends AppCompatActivity {
         // [Availability] =========================================================================/
         setAvailability_hidden(shelter, available);
         // [Capacity] =============================================================================/
-        setCapacity_hidden(shelter, available);
+        setCapacity_hidden(shelter, capacity);
     }
 
     private void setAvailability_hidden(Shelter shelter, TextView available) {
         if (shelter.getAvailable().get("beds") != null) {
-            available.setText("" + shelter.getAvailable().get("beds") + " Beds available ");
+            available.setText(getString(R.string.beds_available,
+                Integer.toString(shelter.getAvailable().get("beds"))));
         } else {
             available.setText("");
         }
         if ((shelter.getAvailable().get("rooms") != null) &&
                 (shelter.getAvailable().get("rooms") != 0)) {
-            available.setText(available.getText() + "" + shelter.getAvailable().get("rooms") +
-                    " Rooms available");
+            available.setText(getString(R.string.rooms_available, available.getText(),
+                Integer.toString(shelter.getAvailable().get("rooms"))));
         }
         if ((shelter.getAvailable().get("rooms") != null) &&
                 (shelter.getAvailable().get("rooms") == 0)) {
-            available.setText("N/A Rooms available");
+            available.setText(R.string.no_rooms_available);
         }
     }
     private void setCapacity_hidden(Shelter shelter, TextView capacity) {
         if ((shelter.getCapacity().get("beds") != null) &&
                 (shelter.getCapacity().get("beds") != 0)) {
-            capacity.setText("" + shelter.getCapacity().get("beds") + " Bed capacity ");
+            capacity.setText(getString(R.string.beds_capacity,
+                Integer.toString(shelter.getCapacity().get("beds"))));
         } else if ((shelter.getCapacity().get("beds") != null) &&
                 (shelter.getCapacity().get("beds") == 0)){
             capacity.setText("N/A Beds Capacity \n");
@@ -332,11 +334,11 @@ public class ShelterActivity extends AppCompatActivity {
         }
         if ((shelter.getCapacity().get("rooms") != null) &&
                 (shelter.getCapacity().get("rooms") != 0)) {
-            capacity.setText(capacity.getText() + "" + shelter.getCapacity().get("rooms") +
-                    " Room capacity");
+            capacity.setText(getString(R.string.rooms_capacity, capacity.getText(),
+                Integer.toString(shelter.getCapacity().get("rooms"))));
         } else if ((shelter.getCapacity().get("rooms") != null) &&
                 (shelter.getCapacity().get("rooms") == 0)) {
-            capacity.setText("N/A Room capacity");
+            capacity.setText(R.string.no_room_capacity);
         }
     }
 

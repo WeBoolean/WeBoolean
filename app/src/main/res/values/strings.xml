@@ -73,4 +73,12 @@
     <string name="males_restriction">%1$s This shelter accepts males only.\n</string>
     <string name = "females_restriction">%1$s This shelter accepts females only.\n</string>
     <string name="shelter_veterans_restriction">%1$s This shelter accepts veterans only.\n</string>
+    <string name="beds_available">%1$s Beds available \n</string>
+    <string name="rooms_available">%1$s %2$s Rooms available \n</string>
+    <string name="no_rooms_available">No rooms available\n</string>
+    <string name="beds_capacity">%1$s Beds capacity \n</string>
+    <string name="rooms_capacity">%1$s %2$s Rooms capacity \n</string>
+    <string name="no_room_capacity">No rooms capacity \n</string>
+
+
 </resources>
