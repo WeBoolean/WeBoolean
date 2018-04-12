@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -50,7 +51,8 @@ public class MapsActivity extends FragmentActivity
         setContentView(R.layout.activity_maps);
 
         final Button searchButton = findViewById(R.id.search_button);
-        Bundle instructions = getIntent().getExtras();
+        Intent intent = getIntent();
+        Bundle instructions = intent.getExtras();
         List<Shelter> shelters_list = ShelterSingleton.getShelterArrayCopy();
         if ((instructions != null) && !instructions.isEmpty()) {
             // manage shelter intent
@@ -77,7 +79,8 @@ public class MapsActivity extends FragmentActivity
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MapsActivity.this, "Advanced Search", Toast.LENGTH_LONG).show();
+                Toast text = Toast.makeText(MapsActivity.this, "Advanced Search", Toast.LENGTH_LONG);
+                text.show();
                 Intent intent = new Intent(MapsActivity.this, SearchActivity.class);
                 startActivity(intent);
             }
@@ -98,8 +101,8 @@ public class MapsActivity extends FragmentActivity
         atlanta = new LatLng(33.7940, -84.3880);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        FragmentManager mapFragmentmanager = getSupportFragmentManager();
+        SupportMapFragment mapFragment = (SupportMapFragment) mapFragmentmanager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         //Create buttons and listeners
     }
@@ -177,9 +180,13 @@ public class MapsActivity extends FragmentActivity
         LatLng pos;
         for (Shelter s : shelters) {
             pos = new LatLng(s.getLatitude(), s.getLongitude());
-            Marker m = map.addMarker(
-                    new MarkerOptions().position(pos).title(s.getName())
-                            .snippet(s.getInformationStringSnippet()));
+            MarkerOptions marker = new MarkerOptions();
+            marker.position(pos);
+            String name = s.getName();
+            marker.title(name);
+            String snip = s.getInformationStringSnippet();
+            marker.snippet(snip);
+            Marker m = map.addMarker(marker);
             m.setTag(s.getKey());
         }
     }

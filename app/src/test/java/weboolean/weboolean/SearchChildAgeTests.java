@@ -83,7 +83,7 @@ public class SearchChildAgeTests {
      */
     @Test
     public void searchShelterAge_5() throws Exception {
-        SearchActivity.searchChildAge(18, removeSet, consideration);
+        SearchActivity.searchChildAge(5, removeSet, consideration);
         Collection<Shelter> checkSet = new HashSet<>();
         for (Shelter shelter : consideration) {
             if (((Integer) shelter.getRestrictions().get("child_age") > 18) ||

@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
         //Automatically navigate to LoginPage
         //Launch singleton
         try {
-            new Thread(new ShelterSingleton()).start();
+            Thread thread1 = new Thread(new ShelterSingleton());
+            thread1.start();
         } catch (InstantiationException e) {
             e.printStackTrace(); //this will never happen.
         }
