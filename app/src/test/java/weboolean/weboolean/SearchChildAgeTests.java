@@ -105,8 +105,8 @@ public class SearchChildAgeTests {
         SearchActivity.searchChildAge(2, removeSet, consideration);
         Collection<Shelter> checkSet = new HashSet<>();
         for (Shelter shelter : consideration) {
-            if ((Integer) shelter.getRestrictions().get("child_age") > 18 ||
-                (Integer) shelter.getRestrictions().get("child_age") < 2) {
+            if (((Integer) shelter.getRestrictions().get("child_age") > 18) ||
+                    ((Integer) shelter.getRestrictions().get("child_age") < 2)) {
                 checkSet.add(shelter);
             }
         }

@@ -95,14 +95,8 @@ public class SearchActivity extends AppCompatActivity {
         Set<Shelter> consideration = new HashSet<>(shelter_list);
         //Exact String Searching -- later we'll move onto fuzzy matching
         if (parameters.containsKey("name") && !"".equals(parameters.get("name"))) {
-            List<Shelter> exactMatch = new ArrayList<>();
-            Log.d(TAG, "Exact String Searching launched for " + parameters.get("name"));
-            for (Shelter shelter: consideration) {
-                if (shelter.toString().trim().equals(((String) parameters.get("name")).trim())) {
-                    exactMatch.add(shelter);
-                }
-            }
-            return exactMatch;
+            String n = (String) parameters.get("name");
+            return findExactMatch(n, consideration);
         }
         //By default, this goes to "else"
         parameters.remove("name");
@@ -126,6 +120,17 @@ public class SearchActivity extends AppCompatActivity {
             consideration.removeAll(removeSet);
         }
         return new ArrayList<>(consideration);
+    }
+    private static List<Shelter> findExactMatch(String name, Iterable<Shelter> consideration) {
+        String trimmed = name.trim();
+        List<Shelter> exactMatch = new ArrayList<>();
+        Log.d(TAG, "Exact String Searching launched for " + trimmed);
+        for (Shelter shelter: consideration) {
+            if (shelter.toString().trim().equals(trimmed)) {
+                exactMatch.add(shelter);
+            }
+        }
+        return exactMatch;
     }
 
     static void searchChildAge(Integer restriction, Collection<Shelter> removeSet,
