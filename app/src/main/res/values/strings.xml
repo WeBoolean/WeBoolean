@@ -68,5 +68,6 @@
     <string name="anyone_accepted">This shelter accepts anyone</string>
     <string name="women_children_restriction">%1$s This shelter accepts women and children %2$s
         or younger. \n</string>
-
+    <string name="children_restriction">%1$s You must have a child %2$s or younger in your party. \n</string>
+    <string name="shelter_veteran_restrictions">%1$s This shelter accepts families only.</string>
 </resources>
