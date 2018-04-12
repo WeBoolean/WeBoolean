@@ -26,6 +26,46 @@ public class ShelterActivity extends AppCompatActivity {
     private Shelter shelter;
     private static final String TAG = ShelterActivity.class.getSimpleName();
 
+    // Listeners
+    private final View.OnClickListener checkInButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if(checkIn()) {
+                updateShelter(shelter.getKey(), shelter);
+                User u = CurrentUser.getCurrentUser();
+                u.setCheckedIn(true);
+                u.setCurrentShelter(shelter.getKey());
+                CurrentUser.getCurrentUser().setCheckedIn(true);
+                CurrentUser.updateUser(u);
+                Toast.makeText(ShelterActivity.this, "Successful Check In!",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(ShelterActivity.this,
+                        "Check In Failed, make sure you meet all shelter restrictions " +
+                                "& there is available space.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+    private final View.OnClickListener checkOutButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if(checkOut()) {
+                updateShelter(shelter.getKey(), shelter);
+                User u = CurrentUser.getCurrentUser();
+                u.setCheckedIn(false);
+                u.setCurrentShelter(-1);
+                CurrentUser.updateUser(u);
+
+                Toast.makeText(ShelterActivity.this, "Successful Check Out!",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(ShelterActivity.this,
+                        "Check Out Failed: have to be checked in to checkout",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Setup
@@ -42,44 +82,9 @@ public class ShelterActivity extends AppCompatActivity {
         final Button checkInButton = findViewById(R.id.checkInButton);
         final Button checkoutButton = findViewById(R.id.checkoutButton);
 
-        checkInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(checkIn()) {
-                    updateShelter(shelter.getKey(), shelter);
-                    User u = CurrentUser.getCurrentUser();
-                    u.setCheckedIn(true);
-                    u.setCurrentShelter(shelter.getKey());
-                    CurrentUser.getCurrentUser().setCheckedIn(true);
-                    CurrentUser.updateUser(u);
-                    Toast.makeText(ShelterActivity.this, "Successful Check In!",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(ShelterActivity.this,
-                            "Check In Failed, make sure you meet all shelter restrictions " +
-                                    "& there is available space.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        checkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(checkOut()) {
-                    updateShelter(shelter.getKey(), shelter);
-                    User u = CurrentUser.getCurrentUser();
-                    u.setCheckedIn(false);
-                    u.setCurrentShelter(-1);
-                    CurrentUser.updateUser(u);
+        checkInButton.setOnClickListener(checkInButtonListener);
 
-                    Toast.makeText(ShelterActivity.this, "Successful Check Out!",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(ShelterActivity.this,
-                            "Check Out Failed: have to be checked in to checkout",
-                            Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        checkoutButton.setOnClickListener(checkOutButtonListener);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -296,36 +301,43 @@ public class ShelterActivity extends AppCompatActivity {
 
     private void setCapacities(Shelter shelter, TextView available, TextView capacity) {
         // [Availability] =========================================================================/
+        setAvailability_hidden(shelter, available);
+        // [Capacity] =============================================================================/
+        setCapacity_hidden(shelter, available);
+    }
+
+    private void setAvailability_hidden(Shelter shelter, TextView available) {
         if (shelter.getAvailable().get("beds") != null) {
             available.setText("" + shelter.getAvailable().get("beds") + " Beds available ");
         } else {
             available.setText("");
         }
         if ((shelter.getAvailable().get("rooms") != null) &&
-            (shelter.getAvailable().get("rooms") != 0)) {
+                (shelter.getAvailable().get("rooms") != 0)) {
             available.setText(available.getText() + "" + shelter.getAvailable().get("rooms") +
-                " Rooms available");
+                    " Rooms available");
         }
         if ((shelter.getAvailable().get("rooms") != null) &&
-            (shelter.getAvailable().get("rooms") == 0)) {
+                (shelter.getAvailable().get("rooms") == 0)) {
             available.setText("N/A Rooms available");
         }
-        // [Capacity] =============================================================================/
+    }
+    private void setCapacity_hidden(Shelter shelter, TextView capacity) {
         if ((shelter.getCapacity().get("beds") != null) &&
-            (shelter.getCapacity().get("beds") != 0)) {
+                (shelter.getCapacity().get("beds") != 0)) {
             capacity.setText("" + shelter.getCapacity().get("beds") + " Bed capacity ");
         } else if ((shelter.getCapacity().get("beds") != null) &&
-            (shelter.getCapacity().get("beds") == 0)){
+                (shelter.getCapacity().get("beds") == 0)){
             capacity.setText("N/A Beds Capacity \n");
         } else {
             capacity.setText("");
         }
         if ((shelter.getCapacity().get("rooms") != null) &&
-            (shelter.getCapacity().get("rooms") != 0)) {
+                (shelter.getCapacity().get("rooms") != 0)) {
             capacity.setText(capacity.getText() + "" + shelter.getCapacity().get("rooms") +
-                " Room capacity");
+                    " Room capacity");
         } else if ((shelter.getCapacity().get("rooms") != null) &&
-            (shelter.getCapacity().get("rooms") == 0)) {
+                (shelter.getCapacity().get("rooms") == 0)) {
             capacity.setText("N/A Room capacity");
         }
     }

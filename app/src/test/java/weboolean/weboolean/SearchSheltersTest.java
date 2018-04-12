@@ -28,12 +28,12 @@ public class SearchSheltersTest {
         assert(compatible.size() == shelters.size());
     }
 
-    //@Test
-    //public void searchSheltersNoRestrictions() throws Exception {
-        //Map<String, Object> restrictions= new HashMap<>();
-        // Test
-        //List<Shelter> compatible = SearchActivity.searchShelters(restrictions);
-    //}
+    @Test
+    public void searchSheltersNoRestrictions() throws Exception {
+        Map<String, Object> restrictions= new HashMap<>();
+        List<Shelter> compatible = SearchActivity.searchShelters(restrictions);
+        assert(compatible.size() == shelters.size());
+    }
 
     @Test
     public void searchSheltersIndividualRestricted() throws Exception {
