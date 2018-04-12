@@ -201,7 +201,7 @@ public class ShelterActivity extends AppCompatActivity {
                 }
             }
         }
-        return false;
+        return true;
     }
 
     private boolean checkInFailureTest3() {
@@ -280,7 +280,6 @@ public class ShelterActivity extends AppCompatActivity {
         if (currentUser.getCheckedIn()) {
             return false;
         } else {
-            Shelter s = shelter;
             Log.d(TAG, String.valueOf(shelter.getAnyone()));
             if (!checkInFailureTest1() || !checkInFailureTest2() || checkInFailureTest3()) {
                 return false;
@@ -342,7 +341,7 @@ public class ShelterActivity extends AppCompatActivity {
         // [Availability] =========================================================================/
         setAvailability_hidden(shelter, available);
         // [Capacity] =============================================================================/
-        setCapacity_hidden(shelter, available);
+        setCapacity_hidden(shelter, capacity);
     }
 
     private void setAvailability_hidden(Shelter shelter, TextView available) {
