@@ -96,7 +96,8 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void setListAdapter(ListAdapter adapter) {
-        getListView().setAdapter(adapter);
+        ListView list = getListView();
+        list.setAdapter(adapter);
     }
 
     // [ Methods ] ===============================================================================//

@@ -128,7 +128,9 @@ class ShelterSingleton implements Runnable {
         mutexLock.unlock();
         updateLock.unlock();
         // Now change will be broadcast
-        reference.child((Integer.valueOf(key)).toString()).setValue(s);
+        Integer keyForChild = Integer.valueOf(key);
+        String stringOfKey = keyForChild.toString();
+        reference.child((stringOfKey)).setValue(s);
     }
 
 //    /** Thread safe, but this shouldn't really be called unless restoring from backup
@@ -142,7 +144,8 @@ class ShelterSingleton implements Runnable {
 
     static int getShelterKeyByCommonName(String name, Iterable<Shelter> shelters) {
         for (Shelter s: shelters) {
-            if (s.getName().equals(name)) {
+            String shelterName = s.getName();
+            if (shelterName.equals(name)) {
                 return s.getKey();
             }
         }
