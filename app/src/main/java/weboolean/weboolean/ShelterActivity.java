@@ -139,28 +139,26 @@ public class ShelterActivity extends AppCompatActivity {
                         // already set female
                         femaleRestriction = false;
                     } else {
-                        anyone.setText(anyone.getText() + "You must have a child " +
-                                shelter.getRestrictions().get("child_age") +
-                                " or younger in your party. \n");
+                        anyone.setText(getString(R.string.children_restriction, anyone.getText(),
+                            shelter.getRestrictions().get("child_age")));
                     }
                 }
                 else {
-                    anyone.setText(anyone.getText() +
-                            "You must have a child under 18 in your party. \n");
+                    anyone.setText(getString(R.string.children_restriction, anyone.getText(), "18"));
                 }
             }
 
             if (familyRestriction) {
-                anyone.setText(anyone.getText() + "This shelter accepts families only.");
+                anyone.setText(getString(R.string.families_restriction, anyone.getText()));
             }
             if (maleRestriction) {
-                anyone.setText(anyone.getText() + "This shelter accepts males only. \n");
+                anyone.setText(getString(R.string.males_restriction, anyone.getText()));
             }
             if (femaleRestriction) {
-                anyone.setText(anyone.getText() + "This shelter accepts females only. \n");
+                anyone.setText(getString(R.string.females_restriction, anyone.getText()));
             }
             if (veteranRestriction) {
-                anyone.setText(anyone.getText() + "This shelter accepts veterans only. \n");
+                anyone.setText(getString(R.string.shelter_veterans_restriction, anyone.getText()));
             }
         }
     }
