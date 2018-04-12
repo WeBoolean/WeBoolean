@@ -55,7 +55,7 @@ public class SearchChildAgeTests {
             }
         }
         assert(removeSet.equals(checkSet));
-        assert(removeSet.size() == 8);
+        assert(checkSet.size() == 8);
         removeSet.clear();
     }
 
@@ -73,7 +73,7 @@ public class SearchChildAgeTests {
             }
         }
         assert(removeSet.equals(checkSet));
-        assert(removeSet.size() == 5);
+        assert(checkSet.size() == 5);
         removeSet.clear();
     }
 
@@ -92,7 +92,7 @@ public class SearchChildAgeTests {
             }
         }
         assert(removeSet.equals(checkSet));
-        assert(removeSet.size() == 6);
+        assert(checkSet.size() == 6);
         removeSet.clear();
     }
 
@@ -111,7 +111,7 @@ public class SearchChildAgeTests {
             }
         }
         assert(removeSet.equals(checkSet));
-        assert(removeSet.size() == 7);
+        assert(checkSet.size() == 7);
         removeSet.clear();
     }
 }
