@@ -74,77 +74,77 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(this, "Must Input Family Size", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Valid Values", Toast.LENGTH_LONG).show();
-            mAuth.createUserWithEmailAndPassword(userEmail, userPassword)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "createUserWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
+            Task user = mAuth.createUserWithEmailAndPassword(userEmail, userPassword);
+            user.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success");
+                    FirebaseUser user = mAuth.getCurrentUser();
 
-                        // Get remaining user info, must be final to access in inner classes
-                        UserType usertype = UserType.User;
-                        String sex = ((Spinner) findViewById(R.id.sex_input))
-                                .getSelectedItem().toString();
-                        boolean family = ((Switch) findViewById(R.id.family_check)).isChecked();
-                        int dependents =
-                                "".equals(((EditText) findViewById(R.id.dependent_input))
-                                        .getText().toString())
-                            ? 0 : Integer.parseInt(((EditText) findViewById(R.id.dependent_input))
-                                        .getText().toString());
-                        int youngestAge =
-                                "".equals(((EditText) findViewById(R.id.youngest_age_input))
-                                        .getText().toString())
-                            ? -1 : Integer.parseInt(((EditText)
-                                        findViewById(R.id.youngest_age_input))
-                                        .getText().toString());
-                        String spouse =
-                                "None".equals(((Spinner) findViewById(R.id.spouse_input))
-                                        .getSelectedItem().toString())
-                            ? null : ((Spinner) findViewById(R.id.spouse_input))
-                                        .getSelectedItem().toString();
-                        boolean veteran = ((Switch) findViewById(R.id.veteran_check)).isChecked();
-                        int age = Integer.parseInt(((EditText) findViewById(R.id.age_input))
-                                .getText().toString());
+                    // Get remaining user info, must be final to access in inner classes
+                    UserType usertype = UserType.User;
+                    String sex = ((Spinner) findViewById(R.id.sex_input))
+                            .getSelectedItem().toString();
+                    boolean family = ((Switch) findViewById(R.id.family_check)).isChecked();
+                    int dependents =
+                            "".equals(((EditText) findViewById(R.id.dependent_input))
+                                    .getText().toString())
+                        ? 0 : Integer.parseInt(((EditText) findViewById(R.id.dependent_input))
+                                    .getText().toString());
+                    int youngestAge =
+                            "".equals(((EditText) findViewById(R.id.youngest_age_input))
+                                    .getText().toString())
+                        ? -1 : Integer.parseInt(((EditText)
+                                    findViewById(R.id.youngest_age_input))
+                                    .getText().toString());
+                    String spouse =
+                            "None".equals(((Spinner) findViewById(R.id.spouse_input))
+                                    .getSelectedItem().toString())
+                        ? null : ((Spinner) findViewById(R.id.spouse_input))
+                                    .getSelectedItem().toString();
+                    boolean veteran = ((Switch) findViewById(R.id.veteran_check)).isChecked();
+                    int age = Integer.parseInt(((EditText) findViewById(R.id.age_input))
+                            .getText().toString());
 //                        boolean checkedIn = false;
-                        int currentShelter = -1;
+                    int currentShelter = -1;
 //                        boolean locked = false;
 
-                        //Create custom user
-                        User u;
-                        assert(user != null);
-                        String Uid = user.getUid();
-                        u = new User(Uid, usertype, sex, family, dependents,
-                            youngestAge, spouse, veteran, age, false, currentShelter,
-                            false);
+                    //Create custom user
+                    User u;
+                    assert(user != null);
+                    String Uid = user.getUid();
+                    u = new User(Uid, usertype, sex, family, dependents,
+                        youngestAge, spouse, veteran, age, false, currentShelter,
+                        false);
 
 
-                        //Set current user instance
-                        try {
-                            CurrentUser.setUserInstance(u, user);
-                        } catch (InstantiationException e) {
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegistrationActivity.this, "Already logged in.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        //Write current user to database
-                        mDatabase.child("users").child(user.getUid())
-                                .setValue(u);
-
-                        //Launch login activity
-                        Intent intent = new Intent(RegistrationActivity.this, MapsActivity.class);
-                        startActivity(intent);
-
-                    } else {
-                        // If sign in fails, display a message to the user.
+                    //Set current user instance
+                    try {
+                        CurrentUser.setUserInstance(u, user);
+                    } catch (InstantiationException e) {
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(RegistrationActivity.this, "Authentication failed.",
+                        Toast.makeText(RegistrationActivity.this, "Already logged in.",
                                 Toast.LENGTH_SHORT).show();
                     }
-                    }
-                });
+
+                    //Write current user to database
+                    mDatabase.child("users").child(user.getUid())
+                            .setValue(u);
+
+                    //Launch login activity
+                    Intent intent = new Intent(RegistrationActivity.this, MapsActivity.class);
+                    startActivity(intent);
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                    Toast.makeText(RegistrationActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                }
+                }
+            });
         }
     }
 }

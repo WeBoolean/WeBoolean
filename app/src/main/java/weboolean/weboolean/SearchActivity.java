@@ -68,7 +68,8 @@ public class SearchActivity extends AppCompatActivity {
                 @SuppressWarnings("unchecked") List<Shelter> okShelters = searchShelters(vals);
 
                 Bundle shelterBundle = new Bundle();
-                Bundle prevBundle = getIntent().getExtras();
+                Intent prevIntent = getIntent();
+                Bundle prevBundle = prevIntent.getExtras();
                 if ((prevBundle != null)
                         && prevBundle.containsKey("map_filter")
                         && (prevBundle.getInt("map_filter") == 1)) {
