@@ -47,11 +47,12 @@ public class GetShelterKeyByCommonNameTest {
      */
     @Test
     public void longKey() throws Exception {
-        Shelter testShelter = createShelter("test", 1191128334);
+        final int key = 1191128334;
+        Shelter testShelter = createShelter("test", key);
         Collection<Shelter> shelters = new ArrayList<>();
         shelters.add(testShelter);
         int foundKey = getShelterKeyByCommonName("test", shelters);
-        assertEquals(foundKey, 1191128334);
+        assertEquals(foundKey, key);
     }
     /**
      *
@@ -60,11 +61,12 @@ public class GetShelterKeyByCommonNameTest {
     @Test
     public void lotsOfEntries() throws Exception {
         Collection<Shelter> shelters = new ArrayList<>();
-        for (int i = 0; i < 10000; i++) {
+        final int numberOfShelters = 10000;
+        for (int i = 0; i < numberOfShelters; i++) {
             Shelter test = createShelter("test" + i, (i * i) - i);
             shelters.add(test);
         }
-        for (int i = 9999; i >= 0; i-- ) {
+        for (int i = numberOfShelters - 1; i >= 0; i-- ) {
             int foundKey = getShelterKeyByCommonName("test" + i, shelters);
             assertEquals(foundKey, (i * i) - i);
         }
@@ -82,8 +84,9 @@ public class GetShelterKeyByCommonNameTest {
      */
     @Test(expected = NoSuchElementException.class)
     public void notPresentInLongList() {
+        final int numberOfShelters = 10000;
         Collection<Shelter> shelters = new ArrayList<>();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < numberOfShelters; i++) {
             Shelter test = createShelter("test" + i, (i * i) - i);
             shelters.add(test);
         }
