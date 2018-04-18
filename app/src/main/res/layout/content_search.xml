@@ -13,16 +13,15 @@
         android:id="@+id/RGroup"
         android:layout_width="94dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="100dp"
         android:layout_marginEnd="223dp"
         android:layout_marginStart="67dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <RadioButton
             android:id="@+id/gender_radio"
@@ -55,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="194dp"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="152dp"
         android:layout_weight="1"
         android:text="@string/age_restrictions"
         android:textSize="18sp"
@@ -70,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="163dp"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_weight="1"
         android:text="@string/veteran_restrictions"
         android:textSize="18sp"
@@ -85,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="161dp"
         android:layout_marginStart="27dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:text="@string/families_accepted"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,22 +103,22 @@
         android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/name_input"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/age_input"
         android:layout_width="121dp"
         android:layout_height="37dp"
-        android:layout_marginEnd="179dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/youngest_age"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.129"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/age_check" />
 
@@ -129,7 +128,7 @@
         android:layout_height="48dp"
         android:layout_marginEnd="26dp"
         android:layout_marginStart="26dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="84dp"
         android:ems="10"
         android:hint="@string/shelter_name"
         android:inputType="textPersonName"
@@ -148,8 +147,24 @@
         android:text="Gender of Spouse"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fam_check" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Search for Shelter"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.047" />
 
 </android.support.constraint.ConstraintLayout>

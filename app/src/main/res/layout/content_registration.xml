@@ -18,10 +18,14 @@
         android:id="@+id/family_check"
         android:layout_width="116dp"
         android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/family"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="263dp" />
+        app:layout_constraintTop_toBottomOf="@+id/sex" />
 
     <TextView
         android:id="@+id/register_title"
@@ -43,9 +47,17 @@
         android:id="@+id/veteran_check"
         android:layout_width="174dp"
         android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/veteran_status"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="452dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.123"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dependents_layout"
+        app:layout_constraintVertical_bias="0.066" />
 
     <Button
         android:id="@+id/register_button"
@@ -64,10 +76,18 @@
         android:id="@+id/spouse"
         android:layout_width="170dp"
         android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="326dp">
+        app:layout_constraintBottom_toTopOf="@+id/dependents_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/family_check"
+        app:layout_constraintVertical_bias="0.692">
 
         <TextView
             android:id="@+id/spouse_textview"
@@ -91,8 +111,16 @@
         android:id="@+id/youngest_layout"
         android:layout_width="155dp"
         android:layout_height="45dp"
-        tools:layout_editor_absoluteX="202dp"
-        tools:layout_editor_absoluteY="387dp">
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="196dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/dependents_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.503">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,12 +150,16 @@
         android:id="@+id/password_layout"
         android:layout_width="333dp"
         android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="61dp"
         android:layout_marginStart="61dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="132dp">
+        app:layout_constraintTop_toBottomOf="@+id/email_layout"
+        app:layout_constraintVertical_bias="0.004">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -162,9 +194,13 @@
         android:id="@+id/age_layout"
         android:layout_width="100dp"
         android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="197dp">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35">
 
         <LinearLayout
             android:layout_width="99dp"
@@ -194,10 +230,14 @@
         android:id="@+id/sex"
         android:layout_width="151dp"
         android:layout_height="45dp"
-        android:layout_marginStart="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="28dp"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/age_layout"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="197dp">
+        app:layout_constraintTop_toBottomOf="@+id/password_layout">
 
         <TextView
             android:id="@+id/sex_textview"
@@ -246,10 +286,11 @@
         android:layout_height="45dp"
         android:layout_marginEnd="61dp"
         android:layout_marginStart="61dp"
+        android:layout_marginTop="72dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="73dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/email_linear"
